@@ -70,3 +70,24 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+###
+# OS generated
+###
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Assets/BuildReports
+Assets/BuildReports.meta
+SerializedBuildInfo
+.vsconfig
+Assets/Resources/LAB.txt
+Assets/Resources/SPAWNERS_GAME_SCENE.txt
+Assets/Resources/UPGRADES DATA.txt
+Assets/Resources/UPGRADES DATA.txt.meta
+Extras
+OlderVersions
+Assets/#Scripts/Editor/Tools/BuildReport/LastBuild.buildreport
+Assets/#Scripts/Editor/Tools/BuildReport/LastBuild.buildreport.meta
