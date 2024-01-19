@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1230953763776032381}
   - component: {fileID: 3755130662127635873}
   - component: {fileID: 6267337126752491560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccff5c3b1b4e04fbebde1f159b112c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grounded: 0
+  MovementController: {fileID: 0}
 --- !u!114 &1230953763776032381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +64,7 @@ MonoBehaviour:
   m_RunSpeed: 10
   runAcceleration: 5
   runDecceleration: 5
+  ReturnDistance: 10
   jumpForce: 9
   jumpAcceleration: 1
   jumpDecceleration: 1
@@ -168,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4406206736102218030}
   - component: {fileID: 1272121449738830737}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}

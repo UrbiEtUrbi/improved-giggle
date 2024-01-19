@@ -13,9 +13,12 @@ public class PlayerMovementController : MonoBehaviour
     [Tooltip("Horizontal movement acceleration")]
     float runAcceleration = 5;
     [SerializeField]
-    [EndGroup]
     [Tooltip("Horizontal movement decceleration")]
     float runDecceleration = 5;
+    [EndGroup]
+    [Tooltip("Max distance the player can return")]
+    [SerializeField]
+    float ReturnDistance = 10f;
 
     [BeginGroup("Jumping")]
     [Tooltip("Jumping force happens once")]
@@ -77,7 +80,6 @@ public class PlayerMovementController : MonoBehaviour
     public Rigidbody2D RigidBody => m_RigidBody;
 
     [SerializeField]
-
     SpriteRenderer m_PlayerSprite;
 
 
@@ -109,7 +111,8 @@ public class PlayerMovementController : MonoBehaviour
     float LastOnGroundTime;
 
 
-
+    float maxPositionX;
+    public float GetMinimumXReturnPosition => maxPositionX - ReturnDistance;
 
     bool feetTouchingGround;
     public bool OnGround => LastOnGroundTime > 0;
@@ -149,6 +152,8 @@ public class PlayerMovementController : MonoBehaviour
     {
         UpdateVerticalMovement();
 
+
+        //dont allow returning
         //UPDATE HORIZONTAL MOVEMENT
         float targetSpeed;
 
@@ -157,8 +162,14 @@ public class PlayerMovementController : MonoBehaviour
         targetSpeed = inputX * m_RunSpeed;
         //We can reduce are control using Lerp() this smooths changes to are direction and speed
         targetSpeed = Mathf.Lerp(m_RigidBody.velocity.x, targetSpeed, 1);
+        if ((m_RigidBody.velocity.x < 0 || targetSpeed < 0) && m_RigidBody.position.x - m_PlayerSprite.sprite.textureRect.width / (2 * m_PlayerSprite.sprite.pixelsPerUnit) < GetMinimumXReturnPosition)
+        {
+            m_RigidBody.velocity = new Vector2(0, m_RigidBody.velocity.y);
+            return;
+        }
 
         float accelerationRate;
+       
 
         
         if (OnGround)
@@ -185,11 +196,16 @@ public class PlayerMovementController : MonoBehaviour
 
         float movement = speedDif * accelerationRate;
 
+
         //Convert this to a vector and apply to rigidbody
         m_RigidBody.AddForce(movement * Vector2.right, ForceMode2D.Force);
         if (Mathf.Abs(m_RigidBody.velocity.x) > 0.1f)
         {
             m_PlayerSprite.flipX = m_RigidBody.velocity.x < 0;
+        }
+        if (m_RigidBody.position.x > maxPositionX)
+        {
+            maxPositionX = m_RigidBody.position.x;
         }
     }
 
@@ -240,20 +256,12 @@ public class PlayerMovementController : MonoBehaviour
         var collider = Physics2D.OverlapBox(transform.position + groundCheckPoint, groundCheckSize, 0, groundLayer);
         if (collider != null && !jumping)
         {
-            feetTouchingGround = true;
-            player.Grounded = true;
-
             lastGroundedPosition = m_RigidBody.position;
    
             LastOnGroundTime = coyoteTime;
 
             falling = false;
             m_RigidBody.gravityScale = gravityMultiplier * fallingGravity;
-        }
-        else
-        {
-            feetTouchingGround = false;
-            player.Grounded = false;
         }
     }
 

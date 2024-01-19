@@ -27,7 +27,6 @@ public class ControllerInput : GenericSingleton<ControllerInput>
 
     void OnJump(InputValue inputValue)
     {
-        Debug.Log($"jump");
         Jump.Invoke(inputValue.Get<float>() > 0);
     }
 
