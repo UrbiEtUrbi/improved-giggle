@@ -162,11 +162,6 @@ public class PlayerMovementController : MonoBehaviour
         targetSpeed = inputX * m_RunSpeed;
         //We can reduce are control using Lerp() this smooths changes to are direction and speed
         targetSpeed = Mathf.Lerp(m_RigidBody.velocity.x, targetSpeed, 1);
-        if ((m_RigidBody.velocity.x < 0 || targetSpeed < 0) && m_RigidBody.position.x - m_PlayerSprite.sprite.textureRect.width / (2 * m_PlayerSprite.sprite.pixelsPerUnit) < GetMinimumXReturnPosition)
-        {
-            m_RigidBody.velocity = new Vector2(0, m_RigidBody.velocity.y);
-            return;
-        }
 
         float accelerationRate;
        
@@ -233,6 +228,7 @@ public class PlayerMovementController : MonoBehaviour
                     m_RigidBody.gravityScale = gravityMultiplier * fallingGravity;
                 }
                 m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, Mathf.Clamp(m_RigidBody.velocity.y, -maximumFallSpeed, 0));
+               
             }
             // apply correct gravity scale for jump
             else if(!jumpHeld)
