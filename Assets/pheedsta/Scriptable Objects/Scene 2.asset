@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Scene 2
   m_EditorClassIdentifier: 
   sceneName: Scene 2
-  boundaryMinX: 10
-  boundaryMaxX: 15
+  boundaryMinX: 40
+  boundaryMaxX: 60

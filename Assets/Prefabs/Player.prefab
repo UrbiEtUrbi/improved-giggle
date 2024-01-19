@@ -64,7 +64,7 @@ MonoBehaviour:
   m_RunSpeed: 10
   runAcceleration: 5
   runDecceleration: 5
-  jumpForce: 8
+  jumpForce: 9
   jumpAcceleration: 1
   jumpDecceleration: 1
   gravityMultiplier: 1
@@ -102,7 +102,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6c9e8aa419cee4a5fa9b52a49ce1869a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -122,7 +122,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2480953763940765406}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6c9e8aa419cee4a5fa9b52a49ce1869a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -228,8 +228,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1682046251
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 20867a0e5344e4fe29b550f9f0b14d69, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

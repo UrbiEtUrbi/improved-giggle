@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Scene 0
   boundaryMinX: 0
-  boundaryMaxX: 5
+  boundaryMaxX: 20
