@@ -4,5 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public bool Grounded;
+
+
+    public PlayerMovementController MovementController;
+
+    private void Awake()
+    {
+        MovementController = GetComponent<PlayerMovementController>();
+    }
 }

@@ -20,14 +20,35 @@ public class ControllerGame : ControllerLocal
     [EndGroup]
     CinemachineVirtualCamera VCamera;
 
+
+    public CinemachineVirtualCamera GetCCamera => VCamera;
+
     [HideInInspector]
     public Player Player;
+
+    public static bool Initialized
+    {
+        get
+        {
+            if (!Instance)
+            {
+                Debug.Log("instance not set");
+                return false;
+
+            }
+            else
+            {
+                return Instance.isInitialized;
+            }
+        }
+
+    }
 
     public override void Init()
     {
         Player = Instantiate(PlayerPrefab);
         VCamera.Follow = Player.transform;
-
+        Instance = this;
         base.Init();    
     }
 }
