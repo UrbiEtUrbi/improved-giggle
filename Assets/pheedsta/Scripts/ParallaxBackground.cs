@@ -28,8 +28,7 @@ public class ParallaxBackground : MonoBehaviour {
 
     private void Awake() {
         // get main camera transform
-        Camera mainCamera = Camera.main;
-        if (mainCamera != null) cameraTransform = mainCamera.transform;
+        cameraTransform = Camera.main.transform;
     }
 
     private void Start() {
