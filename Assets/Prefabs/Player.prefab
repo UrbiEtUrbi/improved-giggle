@@ -85,7 +85,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 2048
-  groundCheckSize: {x: 0.48, y: 0.03}
+  groundCheckSize: {x: 0.39, y: 0.03}
   groundCheckPoint: {x: 0, y: -0.85, z: 0}
 --- !u!50 &3755130662127635873
 Rigidbody2D:
@@ -112,7 +112,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &6267337126752491560
 BoxCollider2D:
