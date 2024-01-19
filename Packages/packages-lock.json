@@ -1,14 +1,5 @@
 {
   "dependencies": {
-    "com.browar.editor-toolbox": {
-      "version": "https://github.com/arimger/Unity-Editor-Toolbox.git#upm",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.editorcoroutines": "1.0.0"
-      },
-      "hash": "5611cbf13592f36b6dd5ea91cfea7ff122d3efff"
-    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -63,7 +54,7 @@
     },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
