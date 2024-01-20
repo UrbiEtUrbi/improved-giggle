@@ -37,12 +37,16 @@ public class ConfinerFollower : MonoBehaviour
         
        
         var returnX = ControllerGame.Instance.Player.MovementController.GetMinimumXReturnPosition;
+
+
+        //move the collider to block the camera from returning
         points[0] = new Vector2(returnX, points[0].y);
         points[1] = new Vector2(returnX, points[1].y);
 
        
 
         polygonCollider.SetPath(0, points);
+        //recalculate bounds if we moved
         if (previousX > -1000 && previousX < returnX)
         {
             Confiner.InvalidateCache();

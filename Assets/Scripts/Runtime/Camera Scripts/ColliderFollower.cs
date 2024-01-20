@@ -9,21 +9,15 @@ public class ColliderFollower : MonoBehaviour
     {
         boxCollider = GetComponent<BoxCollider2D>();
     }
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (!ControllerGame.Initialized)
         {
             return;
         }
-       
-       
-
-
         var returnX = ControllerGame.Instance.Player.MovementController.GetMinimumXReturnPosition;
 
+        //move the collider to block the player from returning
         transform.position = new Vector3(returnX - boxCollider.bounds.extents.x - boxCollider.edgeRadius, 0, 0);
-        
-
     }
 }

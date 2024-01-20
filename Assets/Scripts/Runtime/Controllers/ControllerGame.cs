@@ -24,7 +24,16 @@ public class ControllerGame : ControllerLocal
     public CinemachineVirtualCamera GetCCamera => VCamera;
 
     [HideInInspector]
-    public Player Player;
+    public static Player Player => Instance.player;
+
+    Player player;
+
+
+    #region Controllers
+    ControllerEntities m_ControllerEntities;
+    public static ControllerEntities ControllerEntities => Instance.m_ControllerEntities;
+
+    #endregion
 
     public static bool Initialized
     {
@@ -46,9 +55,21 @@ public class ControllerGame : ControllerLocal
 
     public override void Init()
     {
-        Player = Instantiate(PlayerPrefab);
+        player = Instantiate(PlayerPrefab);
         VCamera.Follow = Player.transform;
         Instance = this;
+
+        m_ControllerEntities = GatherComponent<ControllerEntities>();
+
         base.Init();    
+    }
+
+    public T GatherComponent<T>() where T : MonoBehaviour {
+        var component = GetComponent<T>();
+        if (component == null)
+        {
+            component = gameObject.AddComponent<T>();
+        }
+        return component;
     }
 }
