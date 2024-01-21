@@ -29,21 +29,29 @@ public class ConfinerFollower : MonoBehaviour
         var points = polygonCollider.points;
         if (!isInitialized)
         {
+            ControllerGame.ControllerRespawn.OnPlayerRepawned.AddListener(OnPlayerRespawned);
+            var posX = ControllerGame.Player.transform.position.x;
             Confiner = ControllerGame.Instance.GetCCamera.GetComponent<CinemachineConfiner2D>();
-            points[2] = new Vector2(ControllerGame.Instance.Player.transform.position.x + 10000f, points[2].y);
-            points[3] = new Vector2(ControllerGame.Instance.Player.transform.position.x + 10000f, points[3].y);
+            points[2] = new Vector2(posX + 10000f, points[2].y);
+            points[3] = new Vector2(posX + 10000f, points[3].y);
             isInitialized = true;
         }
-        
+
+        UpdatePositions(points);
        
-        var returnX = ControllerGame.Instance.Player.MovementController.GetMinimumXReturnPosition;
+
+    }
+
+    void UpdatePositions(Vector2[] points)
+    {
+        var returnX = ControllerGame.Player.MovementController.GetMinimumXReturnPosition;
 
 
         //move the collider to block the camera from returning
         points[0] = new Vector2(returnX, points[0].y);
         points[1] = new Vector2(returnX, points[1].y);
 
-       
+
 
         polygonCollider.SetPath(0, points);
         //recalculate bounds if we moved
@@ -53,6 +61,12 @@ public class ConfinerFollower : MonoBehaviour
         }
 
         previousX = returnX;
+    }
 
+    void OnPlayerRespawned()
+    {
+        var points = polygonCollider.points;
+        previousX = -10000f;
+        UpdatePositions(points);
     }
 }

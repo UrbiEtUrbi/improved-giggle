@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2480953763940765406}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.06, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48,6 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccff5c3b1b4e04fbebde1f159b112c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 1
+  Damage: 1
+  AttackSize: {x: 1.19, y: 1, z: 0}
+  AttackPosition: {x: 0.99, y: -0.24, z: 0}
+  ReloadTime: 1
   MovementController: {fileID: 0}
 --- !u!114 &1230953763776032381
 MonoBehaviour:
@@ -232,7 +237,7 @@ SpriteRenderer:
   m_SortingLayerID: -1682046251
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 20867a0e5344e4fe29b550f9f0b14d69, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0b18629dd2fa4103bc81770a2e6d6bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

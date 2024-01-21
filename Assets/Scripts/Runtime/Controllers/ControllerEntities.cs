@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ControllerEntities : MonoBehaviour
 {
+
+    [Disable]
+    [SerializeField]
     List<Entity> Entities = new();
 
 
@@ -22,6 +25,11 @@ public class ControllerEntities : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if (!ControllerGame.Initialized)
+        {
+            return;
+        }
         var playerPos = ControllerGame.Player.transform.position;
         foreach (var e in Entities)
         {

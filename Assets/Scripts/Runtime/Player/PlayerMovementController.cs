@@ -126,6 +126,7 @@ public class PlayerMovementController : MonoBehaviour
         ControllerInput.Instance.Horizontal.AddListener(OnHorizontal);
         ControllerInput.Instance.Vertical.AddListener(OnVertical);
         ControllerInput.Instance.Jump.AddListener(OnJump);
+        ControllerInput.Instance.Attack.AddListener(OnAttack);
     }
 
     private void OnDisable()
@@ -133,6 +134,7 @@ public class PlayerMovementController : MonoBehaviour
         ControllerInput.Instance.Horizontal.RemoveListener(OnHorizontal);
         ControllerInput.Instance.Vertical.RemoveListener(OnVertical);
         ControllerInput.Instance.Jump.RemoveListener(OnJump);
+        ControllerInput.Instance.Attack.RemoveListener(OnAttack);
     }
 
 
@@ -198,7 +200,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             m_PlayerSprite.flipX = m_RigidBody.velocity.x < 0;
         }
-        if (m_RigidBody.position.x > maxPositionX)
+        if (m_RigidBody.position.x > maxPositionX && player.IsAlive)
         {
             maxPositionX = m_RigidBody.position.x;
         }
@@ -283,6 +285,11 @@ public class PlayerMovementController : MonoBehaviour
         }
     }
 
+    void OnAttack()
+    {
+        player.Attack();
+
+    }
     
 
     void OnHorizontal(float value)
@@ -298,6 +305,12 @@ public class PlayerMovementController : MonoBehaviour
     #endregion
 
 
+
+    public void ResetReturnPosition()
+    {
+        maxPositionX = transform.position.x;
+        Physics2D.SyncTransforms();
+    }
 
     private void OnDrawGizmosSelected()
     {

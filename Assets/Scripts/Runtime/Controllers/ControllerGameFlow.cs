@@ -13,6 +13,8 @@ public class ControllerGameFlow : GenericSingleton<ControllerGameFlow>
     protected override void Awake()
     {
         base.Awake();
+        Application.targetFrameRate = 60;
+
         _currentScene = SceneManager.GetActiveScene().name;
     }
 

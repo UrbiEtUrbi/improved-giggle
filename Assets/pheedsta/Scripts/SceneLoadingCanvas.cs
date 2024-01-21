@@ -14,7 +14,12 @@ public class SceneLoadingCanvas : MonoBehaviour {
     }
 
     private void Update() {
-        sceneTextTMP.SetText($"Scene: {SceneLoader.Instance.CurrentSceneIndex}");
-        loadingTextTMP.SetText(SceneLoader.Instance.LoadingDescription);
+
+        if (!ControllerGame.Initialized)
+        {
+            return;
+        }
+        sceneTextTMP.SetText($"Scene: {ControllerGame.SceneLoader.CurrentSceneIndex}");
+        loadingTextTMP.SetText(ControllerGame.SceneLoader.LoadingDescription);
     }
 }

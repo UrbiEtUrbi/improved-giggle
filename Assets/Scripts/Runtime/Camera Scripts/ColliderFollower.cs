@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ColliderFollower : MonoBehaviour
 {
-    BoxCollider2D boxCollider;    
+    BoxCollider2D boxCollider;
+
+    bool initialized = false;
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -15,9 +17,31 @@ public class ColliderFollower : MonoBehaviour
         {
             return;
         }
-        var returnX = ControllerGame.Instance.Player.MovementController.GetMinimumXReturnPosition;
 
+        if (!initialized)
+        {
+            ControllerGame.ControllerRespawn.OnPlayerRepawned.AddListener(OnPlayerRespawned);
+            initialized = true;
+        }
+        UpdatePosition();
+    }
+
+    void OnPlayerRespawned() {
+        Debug.Log($"on player respawned");
+        UpdatePosition();
+    }
+
+    void UpdatePosition()
+    {
+        var returnX = ControllerGame.Player.MovementController.GetMinimumXReturnPosition;
         //move the collider to block the player from returning
         transform.position = new Vector3(returnX - boxCollider.bounds.extents.x - boxCollider.edgeRadius, 0, 0);
+    }
+
+    private void OnDisable()
+    {   if (ControllerGame.Initialized)
+        {
+            ControllerGame.ControllerRespawn.OnPlayerRepawned.RemoveListener(OnPlayerRespawned);
+        }
     }
 }
