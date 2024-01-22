@@ -5,16 +5,32 @@ using UnityEngine;
 public class Creature : Entity, IHealth
 {
 
+    [BeginGroup("Health")]
+    [EndGroup]
+    [SerializeField]
+    int MaxHealth;
+
+
+    int currentHealth;
+
+
+    void Start()
+    {
+        currentHealth = MaxHealth;
+    }
 
 
     public void ChangeHealth(int amount)
     {
+        currentHealth += amount;
+        currentHealth = Mathf.Min(currentHealth, MaxHealth);
 
         if (amount < 0)
         {
             //spawn damage vfx
-
-            //1 cut 1 kill
+        }
+        if (currentHealth <= 0)
+        {
             Die();
         }
     }
