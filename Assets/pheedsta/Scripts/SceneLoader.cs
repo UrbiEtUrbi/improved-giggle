@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,17 +14,25 @@ public class SceneLoader : MonoBehaviour {
     public static SceneLoader Instance { get; private set; }
     
     //:::::::::::::::::::::::::::::://
-    // Serialized Fields
+    // Public Properties
     //:::::::::::::::::::::::::::::://
 
-    [SerializeField] private SceneSO[] scenes;
-    [SerializeField] private float proximityUnits; // rename this
+    public SceneAsset[] Scenes => scenes;
     
     //:::::::::::::::::::::::::::::://
-    // Properties
+    // Private Properties
     //:::::::::::::::::::::::::::::://
 
-    private SceneSO CurrentSceneSO => scenes[currentSceneIndex];
+    private SceneAsset CurrentScene => scenes[currentSceneIndex];
+    
+    //:::::::::::::::::::::::::::::://
+    // Serialized Fields
+    //:::::::::::::::::::::::::::::://
+    
+    [Space(10)]
+    [SerializeField] private SceneAsset[] scenes;
+    [Space(10)]
+    [SerializeField] private float proximityUnits; // rename this
     
     //:::::::::::::::::::::::::::::://
     // Enumerations
@@ -33,10 +43,17 @@ public class SceneLoader : MonoBehaviour {
     }
     
     //:::::::::::::::::::::::::::::://
+    // Readonly Fields
+    //:::::::::::::::::::::::::::::://
+    
+    private readonly Dictionary<string, TileGrid> tileGrids = new();
+    
+    //:::::::::::::::::::::::::::::://
     // Local Fields
     //:::::::::::::::::::::::::::::://
-
+    
     private int currentSceneIndex;
+    private bool showScenesInEditor;
     private Transform cameraTransform;
     private LoadStatus[] loadStatus;
     
@@ -67,33 +84,49 @@ public class SceneLoader : MonoBehaviour {
     }
 
     private void Update() {
+        // attempt to get the TileGrid for the current scene; if it's null we are done (may be null if it hasn't loaded yet)
+        if (!tileGrids.TryGetValue(CurrentScene.name, out TileGrid currentTileGrid)) return;
+        
         // get camera's position
         float cameraX = cameraTransform.position.x;
 
-        if (cameraX < CurrentSceneSO.BoundaryMinX && 0 <= currentSceneIndex - 1) {
+        if (cameraX < currentTileGrid.XMin && 0 <= currentSceneIndex - 1) {
             // camera has moved outside current scene boundary (LEFT) and new index is still in range; update scene index and unload unused scenes
             currentSceneIndex--;
             UnloadUnusedScenes();
-            
-            // DELETE ME
-            AddLoadingDescription($"Updating active scene: {currentSceneIndex}");
-                
-        } else if (cameraX > CurrentSceneSO.BoundaryMaxX && currentSceneIndex + 1 < scenes.Length) {
+        } else if (cameraX > currentTileGrid.XMax && currentSceneIndex + 1 < scenes.Length) {
             // camera has moved outside current scene boundary (RIGHT) and new index is still in range; update scene index and unload unused scenes
             currentSceneIndex++;
             UnloadUnusedScenes();
-            
-            // DELETE ME
-            AddLoadingDescription($"Updating active scene: {currentSceneIndex}");
         }
+        
+        // attempt to get the TileGrid again for the current scene (current scene may have changed)
+        if (!tileGrids.TryGetValue(CurrentScene.name, out currentTileGrid)) return;
 
-        if (cameraX < CurrentSceneSO.BoundaryMinX + proximityUnits) {
+        if (cameraX < currentTileGrid.XMin + proximityUnits) {
             // player is within range of next scene (LEFT); load scene
             LoadScene(currentSceneIndex - 1);
-        } else if (cameraX > CurrentSceneSO.BoundaryMaxX - proximityUnits) {
+        } else if (cameraX > currentTileGrid.XMax - proximityUnits) {
             // player is within range of next scene (RIGHT); load scene
             LoadScene(currentSceneIndex + 1);
         }
+    }
+    
+    //------------------------------//
+    // Registering Tile Grids
+    //------------------------------//
+
+    public void RegisterTileGrid(TileGrid tileGrid) {
+        // add TileGrid to the dictionary
+        tileGrids[tileGrid.gameObject.scene.name] = tileGrid;
+        
+        // reset all TileGrid positions
+        ResetTileGridPositions();
+    }
+
+    public void DeregisterTileGrid(TileGrid tileGrid) {
+        // remove TileGrid from dictionary
+        tileGrids.Remove(tileGrid.gameObject.scene.name);
     }
     
     //:::::::::::::::::::::::::::::://
@@ -122,6 +155,30 @@ public class SceneLoader : MonoBehaviour {
     }
     
     //:::::::::::::::::::::::::::::://
+    // Resetting Tile Grid Positions
+    //:::::::::::::::::::::::::::::://
+
+    private void ResetTileGridPositions() {
+        // initialise fields
+        int counter = 0;
+        int xMin = 0;
+        
+        foreach (var scene in scenes) {
+            // if a TileGrid for this scene has not been registered; ignore this scene
+            if (!tileGrids.TryGetValue(scene.name, out TileGrid tileGrid)) continue;
+            
+            // if this is not the first TileGrid; reset it's XMin value (this will move it into place)
+            if (0 < counter) tileGrid.ResetXMin(xMin);
+                
+            // reset the start value for the next TileGrid 
+            xMin = tileGrid.XMax;
+            
+            // increment counter
+            counter++;
+        }
+    }
+    
+    //:::::::::::::::::::::::::::::://
     // Coroutines
     //:::::::::::::::::::::::::::::://
 
@@ -129,61 +186,27 @@ public class SceneLoader : MonoBehaviour {
         // update status to LOADING
         loadStatus[sceneIndex] = LoadStatus.loading;
         
-        // DELETE ME
-        AddLoadingDescription($"Start loading scene: {sceneIndex}");
-        
         // start loading scene async (additive)
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scenes[sceneIndex].SceneName, LoadSceneMode.Additive);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scenes[sceneIndex].name, LoadSceneMode.Additive);
         
         // wait until scene has loaded
         while (!asyncOperation.isDone) yield return null;
         
         // update status to LOADED
         loadStatus[sceneIndex] = LoadStatus.loaded;
-        
-        // DELETE ME
-        AddLoadingDescription($"Completed loading scene: {sceneIndex}");
     }
 
     private IEnumerator UnloadSceneAdditiveCO(int sceneIndex) {
         // update status UNLOADING
         loadStatus[sceneIndex] = LoadStatus.unloading;
         
-        // DELETE ME
-        AddLoadingDescription($"Start unloading scene: {sceneIndex}");
-        
         // start unloading scene async
-        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(scenes[sceneIndex].SceneName, UnloadSceneOptions.None);
+        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(scenes[sceneIndex].name, UnloadSceneOptions.None);
         
         // wait until scene has unloaded
         while (!asyncOperation.isDone) yield return null;
         
         // update status to UNLOADED
         loadStatus[sceneIndex] = LoadStatus.unloaded;
-        
-        // DELETE ME
-        AddLoadingDescription($"Completed unloading scene: {sceneIndex}");
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //------------------------------//
-    // Properties
-    //------------------------------//
-
-    public int CurrentSceneIndex => currentSceneIndex;
-    public string LoadingDescription => loadingDescription;
-    private string loadingDescription;
-
-    private void AddLoadingDescription(string s) {
-        loadingDescription += $"{s}\n";
     }
 }

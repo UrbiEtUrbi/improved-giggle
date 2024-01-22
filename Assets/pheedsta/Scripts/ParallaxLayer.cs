@@ -62,7 +62,7 @@ public class ParallaxLayer : MonoBehaviour {
             moveX += spriteWidth;
         }
         
-        // move sprites (include camera movement
+        // move sprites (include camera movement)
         foreach (var spriteRenderer in spriteRenderers) spriteRenderer.transform.position += Vector3.right * (x + moveX);
     }
 }
