@@ -49,7 +49,7 @@ public class Player : MonoBehaviour, IHealth
             return;
         }
 
-        ControllerGame.ControllerAttack.Attack(AttackType.PlayerSword, transform.position + (MovementController.FacingRight ? 1 : -1 )* AttackPosition, AttackSize, Damage, 0.2f);
+        ControllerGame.ControllerAttack.Attack(transform, true,AttackType.PlayerSword, transform.position + (MovementController.FacingRight ? 1 : -1 )* AttackPosition, AttackSize, Damage, 0.2f);
         reloadTimer = ReloadTime;
     }
 
