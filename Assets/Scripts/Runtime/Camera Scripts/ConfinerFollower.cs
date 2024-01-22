@@ -66,7 +66,8 @@ public class ConfinerFollower : MonoBehaviour
     void OnPlayerRespawned()
     {
         var points = polygonCollider.points;
-        previousX = -10000f;
+        previousX = -999f;
         UpdatePositions(points);
+        Confiner.InvalidateCache();
     }
 }
