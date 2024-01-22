@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class SceneLoader : MonoBehaviour {
     
@@ -53,7 +55,7 @@ public class SceneLoader : MonoBehaviour {
     //:::::::::::::::::::::::::::::://
     
     private int currentSceneIndex;
-    private bool showScenesInEditor;
+    private bool registeredTilemapEvents;
     private Transform cameraTransform;
     private LoadStatus[] loadStatus;
     
@@ -103,15 +105,29 @@ public class SceneLoader : MonoBehaviour {
         // attempt to get the TileGrid again for the current scene (current scene may have changed)
         if (!tileGrids.TryGetValue(CurrentScene.name, out currentTileGrid)) return;
 
-        if (cameraX < currentTileGrid.XMin + proximityUnits) {
-            // player is within range of next scene (LEFT); load scene
-            LoadScene(currentSceneIndex - 1);
-        } else if (cameraX > currentTileGrid.XMax - proximityUnits) {
-            // player is within range of next scene (RIGHT); load scene
-            LoadScene(currentSceneIndex + 1);
-        }
+        // if player is within range of next scene (LEFT); load scene
+        if (cameraX < currentTileGrid.XMin + proximityUnits) LoadScene(currentSceneIndex - 1);
+        
+        // if player is within range of next scene (RIGHT); load scene
+        if (cameraX > currentTileGrid.XMax - proximityUnits) LoadScene(currentSceneIndex + 1);
     }
     
+    //::::::::::::::::::::::::::::://
+    // Gizmo Callbacks
+    //::::::::::::::::::::::::::::://
+
+    private void OnDrawGizmos() {
+        // we only want to register for tilemap events once
+        if (registeredTilemapEvents) return;
+
+        // update flag
+        registeredTilemapEvents = true;
+        
+        // register for Tilemap events (once)
+        Tilemap.tilemapPositionsChanged += Tilemap_TilemapPositionsChanged;
+        Tilemap.tilemapTileChanged += Tilemap_TilemapTileChanged;
+    }
+
     //------------------------------//
     // Registering Tile Grids
     //------------------------------//
@@ -179,5 +195,17 @@ public class SceneLoader : MonoBehaviour {
         
         // update status to UNLOADED
         loadStatus[sceneIndex] = LoadStatus.unloaded;
+    }
+    
+    //:::::::::::::::::::::::::::::://
+    // Tilemap Events
+    //:::::::::::::::::::::::::::::://
+
+    private void Tilemap_TilemapPositionsChanged(Tilemap tilemap, NativeArray<Vector3Int> positions) {
+        tilemap.CompressBounds();
+    }
+
+    private void Tilemap_TilemapTileChanged(Tilemap tilemap, Tilemap.SyncTile[] syncTiles) {
+        tilemap.CompressBounds();
     }
 }

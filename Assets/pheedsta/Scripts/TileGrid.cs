@@ -26,52 +26,15 @@ public class TileGrid : MonoBehaviour {
     }
 
     private void OnEnable() {
-        // register TileGrid with SceneLoader so it can adjust it's position as needed
         SceneLoader.Instance.RegisterTileGrid(this);
     }
 
     private void OnDisable() {
-        // deregister TileGrid from SceneLoader
         SceneLoader.Instance.DeregisterTileGrid(this);
     }
     
-    //------------------------------//
-    // Resetting Position
-    //------------------------------//
-
-    public void ResetXMin(int xMin) {
-        // if we failed to get all components; we are done
-        if (!GetAllComponents()) return;
-        
-        // reset the position so cell bounds butt up against previous scene
-        transform.position = Vector3.right * (xMin - tilemap.cellBounds.xMin);
-    }
-
     //::::::::::::::::::::::::::::://
-    // Utilities
-    //::::::::::::::::::::::::::::://
-
-    private bool GetAllComponents() {
-        // if we have already retrieved the components; we are done (success)
-        if (grid && tilemap) return true;
-        
-        // attempt to get the Grid component; if it's not returned; we are done (fail)
-        grid = GetComponent<Grid>();
-        if (!grid) return false;
-        
-        // attempt to get the Tilemap component; if it's not returned; we are done (fail)
-        tilemap = grid.GetComponentInChildren<Tilemap>();
-        if (!tilemap) return false;
-        
-        // compress bounds (this will resize the tilemap to an area that only has tiles)
-        tilemap.CompressBounds();
-        
-        // we are done (success)
-        return true;
-    }
-    
-    //::::::::::::::::::::::::::::://
-    // Gizmos
+    // Gizmo Callbacks
     //::::::::::::::::::::::::::::://
 
     private void OnDrawGizmos() {
@@ -94,5 +57,29 @@ public class TileGrid : MonoBehaviour {
         Gizmos.DrawLine(topRight, botRight); // right
         Gizmos.DrawLine(botRight, botLeft); // bottom
         Gizmos.DrawLine(botLeft, topLeft); // left
+    }
+
+    //::::::::::::::::::::::::::::://
+    // Utilities
+    //::::::::::::::::::::::::::::://
+
+    private bool GetAllComponents() {
+        // if we have already retrieved the components; we are done (success)
+        if (grid && tilemap) return true;
+        
+        // attempt to get the Grid component; if it's not returned; we are done (fail)
+        grid = GetComponent<Grid>();
+        if (!grid) return false;
+        
+        // attempt to get the Tilemap component; if it's not returned; we are done (fail)
+        tilemap = grid.GetComponentInChildren<Tilemap>();
+        if (!tilemap) return false;
+        
+        // compress bounds (this will resize the tilemap to an area that only has tiles)
+        // SceneLoader.cs also compresses bounds when tilemaps are modified
+        tilemap.CompressBounds();
+        
+        // we are done (success)
+        return true;
     }
 }
