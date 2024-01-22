@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 [CustomEditor(typeof(SceneLoader))]
@@ -63,10 +61,6 @@ public class SceneLoaderEditor : Editor {
         }
     }
 
-    private void RepositionScenes() {
-        Debug.Log("RepositionScenes");
-    }
-
     private void SaveScenes() {
         // ask user if they want to save modified scenes
         EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
@@ -82,7 +76,6 @@ public class SceneLoaderEditor : Editor {
 
         // show buttons
         if (GUILayout.Button("Open\nScenes", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight))) OpenScenes();
-        if (GUILayout.Button("Reposition\nScenes", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight))) RepositionScenes();
         if (GUILayout.Button("Save\nScenes", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight))) SaveScenes();
     }
 }

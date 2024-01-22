@@ -117,15 +117,10 @@ public class SceneLoader : MonoBehaviour {
     //------------------------------//
 
     public void RegisterTileGrid(TileGrid tileGrid) {
-        // add TileGrid to the dictionary
         tileGrids[tileGrid.gameObject.scene.name] = tileGrid;
-        
-        // reset all TileGrid positions
-        ResetTileGridPositions();
     }
 
     public void DeregisterTileGrid(TileGrid tileGrid) {
-        // remove TileGrid from dictionary
         tileGrids.Remove(tileGrid.gameObject.scene.name);
     }
     
@@ -151,30 +146,6 @@ public class SceneLoader : MonoBehaviour {
             
             // if this scene is no longer in range; start coroutine to unload it
             if (i < currentSceneIndex - 1 || i > currentSceneIndex + 1) StartCoroutine(UnloadSceneAdditiveCO(i));
-        }
-    }
-    
-    //:::::::::::::::::::::::::::::://
-    // Resetting Tile Grid Positions
-    //:::::::::::::::::::::::::::::://
-
-    private void ResetTileGridPositions() {
-        // initialise fields
-        int counter = 0;
-        int xMin = 0;
-        
-        foreach (var scene in scenes) {
-            // if a TileGrid for this scene has not been registered; ignore this scene
-            if (!tileGrids.TryGetValue(scene.name, out TileGrid tileGrid)) continue;
-            
-            // if this is not the first TileGrid; reset it's XMin value (this will move it into place)
-            if (0 < counter) tileGrid.ResetXMin(xMin);
-                
-            // reset the start value for the next TileGrid 
-            xMin = tileGrid.XMax;
-            
-            // increment counter
-            counter++;
         }
     }
     
