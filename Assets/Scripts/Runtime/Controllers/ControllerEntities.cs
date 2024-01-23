@@ -43,7 +43,8 @@ public class ControllerEntities : MonoBehaviour
         if (!e.IsActive)
         {
 
-            if (e.ActivationDistance < 0 || Vector3.Distance(playerPosition, transform.position) <= e.ActivationDistance)
+            //if (e.ActivationDistance < 0 || Vector3.Distance(playerPosition, transform.position) <= e.ActivationDistance)
+            if (e.ActivationDistance < 0 || Vector3.Distance(playerPosition, e.transform.position) <= e.ActivationDistance)
             {
                 e.ToggleActive(true);
                 return;
@@ -51,7 +52,8 @@ public class ControllerEntities : MonoBehaviour
         }
         else
         {
-            if (Vector3.Distance(playerPosition, transform.position) >= e.DeactivationDistance)
+            //if (Vector3.Distance(playerPosition, transform.position) >= e.DeactivationDistance)
+            if (Vector3.Distance(playerPosition, e.transform.position) >= e.DeactivationDistance)
             {
                 e.ToggleActive(false);
             }

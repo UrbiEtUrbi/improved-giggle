@@ -14,7 +14,7 @@ public class Creature : Entity, IHealth
     int currentHealth;
 
 
-    void Start()
+    protected virtual void Start()
     {
         currentHealth = MaxHealth;
     }
@@ -41,8 +41,7 @@ public class Creature : Entity, IHealth
         Destroy(gameObject);
     }
 
-    public void SetInitialHealth(int amount)
-    {
-       
+    public void SetInitialHealth(int amount) {
+        currentHealth = amount;
     }
 }

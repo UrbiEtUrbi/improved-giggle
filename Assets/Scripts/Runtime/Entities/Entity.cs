@@ -6,6 +6,8 @@ public abstract class Entity : MonoBehaviour
 {
     protected bool isActive;
     public bool IsActive => isActive;
+    
+    [Header("Entity")]
 
     [SerializeField]
     public float ActivationDistance = 14f;
@@ -15,7 +17,7 @@ public abstract class Entity : MonoBehaviour
 
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         ControllerGame.ControllerEntities.RegisterEntity(this);
     }
@@ -25,7 +27,7 @@ public abstract class Entity : MonoBehaviour
         ControllerGame.ControllerEntities.UnregisterEntity(this);
     }
 
-    public virtual void ToggleActive(bool _isActive)
+    public void ToggleActive(bool _isActive)
     {
         isActive = _isActive;
     }
