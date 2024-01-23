@@ -96,11 +96,7 @@ public class ControllerGame : ControllerLocal
 
     public void PlayerDie()
     {
-
-        //do camera stuff
-        //fade screen
         //reload scenes or entities
-        //add delay
         m_Fader.StartFade(0.5f,true,0.5f);
 
         m_ControllerRespawn.Respawn(0.5f+ m_Fader.TimeToFade);
