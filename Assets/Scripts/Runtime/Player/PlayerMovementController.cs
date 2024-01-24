@@ -82,6 +82,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     SpriteRenderer m_PlayerSprite;
 
+    [SerializeField]
+    Animator m_PlayerAnimator;
 
 
     [EndGroup]
@@ -287,6 +289,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void OnAttack()
     {
+        m_PlayerAnimator.SetTrigger("IsAttacking");
         player.Attack();
 
     }

@@ -2787,6 +2787,7 @@ MonoBehaviour:
     horizontalSpeed: 0.4
   - backgroundSprite: {fileID: 21300000, guid: 0ceb3b7f07f8bff499799cb7cfa69fcd, type: 3}
     horizontalSpeed: 0.8
+  Moon: {fileID: 0}
 --- !u!4 &1484894856
 Transform:
   m_ObjectHideFlags: 0

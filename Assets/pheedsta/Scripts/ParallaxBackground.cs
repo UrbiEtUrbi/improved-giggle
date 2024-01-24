@@ -14,6 +14,8 @@ public class ParallaxBackground : MonoBehaviour {
     [SerializeField] private ParallaxLayer parallaxLayerPrefab;
     [SerializeField] private ParallaxData[] parallaxData;
 
+    [SerializeField] SpriteRenderer Moon;
+
     //::::::::::::::::::::::::::::://
     // Local Fields
     //::::::::::::::::::::::::::::://
@@ -60,7 +62,9 @@ public class ParallaxBackground : MonoBehaviour {
 
         // move each layer by the horizontal speed provided
         for (int i = 0; i < parallaxData.Length; i++) parallaxLayers[i].Move(cameraX, parallaxData[i].horizontalSpeed);
+
         
+
         // update position field (used for calcs next frame)
         previousCameraPosition = cameraTransform.position;
     }
