@@ -69,19 +69,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2867a69004e234f41aeca22509c5cdf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RunSpeed: 10
-  runAcceleration: 5
-  runDecceleration: 5
-  ReturnDistance: 10
+  m_RunSpeed: 7
+  runAcceleration: 4
+  runDecceleration: 8
+  ReturnDistance: 50
   jumpForce: 9
-  jumpAcceleration: 1
-  jumpDecceleration: 1
+  jumpAcceleration: 0.8
+  jumpDecceleration: 0.5
   gravityMultiplier: 1
   jumpGravityJumpHeld: 1.7
-  jumpGravity: 3
-  fallingGravityJumpHeld: 2
-  fallingGravity: 4
-  maximumFallSpeed: 50
+  jumpGravity: 5
+  fallingGravityJumpHeld: 4
+  fallingGravity: 5
+  maximumFallSpeed: 10
   hangTimeThreshold: 0.1
   hangTimeAccelerationMult: 1.1
   hangTimeSpeedMult: 1.1
@@ -97,9 +97,9 @@ MonoBehaviour:
   groundCheckSize: {x: 1.15, y: 0.11}
   groundCheckPoint: {x: 0, y: -1.37, z: 0}
   Dashing: 0
-  dashSpeed: 20
-  dashAcceleration: 20
-  dashDuration: 0.1
+  dashSpeed: 14
+  dashAcceleration: 3
+  dashDuration: 0.3
   dashCheckSize: {x: 0.49, y: 2.05}
   dashCheckPointLeft: {x: -1, y: 0, z: 0}
   dashCheckPointRight: {x: 1, y: 0, z: 0}
