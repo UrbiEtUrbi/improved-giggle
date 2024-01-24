@@ -121,6 +121,31 @@ public class PlayerMovementController : MonoBehaviour
 
     public bool FacingRight => !m_PlayerSprite.flipX;
 
+    float dashDirection;
+    float canDashDirection;
+    public bool Dashing;
+
+
+    [BeginGroup("Dash")]
+    [SerializeField]
+    float dashSpeed = 500;
+    [SerializeField]
+    float dashAcceleration = 10;
+    [SerializeField]
+    float dashDuration = 0.1f;
+    [SerializeField]
+    private Vector2 dashCheckSize = new Vector2(0.49f, 0.03f);
+    [SerializeField]
+    private Vector3 dashCheckPointLeft;
+    [EndGroup]
+    [SerializeField]
+    private Vector3 dashCheckPointRight;
+
+
+    [SerializeField]
+    float LastDashDurationTime;
+
+
 
 
     private void OnEnable()
@@ -145,11 +170,17 @@ public class PlayerMovementController : MonoBehaviour
     {
        
         LastOnGroundTime -= Time.deltaTime;
-      
+        LastDashDurationTime -= Time.deltaTime;
+        
+
 
         GroundCheck();
 
-        
+
+
+
+       
+
     }
 
     private void FixedUpdate()
@@ -162,16 +193,27 @@ public class PlayerMovementController : MonoBehaviour
         float targetSpeed;
 
         //Calculate the direction we want to move in and our desired velocity
-      
-        targetSpeed = inputX * m_RunSpeed;
+
+        if (Dashing)
+        {
+            targetSpeed = dashDirection * dashSpeed;
+        }
+        else
+        {
+
+            targetSpeed = inputX * m_RunSpeed;
+        }
         //We can reduce are control using Lerp() this smooths changes to are direction and speed
         targetSpeed = Mathf.Lerp(m_RigidBody.velocity.x, targetSpeed, 1);
 
         float accelerationRate;
-       
 
-        
-        if (OnGround)
+        if (Dashing)
+        {
+            accelerationRate = dashAcceleration;
+        }
+
+        else if (OnGround)
         {
 
             accelerationRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAcceleration : runDecceleration;
@@ -182,7 +224,7 @@ public class PlayerMovementController : MonoBehaviour
             accelerationRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAcceleration * jumpAcceleration : runDecceleration * jumpDecceleration;
         }
 
-        if (!OnGround && Mathf.Abs(m_RigidBody.velocity.y) < hangTimeThreshold)
+        if (!OnGround  && !Dashing && Mathf.Abs(m_RigidBody.velocity.y) < hangTimeThreshold)
         {
             accelerationRate *= hangTimeAccelerationMult;
             targetSpeed *= hangTimeSpeedMult;
@@ -206,10 +248,25 @@ public class PlayerMovementController : MonoBehaviour
         {
             maxPositionX = m_RigidBody.position.x;
         }
+
+        if (LastDashDurationTime < 0)
+        {
+            Dashing = false;
+        }
+        UpdateDash();
+       
     }
 
     private void UpdateVerticalMovement()
     {
+
+        if (Dashing)
+        {
+            m_RigidBody.gravityScale = 0;
+            return;
+        }
+
+
         if (OnGround && jumping && m_RigidBody.velocity.y <= 0)
         {
             jumping = false;
@@ -253,6 +310,28 @@ public class PlayerMovementController : MonoBehaviour
 
     private void GroundCheck()
     {
+
+        canDashDirection = 0;
+        var dashCanceledLeft = Physics2D.OverlapBox(transform.position + dashCheckPointLeft, dashCheckSize, 0, groundLayer);
+        if (dashCanceledLeft)
+        {
+            if (Dashing && dashDirection < 0)
+            {
+                EndDash();
+            }
+            canDashDirection -= 1;
+        }
+
+        var dashCanceledRight = Physics2D.OverlapBox(transform.position + dashCheckPointRight, dashCheckSize, 0, groundLayer);
+        if (dashCanceledRight)
+        {
+            if (Dashing && dashDirection > 0)
+            {
+                EndDash();
+            }
+            canDashDirection += 1;
+        }
+
         var collider = Physics2D.OverlapBox(transform.position + groundCheckPoint, groundCheckSize, 0, groundLayer);
         if (collider != null && !jumping)
         {
@@ -261,6 +340,35 @@ public class PlayerMovementController : MonoBehaviour
             LastOnGroundTime = coyoteTime;
 
             falling = false;
+            m_RigidBody.gravityScale = gravityMultiplier * fallingGravity;
+        }
+    }
+
+
+    bool wasDashing;
+    private static readonly int VelocityOnYAxis = Animator.StringToHash("VelocityOnYAxis");
+    private static readonly int VelocityOnXAxis = Animator.StringToHash("VelocityOnXAxis");
+
+    private void UpdateDash()
+    {
+
+
+        if (wasDashing && !Dashing)
+        {
+            EndDash();
+        }
+        wasDashing = Dashing;
+    }
+
+
+    void EndDash()
+    {
+        LastDashDurationTime = 0;
+        dashDirection = 0;
+        LastOnGroundTime = 0;
+        wasDashing = false;
+        if (!OnGround)
+        {
             m_RigidBody.gravityScale = gravityMultiplier * fallingGravity;
         }
     }
@@ -289,8 +397,36 @@ public class PlayerMovementController : MonoBehaviour
 
     void OnAttack()
     {
-        m_PlayerAnimator.SetTrigger("IsAttacking");
-        player.Attack();
+
+        if (player.Attack())
+        {
+            Dashing = true;
+            //if player is holding a direction
+            if (Mathf.Abs(inputX) > 0)
+            {
+                dashDirection = inputX;
+            }
+            //use the current facing direction
+            else
+            {
+                dashDirection = FacingRight ? 1 : -1;
+            }
+            //check if player is already colliding with a wall
+            if (canDashDirection == 0 || dashDirection != canDashDirection)
+            {
+             
+                LastDashDurationTime = dashDuration;
+
+                m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
+                jumping = false;
+            }
+            else
+            {
+                dashDirection = 0;
+
+            }
+            m_PlayerAnimator.SetTrigger("IsAttacking");
+        }
 
     }
     
@@ -320,5 +456,8 @@ public class PlayerMovementController : MonoBehaviour
         Gizmos.color = Color.cyan;
 
         Gizmos.DrawWireCube(transform.position + groundCheckPoint, groundCheckSize);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(transform.position + dashCheckPointLeft, dashCheckSize);
+        Gizmos.DrawWireCube(transform.position + dashCheckPointRight, dashCheckSize);
     }
 }

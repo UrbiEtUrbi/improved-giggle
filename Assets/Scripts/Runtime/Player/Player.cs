@@ -42,14 +42,15 @@ public class Player : MonoBehaviour, IHealth
 
 
 
-    public void Attack()
+    public bool Attack()
     {
         if (reloadTimer > 0)
         {
-            return;
+            return false;
         }
         ControllerGame.ControllerAttack.Attack(transform, true,AttackType.PlayerSword, transform.position + (MovementController.FacingRight ? 1 : -1 )* AttackPosition, AttackSize, Damage, 0.2f);
         reloadTimer = ReloadTime;
+        return true;
     }
 
     public void ChangeHealth(int amount)
