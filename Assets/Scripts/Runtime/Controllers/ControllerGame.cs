@@ -94,6 +94,15 @@ public class ControllerGame : ControllerLocal
         base.Init();    
     }
 
+    public void GameOver()
+    {
+
+        //reload whole game scenes or entities
+        m_Fader.StartFade(0.5f, true, 0.5f);
+
+        m_ControllerRespawn.Respawn(0.5f + m_Fader.TimeToFade, StartPosition);
+    }
+
     public void PlayerDie()
     {
         //reload scenes or entities

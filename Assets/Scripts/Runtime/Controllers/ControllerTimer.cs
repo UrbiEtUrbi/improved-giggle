@@ -34,7 +34,11 @@ public class ControllerTimer : MonoBehaviour
 
     float timeLeft => TimeToWin - currentTime;
 
-    Color endColor = Color.red;
+    [SerializeField]
+    Color endColorFade;
+
+    [SerializeField]
+    Color endColorMoon;
     Color startColor = Color.white;
 
 
@@ -51,15 +55,17 @@ public class ControllerTimer : MonoBehaviour
 
         currentTime += Time.deltaTime;
 
-        if (currentTime > TimeToWin)
+        if (currentTime > TimeToWin && ControllerGame.Player.IsAlive)
         {
             currentTime = 0;
+            ControllerGame.Instance.GameOver();
+            return;
         }
-        Moon.color = Color.Lerp(startColor, endColor, MoonCurve.Evaluate(currentTime / TimeToWin));
+        Moon.color = Color.Lerp(startColor, endColorMoon, MoonCurve.Evaluate(currentTime / TimeToWin));
 
         DebugTimeLabel.text = $"{timeLeft:F2}";
 
-        GlobalLight.color = Color.Lerp(startColor, endColor, AmbientCurve.Evaluate(currentTime / TimeToWin));
+        GlobalLight.color = Color.Lerp(startColor, endColorFade, AmbientCurve.Evaluate(currentTime / TimeToWin));
 
     }
 
