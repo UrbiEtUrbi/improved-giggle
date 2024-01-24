@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Enemy : Creature {
@@ -14,7 +15,7 @@ public abstract class Enemy : Creature {
 
     public abstract void ChasePlayer();
     public abstract void ChasePlayerPhysics();
-    public abstract void AttackPlayer();
+    public abstract void AttackPlayer(Action completionHandler);
     
     //:::::::::::::::::::::::::::://
     // Serialized Fields
@@ -36,7 +37,7 @@ public abstract class Enemy : Creature {
     // Local Fields
     //:::::::::::::::::::::::::::://
     
-    protected EnemyStateMachine enemyStateMachine { get; set; }
+    private EnemyStateMachine enemyStateMachine { get; set; }
     
     //::::::::::::::::::::::::::::://
     // Unity Callbacks

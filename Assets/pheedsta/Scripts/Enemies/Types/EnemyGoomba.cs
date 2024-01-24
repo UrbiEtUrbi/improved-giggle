@@ -39,15 +39,15 @@ public class EnemyGoomba : Enemy {
     // we aren't using physics for this enemy
     public override void ChasePlayerPhysics() { }
 
-    public override void AttackPlayer() {
-        StartCoroutine(AttackPlayerCO());
+    public override void AttackPlayer(Action completionHandler) {
+        StartCoroutine(AttackPlayerCO(completionHandler));
     }
     
     //::::::::::::::::::::::::::::://
     // Coroutines
     //::::::::::::::::::::::::::::://
 
-    private IEnumerator AttackPlayerCO() {
+    private IEnumerator AttackPlayerCO(Action completionHandler) {
         //----------------------------//
         // THIS IS FOR DEMONSTRATION PURPOSES ONLY!!!
         //----------------------------//
@@ -74,6 +74,6 @@ public class EnemyGoomba : Enemy {
         }
         
         transform.position = startPosition;
-        enemyStateMachine.ChangeState(IdleState);
+        completionHandler?.Invoke();
     }
 }
