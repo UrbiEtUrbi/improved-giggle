@@ -11,7 +11,9 @@ public class EnemyAttackState : EnemyState {
     //::::::::::::::::::::::::::::://
 
     public override void EnterState() {
-        enemy.AttackPlayer();    
+        enemy.AttackPlayer(() => {
+            enemyStateMachine.ChangeState(enemy.IdleState);
+        });    
     }
     
     public override void ExitState() { }
