@@ -266,9 +266,11 @@ public class PlayerMovementController : MonoBehaviour
         GroundCheck();
 
 
+        m_PlayerAnimator.SetBool("IsOnGround", OnGround);
+        m_PlayerAnimator.SetBool("IsRunning", Mathf.Abs(m_RigidBody.velocity.x) > 1);
+        m_PlayerAnimator.SetBool("IsFalling", falling);
 
 
-       
 
     }
 
@@ -342,8 +344,11 @@ public class PlayerMovementController : MonoBehaviour
 
         if (LastDashDurationTime < 0)
         {
+            m_PlayerAnimator.SetBool("IsAttacking", false);
             Dashing = false;
         }
+
+        m_PlayerAnimator.SetFloat("RunningSpeed", Mathf.Abs(m_RigidBody.velocity.x) / 10f);
         UpdateDash();
        
     }
@@ -354,6 +359,8 @@ public class PlayerMovementController : MonoBehaviour
         if (Dashing)
         {
             m_RigidBody.gravityScale = 0;
+            jumping = false;
+            falling = false;
             return;
         }
 
@@ -361,14 +368,14 @@ public class PlayerMovementController : MonoBehaviour
         if (OnGround && jumping && m_RigidBody.velocity.y <= 0)
         {
             jumping = false;
+            falling = false;
         }
         else
         {
             //we are falling according to some weird definition which includes just chilling on the ground too
             if (m_RigidBody.velocity.y <= 0)
             {
-                falling = true;
-                jumping = false;
+               
                 // apply correct gravity scale
                 if (jumpHeld)
                 {
@@ -387,6 +394,12 @@ public class PlayerMovementController : MonoBehaviour
             {
                 m_RigidBody.gravityScale = gravityMultiplier * jumpGravity;
             }
+        }
+
+        if (m_RigidBody.velocity.y < 0)
+        {
+            falling = true;
+            jumping = false;
         }
 
 
@@ -516,7 +529,7 @@ public class PlayerMovementController : MonoBehaviour
                 dashDirection = 0;
 
             }
-            m_PlayerAnimator.SetTrigger("IsAttacking");
+            m_PlayerAnimator.SetBool("IsAttacking", true);
         }
 
     }
