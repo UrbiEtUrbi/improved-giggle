@@ -25,9 +25,9 @@ public class AttackObject : MonoBehaviour
     {
         dd.Init(lifetime);
         attackSize = size;
-        initialized = true;
         damage = _damage;
         transform.position = position;
+        initialized = true;
     }
 
 

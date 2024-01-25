@@ -177,6 +177,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivationDistance: 10
   DeactivationDistance: 15
-  MaxHealth: 20
+  MaxHealth: 1
   strikingDistance: 2
   moveSpeed: 5

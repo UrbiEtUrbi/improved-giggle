@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 public class PlayerMovementController : MonoBehaviour
 {
 
-    
+
     [BeginGroup("Running")]
     [SerializeField]
     [Tooltip("Top speed")]
@@ -101,7 +101,7 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Ground Checks")]
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField] private Vector3 groundCheckPoint;
-    
+
 
     private bool jumping = false;
     private bool falling = false;
@@ -141,11 +141,82 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     private Vector3 dashCheckPointRight;
 
-
+    [BeginGroup("Rage Boost")]
     [SerializeField]
+    int MaxRageEnemies;
+    [SerializeField]
+    float RageCooldown;
+    [SerializeField]
+    float AccelerationBoostPerEnemy;
+    [SerializeField]
+    float SpeedBoostPerEnemy;
+    [EndGroup]
+    [SerializeField]
+    float RageEndTweenTime;
+
+
+    [EditorButton(nameof(IncreaseEnemyDebug))]
+    [SerializeField]
+    float test;
+
+
+    void IncreaseEnemyDebug()
+    {
+        ChangeEnemyCount(1);
+    }
+
+    public int currentEnemyRageCount;
+
     float LastDashDurationTime;
+    float RageTimer;
+    float RageEndingTimer;
+    bool RageActive;
+    bool RageEnding;
 
+   
 
+    float RageSpeedBoost {
+
+        get {
+            if (RageActive)
+            {
+                return currentEnemyRageCount * SpeedBoostPerEnemy;
+
+            }
+            else if (RageEnding)
+            {
+                return (currentEnemyRageCount * SpeedBoostPerEnemy) * Mathf.Lerp(0, 1, RageEndingTimer / RageCooldown);
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+    }
+
+    float RageAccelerationBoost
+    {
+
+        get
+        {
+            if (RageActive)
+            {
+                return 1 + currentEnemyRageCount * AccelerationBoostPerEnemy;
+
+            }
+            else if (RageEnding)
+            {
+                return 1 +(currentEnemyRageCount * AccelerationBoostPerEnemy) * Mathf.Lerp(1, 0, RageEndingTimer / RageCooldown);
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+    }
+   
 
 
     private void OnEnable()
@@ -171,8 +242,26 @@ public class PlayerMovementController : MonoBehaviour
        
         LastOnGroundTime -= Time.deltaTime;
         LastDashDurationTime -= Time.deltaTime;
-        
+        RageTimer -= Time.deltaTime;
+        RageEndingTimer -= Time.deltaTime;
 
+
+        if (RageActive)
+        {
+            if (RageTimer < 0)
+            {
+                ChangeEnemyCount(-1);
+            }
+        }
+
+        if (RageEnding)
+        {
+            if (RageEndingTimer < 0)
+            {
+                RageEnding = false;
+                currentEnemyRageCount = 0;
+            }
+        }
 
         GroundCheck();
 
@@ -201,10 +290,11 @@ public class PlayerMovementController : MonoBehaviour
         else
         {
 
-            targetSpeed = inputX * m_RunSpeed;
+            targetSpeed = inputX * (m_RunSpeed + RageSpeedBoost);
         }
         //We can reduce are control using Lerp() this smooths changes to are direction and speed
         targetSpeed = Mathf.Lerp(m_RigidBody.velocity.x, targetSpeed, 1);
+       
 
         float accelerationRate;
 
@@ -223,6 +313,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             accelerationRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAcceleration * jumpAcceleration : runDecceleration * jumpDecceleration;
         }
+        accelerationRate *= RageAccelerationBoost; 
 
         if (!OnGround  && !Dashing && Mathf.Abs(m_RigidBody.velocity.y) < hangTimeThreshold)
         {
@@ -428,6 +519,33 @@ public class PlayerMovementController : MonoBehaviour
             m_PlayerAnimator.SetTrigger("IsAttacking");
         }
 
+    }
+
+    public void ChangeEnemyCount(int change)
+    {
+        if (change > 0)
+        {
+            if (RageEnding)
+            {
+                currentEnemyRageCount = 0;
+            }
+            currentEnemyRageCount += change;
+            currentEnemyRageCount = Mathf.Min(currentEnemyRageCount, MaxRageEnemies);
+            RageTimer = RageCooldown;
+            RageActive = true;
+            RageEnding = false;
+        }
+        else
+        {
+            if (RageActive)
+            {
+                RageEnding = true;
+                RageEndingTimer = RageEndTweenTime;
+            }
+           
+            RageTimer = -1f;
+            RageActive = false;
+        }
     }
     
 

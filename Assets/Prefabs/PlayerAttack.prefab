@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f23fb5d6fa74c9484fc4ff0f690ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroyAfter: 0
+  DestroyAfter: 0.1
   AutoDestroy: 0
   FromAnimation: 0
 --- !u!114 &-6782338525086296719
