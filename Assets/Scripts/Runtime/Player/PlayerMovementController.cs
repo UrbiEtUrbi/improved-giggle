@@ -165,7 +165,7 @@ public class PlayerMovementController : MonoBehaviour
         ChangeEnemyCount(1);
     }
 
-    public int currentEnemyRageCount;
+    int currentEnemyRageCount;
 
     float LastDashDurationTime;
     float RageTimer;

@@ -24,12 +24,9 @@ public class Creature : Entity, IHealth
 
     public void ChangeHealth(int amount)
     {
-        Debug.Log(amount);
-        Debug.Log(currentHealth);
         currentHealth += amount;
         currentHealth = Mathf.Min(currentHealth, MaxHealth);
 
-        Debug.Log(currentHealth);
         if (amount < 0)
         {
             //spawn damage vfx
