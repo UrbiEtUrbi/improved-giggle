@@ -134,6 +134,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     float dashDuration = 0.1f;
     [SerializeField]
+    float dashDurationAfterHitEnemy = 0.1f;
+    [SerializeField]
     private Vector2 dashCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField]
     private Vector3 dashCheckPointLeft;
@@ -268,7 +270,7 @@ public class PlayerMovementController : MonoBehaviour
 
         m_PlayerAnimator.SetBool("IsOnGround", OnGround);
         m_PlayerAnimator.SetBool("IsRunning", Mathf.Abs(m_RigidBody.velocity.x) > 1);
-        m_PlayerAnimator.SetBool("IsFalling", falling);
+        m_PlayerAnimator.SetBool("IsFalling", m_RigidBody.velocity.y < 0);
 
 
 
@@ -344,6 +346,7 @@ public class PlayerMovementController : MonoBehaviour
 
         if (LastDashDurationTime < 0)
         {
+
             m_PlayerAnimator.SetBool("IsAttacking", false);
             Dashing = false;
         }
@@ -467,6 +470,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void EndDash()
     {
+
         LastDashDurationTime = 0;
         dashDirection = 0;
         LastOnGroundTime = 0;
@@ -504,34 +508,39 @@ public class PlayerMovementController : MonoBehaviour
 
         if (player.Attack())
         {
-            Dashing = true;
-            //if player is holding a direction
-            if (Mathf.Abs(inputX) > 0)
-            {
-                dashDirection = inputX;
-            }
-            //use the current facing direction
-            else
-            {
-                dashDirection = FacingRight ? 1 : -1;
-            }
-            //check if player is already colliding with a wall
-            if (canDashDirection == 0 || dashDirection != canDashDirection)
-            {
-             
-                LastDashDurationTime = dashDuration;
-
-                m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
-                jumping = false;
-            }
-            else
-            {
-                dashDirection = 0;
-
-            }
+            SetDash(dashDuration);
             m_PlayerAnimator.SetBool("IsAttacking", true);
         }
+    }
+    void SetDash(float duration)
+    {
+        Dashing = true;
+        //if player is holding a direction
+        if (Mathf.Abs(inputX) > 0)
+        {
+            dashDirection = inputX;
+        }
+        //use the current facing direction
+        else
+        {
+            dashDirection = FacingRight ? 1 : -1;
+        }
+        //check if player is already colliding with a wall
+        if (canDashDirection == 0 || dashDirection != canDashDirection)
+        {
 
+            LastDashDurationTime = duration;
+            Debug.Log(LastDashDurationTime);
+
+            m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
+            jumping = false;
+        }
+        else
+        {
+            dashDirection = 0;
+
+        }
+        
     }
 
     public void ChangeEnemyCount(int change)
@@ -542,6 +551,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 currentEnemyRageCount = 0;
             }
+            SetDash(dashDurationAfterHitEnemy);
             currentEnemyRageCount += change;
             currentEnemyRageCount = Mathf.Min(currentEnemyRageCount, MaxRageEnemies);
             RageTimer = RageCooldown;
@@ -550,6 +560,7 @@ public class PlayerMovementController : MonoBehaviour
         }
         else
         {
+          
             if (RageActive)
             {
                 RageEnding = true;
