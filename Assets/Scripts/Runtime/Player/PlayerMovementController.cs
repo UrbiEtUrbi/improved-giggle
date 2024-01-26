@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 public class PlayerMovementController : MonoBehaviour
 {
 
-    
+
     [BeginGroup("Running")]
     [SerializeField]
     [Tooltip("Top speed")]
@@ -101,7 +101,7 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Ground Checks")]
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField] private Vector3 groundCheckPoint;
-    
+
 
     private bool jumping = false;
     private bool falling = false;
@@ -134,6 +134,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     float dashDuration = 0.1f;
     [SerializeField]
+    float dashDurationAfterHitEnemy = 0.1f;
+    [SerializeField]
     private Vector2 dashCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField]
     private Vector3 dashCheckPointLeft;
@@ -141,11 +143,82 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     private Vector3 dashCheckPointRight;
 
-
+    [BeginGroup("Rage Boost")]
     [SerializeField]
+    int MaxRageEnemies;
+    [SerializeField]
+    float RageCooldown;
+    [SerializeField]
+    float AccelerationBoostPerEnemy;
+    [SerializeField]
+    float SpeedBoostPerEnemy;
+    [EndGroup]
+    [SerializeField]
+    float RageEndTweenTime;
+
+
+    [EditorButton(nameof(IncreaseEnemyDebug))]
+    [SerializeField]
+    float test;
+
+
+    void IncreaseEnemyDebug()
+    {
+        ChangeEnemyCount(1);
+    }
+
+    int currentEnemyRageCount;
+
     float LastDashDurationTime;
+    float RageTimer;
+    float RageEndingTimer;
+    bool RageActive;
+    bool RageEnding;
 
+   
 
+    float RageSpeedBoost {
+
+        get {
+            if (RageActive)
+            {
+                return currentEnemyRageCount * SpeedBoostPerEnemy;
+
+            }
+            else if (RageEnding)
+            {
+                return (currentEnemyRageCount * SpeedBoostPerEnemy) * Mathf.Lerp(0, 1, RageEndingTimer / RageCooldown);
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+    }
+
+    float RageAccelerationBoost
+    {
+
+        get
+        {
+            if (RageActive)
+            {
+                return 1 + currentEnemyRageCount * AccelerationBoostPerEnemy;
+
+            }
+            else if (RageEnding)
+            {
+                return 1 +(currentEnemyRageCount * AccelerationBoostPerEnemy) * Mathf.Lerp(1, 0, RageEndingTimer / RageCooldown);
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+    }
+   
 
 
     private void OnEnable()
@@ -171,15 +244,35 @@ public class PlayerMovementController : MonoBehaviour
        
         LastOnGroundTime -= Time.deltaTime;
         LastDashDurationTime -= Time.deltaTime;
-        
+        RageTimer -= Time.deltaTime;
+        RageEndingTimer -= Time.deltaTime;
 
+
+        if (RageActive)
+        {
+            if (RageTimer < 0)
+            {
+                ChangeEnemyCount(-1);
+            }
+        }
+
+        if (RageEnding)
+        {
+            if (RageEndingTimer < 0)
+            {
+                RageEnding = false;
+                currentEnemyRageCount = 0;
+            }
+        }
 
         GroundCheck();
 
 
+        m_PlayerAnimator.SetBool("IsOnGround", OnGround);
+        m_PlayerAnimator.SetBool("IsRunning", Mathf.Abs(m_RigidBody.velocity.x) > 1);
+        m_PlayerAnimator.SetBool("IsFalling", m_RigidBody.velocity.y < 0);
 
 
-       
 
     }
 
@@ -201,10 +294,11 @@ public class PlayerMovementController : MonoBehaviour
         else
         {
 
-            targetSpeed = inputX * m_RunSpeed;
+            targetSpeed = inputX * (m_RunSpeed + RageSpeedBoost);
         }
         //We can reduce are control using Lerp() this smooths changes to are direction and speed
         targetSpeed = Mathf.Lerp(m_RigidBody.velocity.x, targetSpeed, 1);
+       
 
         float accelerationRate;
 
@@ -223,6 +317,7 @@ public class PlayerMovementController : MonoBehaviour
         {
             accelerationRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAcceleration * jumpAcceleration : runDecceleration * jumpDecceleration;
         }
+        accelerationRate *= RageAccelerationBoost; 
 
         if (!OnGround  && !Dashing && Mathf.Abs(m_RigidBody.velocity.y) < hangTimeThreshold)
         {
@@ -251,8 +346,12 @@ public class PlayerMovementController : MonoBehaviour
 
         if (LastDashDurationTime < 0)
         {
+
+            m_PlayerAnimator.SetBool("IsAttacking", false);
             Dashing = false;
         }
+
+        m_PlayerAnimator.SetFloat("RunningSpeed", Mathf.Abs(m_RigidBody.velocity.x) / 10f);
         UpdateDash();
        
     }
@@ -263,6 +362,8 @@ public class PlayerMovementController : MonoBehaviour
         if (Dashing)
         {
             m_RigidBody.gravityScale = 0;
+            jumping = false;
+            falling = false;
             return;
         }
 
@@ -270,14 +371,14 @@ public class PlayerMovementController : MonoBehaviour
         if (OnGround && jumping && m_RigidBody.velocity.y <= 0)
         {
             jumping = false;
+            falling = false;
         }
         else
         {
             //we are falling according to some weird definition which includes just chilling on the ground too
             if (m_RigidBody.velocity.y <= 0)
             {
-                falling = true;
-                jumping = false;
+               
                 // apply correct gravity scale
                 if (jumpHeld)
                 {
@@ -296,6 +397,12 @@ public class PlayerMovementController : MonoBehaviour
             {
                 m_RigidBody.gravityScale = gravityMultiplier * jumpGravity;
             }
+        }
+
+        if (m_RigidBody.velocity.y < 0)
+        {
+            falling = true;
+            jumping = false;
         }
 
 
@@ -363,6 +470,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void EndDash()
     {
+
         LastDashDurationTime = 0;
         dashDirection = 0;
         LastOnGroundTime = 0;
@@ -400,34 +508,68 @@ public class PlayerMovementController : MonoBehaviour
 
         if (player.Attack())
         {
-            Dashing = true;
-            //if player is holding a direction
-            if (Mathf.Abs(inputX) > 0)
-            {
-                dashDirection = inputX;
-            }
-            //use the current facing direction
-            else
-            {
-                dashDirection = FacingRight ? 1 : -1;
-            }
-            //check if player is already colliding with a wall
-            if (canDashDirection == 0 || dashDirection != canDashDirection)
-            {
-             
-                LastDashDurationTime = dashDuration;
-
-                m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
-                jumping = false;
-            }
-            else
-            {
-                dashDirection = 0;
-
-            }
-            m_PlayerAnimator.SetTrigger("IsAttacking");
+            SetDash(dashDuration);
+            m_PlayerAnimator.SetBool("IsAttacking", true);
         }
+    }
+    void SetDash(float duration)
+    {
+        Dashing = true;
+        //if player is holding a direction
+        if (Mathf.Abs(inputX) > 0)
+        {
+            dashDirection = inputX;
+        }
+        //use the current facing direction
+        else
+        {
+            dashDirection = FacingRight ? 1 : -1;
+        }
+        //check if player is already colliding with a wall
+        if (canDashDirection == 0 || dashDirection != canDashDirection)
+        {
 
+            LastDashDurationTime = duration;
+            Debug.Log(LastDashDurationTime);
+
+            m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
+            jumping = false;
+        }
+        else
+        {
+            dashDirection = 0;
+
+        }
+        
+    }
+
+    public void ChangeEnemyCount(int change)
+    {
+        if (change > 0)
+        {
+            if (RageEnding)
+            {
+                currentEnemyRageCount = 0;
+            }
+            SetDash(dashDurationAfterHitEnemy);
+            currentEnemyRageCount += change;
+            currentEnemyRageCount = Mathf.Min(currentEnemyRageCount, MaxRageEnemies);
+            RageTimer = RageCooldown;
+            RageActive = true;
+            RageEnding = false;
+        }
+        else
+        {
+          
+            if (RageActive)
+            {
+                RageEnding = true;
+                RageEndingTimer = RageEndTweenTime;
+            }
+           
+            RageTimer = -1f;
+            RageActive = false;
+        }
     }
     
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ControllerAttack : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class ControllerAttack : MonoBehaviour
 
     [SerializeField]
     List<AttackData> Attacks;
+
+
+    
 
 
     public void Attack(Transform source, bool parentToSource, AttackType Type, Vector3 position, Vector3 size, int damage,float lifetime = -1)
@@ -22,8 +26,13 @@ public class ControllerAttack : MonoBehaviour
         }
     }
 
+    public void OnEnemyDied()
+    {
+        ControllerGame.Player.OnEnemyDied();
+    }
 
-    
+
+
 }
 
 [System.Serializable]

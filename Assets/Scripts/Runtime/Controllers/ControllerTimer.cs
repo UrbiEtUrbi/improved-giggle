@@ -48,7 +48,7 @@ public class ControllerTimer : MonoBehaviour
 
     private void Update()
     {
-        if (!ControllerGame.Initialized)
+        if (!ControllerGame.Initialized || !ControllerGame.Player.IsAlive)
         {
             return;
         }

@@ -14,6 +14,8 @@ public class Creature : Entity, IHealth
     int currentHealth;
 
 
+
+
     protected virtual void Start()
     {
         currentHealth = MaxHealth;
@@ -37,6 +39,7 @@ public class Creature : Entity, IHealth
 
     public void Die()
     {
+        ControllerGame.ControllerAttack.OnEnemyDied();
         //spawn death animation
         Destroy(gameObject);
     }

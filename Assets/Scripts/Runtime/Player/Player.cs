@@ -42,6 +42,8 @@ public class Player : MonoBehaviour, IHealth
 
 
 
+
+
     public bool Attack()
     {
         if (reloadTimer > 0)
@@ -78,6 +80,11 @@ public class Player : MonoBehaviour, IHealth
         //spawn death vfx/animation
         IsAlive = false;
         ControllerGame.Instance.PlayerDie();
+    }
+
+    public void OnEnemyDied()
+    {
+        MovementController.ChangeEnemyCount(1);
     }
 
     public void SetInitialHealth(int amount)

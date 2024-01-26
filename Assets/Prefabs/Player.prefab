@@ -100,10 +100,16 @@ MonoBehaviour:
   dashSpeed: 14
   dashAcceleration: 3
   dashDuration: 0.3
+  dashDurationAfterHitEnemy: 0.3
   dashCheckSize: {x: 0.49, y: 2.05}
   dashCheckPointLeft: {x: -1, y: 0, z: 0}
   dashCheckPointRight: {x: 1, y: 0, z: 0}
-  LastDashDurationTime: 0
+  MaxRageEnemies: 5
+  RageCooldown: 5
+  AccelerationBoostPerEnemy: 0.1
+  SpeedBoostPerEnemy: 0.5
+  RageEndTweenTime: 1
+  test: 0
 --- !u!50 &3755130662127635873
 Rigidbody2D:
   serializedVersion: 4
