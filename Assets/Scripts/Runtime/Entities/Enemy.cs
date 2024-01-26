@@ -20,6 +20,12 @@ public abstract class Enemy : Creature {
     }
     
     //:::::::::::::::::::::::::::://
+    // Constants
+    //:::::::::::::::::::::::::::://
+    
+    private const float spriteFlipThreshold = 0.5f;
+    
+    //:::::::::::::::::::::::::::://
     // Components
     //:::::::::::::::::::::::::::://
 
@@ -105,9 +111,9 @@ public abstract class Enemy : Creature {
     }
 
     private void LateUpdate() {
-        // flip sprite to always face the player
-        Vector3 playerPosition = ControllerGame.Player.transform.position;
-        SpriteRenderer.flipX = transform.position.x < playerPosition.x;
+        // flip sprite to always face the player (use threshold so it doesn't flip back and forth when under player)
+        float xDifference = transform.position.x - ControllerGame.Player.transform.position.x;
+        if (spriteFlipThreshold < Mathf.Abs(xDifference)) SpriteRenderer.flipX = xDifference < 0f;
     }
 
     //----------------------------//

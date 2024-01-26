@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyGoomba : Enemy {
     
+    //:::::::::::::::::::::::::::://
+    // Constants
+    //:::::::::::::::::::::::::::://
+    
+    private const float movementThreshold = 0.5f;
+    
     //::::::::::::::::::::::::::::://
     // Unity Callbacks
     //::::::::::::::::::::::::::::://
@@ -27,19 +33,29 @@ public class EnemyGoomba : Enemy {
     }
     
     private void Accelerate() {
-        float moveDirection = 0f < ControllerGame.Player.transform.position.x - transform.position.x ? 1f : -1f;
-        float targetSpeed = moveSpeed * moveDirection;
-        float speedDiff = targetSpeed - Rigidbody.velocity.x;
-        Move(speedDiff * acceleration);
+        // calculate the difference between the player and enemy (x)
+        float xDifference = ControllerGame.Player.transform.position.x - transform.position.x;
+        
+        if (Mathf.Abs(xDifference) < movementThreshold) {
+            // movement is less than threshold; decelerate instead
+            // this prevents enemy from constantly moving back and forth when under player
+            Decelerate();
+        } else {
+            // movement is greater thatn threshold; get move direction (left = -1, right = 1)
+            float moveDirection = 0f < xDifference ? 1f : -1f;
+
+            // calculate force required
+            float targetSpeed = moveSpeed * moveDirection;
+            float speedDifference = targetSpeed - Rigidbody.velocity.x;
+
+            // apply force
+            Rigidbody.AddForce(Vector2.right * (speedDifference * acceleration), ForceMode2D.Force);
+        }
     }
 
     private void Decelerate() {
-        float speedDiff = 0f - Rigidbody.velocity.x;
-        Move(speedDiff * deceleration);
-    }
-
-    private void Move(float m) {
-        Rigidbody.AddForce(Vector2.right * m, ForceMode2D.Force);
+        float speedDifference = 0f - Rigidbody.velocity.x;
+        Rigidbody.AddForce(Vector2.right * (speedDifference * deceleration), ForceMode2D.Force);
     }
 
     //::::::::::::::::::::::::::::://
