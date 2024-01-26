@@ -10,24 +10,28 @@ public class EnemyChaseState : EnemyState {
     // State Callbacks
     //::::::::::::::::::::::::::::://
 
-    public override void OnUpdate() {
+    public override void Enter() {
+        // start chasing the player
+        enemy.IsChasingPlayer = true;
+        
+        // update animation state
+        enemy.SetAnimationState(Enemy.AnimationState.chase);
+    } 
+    
+    public override void Update() { } 
+
+    public override void FixedUpdate() {
         if (!enemy.IsActive) {
-            // enemy is no longer active; change to idle state
+            // enemy is no longer in range of player; move to idle state
             enemyStateMachine.ChangeState(enemy.IdleState);
-        } else if (enemy.IsInStrikingRange) {
-            // enemy is within striking range of player; change to attack state
+        } else if (enemy.IsInStrikingRange && enemy.IsGrounded) {
+            // enemy is within striking distance AND is grounded; move to attack state
             enemyStateMachine.ChangeState(enemy.AttackState);
-        } else {
-            // move towards player
-            enemy.ChasePlayer(); 
         }
     }
 
-    public override void OnFixedUpdate() {
-        // move towards player (using physics)
-        enemy.ChasePlayerPhysics();
+    public override void Exit() {
+        // stop chasing the player
+        enemy.IsChasingPlayer = false;
     }
-
-    public override void EnterState() { }
-    public override void ExitState() { }
 }

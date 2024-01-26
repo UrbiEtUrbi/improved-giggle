@@ -10,13 +10,17 @@ public class EnemyAttackState : EnemyState {
     // State Callbacks
     //::::::::::::::::::::::::::::://
 
-    public override void EnterState() {
-        enemy.AttackPlayer(() => {
+    public override void Enter() {
+        // start attacking player; when finished return to idle state
+        enemy.Attack(() => {
             enemyStateMachine.ChangeState(enemy.IdleState);
-        });    
+        });
+        
+        // update animation state
+        enemy.SetAnimationState(Enemy.AnimationState.attack);
     }
     
-    public override void ExitState() { }
-    public override void OnUpdate() { }
-    public override void OnFixedUpdate() { }
+    public override void Update() { }
+    public override void FixedUpdate() { }
+    public override void Exit() { }
 }

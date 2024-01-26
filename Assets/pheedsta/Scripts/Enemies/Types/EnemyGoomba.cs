@@ -4,76 +4,51 @@ using UnityEngine;
 
 public class EnemyGoomba : Enemy {
     
-    private bool isFacingLeft = true;
-    
     //::::::::::::::::::::::::::::://
     // Unity Callbacks
     //::::::::::::::::::::::::::::://
 
-    private void LateUpdate() {
-        //----------------------------//
-        // THIS IS FOR DEMONSTRATION PURPOSES ONLY!!!
-        //----------------------------//
+    protected override void FixedUpdate() {
+        base.FixedUpdate();
 
-        Vector3 playerPosition = ControllerGame.Player.transform.position;
-        
-        if ((isFacingLeft && transform.position.x > playerPosition.x) || (!isFacingLeft && transform.position.x < playerPosition.x)) return;
-        
-        transform.Rotate(Vector3.up, 180f);
-        isFacingLeft = !isFacingLeft;
+        if (IsChasingPlayer) {
+            Accelerate();
+        } else {
+            Decelerate();
+        }
     }
 
     //----------------------------//
     // Enemy Abstract Methods
     //----------------------------//
-    
-    public override void ChasePlayer() {
-        //----------------------------//
-        // THIS IS FOR DEMONSTRATION PURPOSES ONLY!!!
-        //----------------------------//
-        Vector3 currentPosition = transform.position;
-        Vector3 playerPosition = new(ControllerGame.Player.transform.position.x, currentPosition.y, currentPosition.z);
-        transform.position = Vector3.MoveTowards(currentPosition, playerPosition, moveSpeed * Time.deltaTime);
-    }
 
-    // we aren't using physics for this enemy
-    public override void ChasePlayerPhysics() { }
-
-    public override void AttackPlayer(Action completionHandler) {
+    public override void Attack(Action completionHandler) {
         StartCoroutine(AttackPlayerCO(completionHandler));
     }
     
+    private void Accelerate() {
+        float moveDirection = 0f < ControllerGame.Player.transform.position.x - transform.position.x ? 1f : -1f;
+        float targetSpeed = moveSpeed * moveDirection;
+        float speedDiff = targetSpeed - Rigidbody.velocity.x;
+        Move(speedDiff * acceleration);
+    }
+
+    private void Decelerate() {
+        float speedDiff = 0f - Rigidbody.velocity.x;
+        Move(speedDiff * deceleration);
+    }
+
+    private void Move(float m) {
+        Rigidbody.AddForce(Vector2.right * m, ForceMode2D.Force);
+    }
+
     //::::::::::::::::::::::::::::://
     // Coroutines
     //::::::::::::::::::::::::::::://
 
     private IEnumerator AttackPlayerCO(Action completionHandler) {
-        //----------------------------//
-        // THIS IS FOR DEMONSTRATION PURPOSES ONLY!!!
-        //----------------------------//
-        
-        const float jumpDuration = 0.15f;
-        const float jumpHeight = 0.6f;
-        
-        float progress = 0f;
-        Vector3 startPosition = transform.position;
-        Vector3 newPosition = startPosition;
-
-        while (progress < jumpDuration) {
-            newPosition.y = startPosition.y + progress / jumpDuration * jumpHeight;
-            transform.position = newPosition;
-            yield return null;
-            progress += Time.deltaTime;
-        }
-
-        while (0f < progress) {
-            newPosition.y = startPosition.y + progress / jumpDuration * jumpHeight;
-            transform.position = newPosition;
-            yield return null;
-            progress -= Time.deltaTime;
-        }
-        
-        transform.position = startPosition;
+        // for now just attack for half second
+        yield return new WaitForSeconds(0.5f);
         completionHandler?.Invoke();
     }
 }

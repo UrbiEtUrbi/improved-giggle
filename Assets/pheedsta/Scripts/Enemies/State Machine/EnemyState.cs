@@ -19,9 +19,9 @@ public abstract class EnemyState {
     //-----------------------------//
     // Virtual Methods
     //-----------------------------//
-
-    public virtual void EnterState() { }
-    public virtual void ExitState() { }
-    public virtual void OnUpdate() { }
-    public virtual void OnFixedUpdate() { }
+    
+    public virtual void Enter() { }
+    public virtual void Exit() { }
+    public virtual void Update() { }
+    public virtual void FixedUpdate() { }
 }
