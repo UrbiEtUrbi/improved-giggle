@@ -530,7 +530,6 @@ public class PlayerMovementController : MonoBehaviour
         {
 
             LastDashDurationTime = duration;
-            Debug.Log(LastDashDurationTime);
 
             m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
             jumping = false;
