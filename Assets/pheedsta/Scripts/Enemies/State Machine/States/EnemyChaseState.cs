@@ -27,12 +27,12 @@ public class EnemyChaseState : EnemyState {
         } else if (enemy.WillFall) {
             // enemy will fall if it continues to follow player; move to idle state
             enemyStateMachine.ChangeState(enemy.IdleState);
-        } else if (enemy.ShouldJump) {
-            // enemy is close to a wall; move to jump state
-            enemyStateMachine.ChangeState(enemy.JumpState);
         } else if (enemy.IsInStrikingRange && enemy.IsGrounded) {
             // enemy is within striking distance AND is grounded; move to attack state
             enemyStateMachine.ChangeState(enemy.AttackState);
+        } else if (enemy.ShouldJump) {
+            // enemy is close to a wall; move to jump state
+            enemyStateMachine.ChangeState(enemy.JumpState);
         }
     }
 

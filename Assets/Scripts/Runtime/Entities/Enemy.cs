@@ -181,8 +181,26 @@ public abstract class Enemy : Creature {
         // get components needed for calcs
         Bounds boxColliderBounds = BoxCollider.bounds;
         
-        // cast ray (returns true if it collides with ground layer)
-        return Physics2D.Raycast(boxColliderBounds.center, transform.right * moveDirection, boxColliderBounds.extents.x + minimumWallDistance, groundLayer);
+        // get the origin of the first ray (base of enemy)
+        // add tiny margin so ray is off the ground slightly
+        Vector2 origin = new(boxColliderBounds.center.x, boxColliderBounds.min.y + 0.1f);
+        
+        // CAST RAY #1; if it does not hit; we are done 
+        RaycastHit2D raycastHit1 = Physics2D.Raycast(origin, transform.right * moveDirection, boxColliderBounds.extents.x + minimumWallDistance, groundLayer);
+        if (!raycastHit1) return false;
+
+        // update origin for next ray cast (slightly less than one whole block)
+        origin.y = boxColliderBounds.min.y + 0.9f;
+        
+        // CAST RAY #2; if it does not hit; we are done 
+        RaycastHit2D raycastHit2 = Physics2D.Raycast(origin, transform.right * moveDirection, boxColliderBounds.extents.x + minimumWallDistance, groundLayer);
+        if (!raycastHit2) return false;
+        
+        // get the difference between the two raycast distances
+        float difference = Mathf.Abs(raycastHit2.distance - raycastHit1.distance);
+
+        // if the distance between the two is the same (within small threshold); this is a vertical wall and we need to jump
+        return difference < 0.01f;
     }
     
     //:::::::::::::::::::::::::::://
