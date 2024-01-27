@@ -96,6 +96,7 @@ public class Player : MonoBehaviour, IHealth
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position+AttackPosition, AttackSize);
+        var attackpos = new Vector3((MovementController.FacingRight ? 1 : -1) * AttackPosition.x, AttackPosition.y);
+        Gizmos.DrawWireCube(transform.position+ attackpos, AttackSize);
     }
 }

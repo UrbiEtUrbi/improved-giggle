@@ -137,6 +137,8 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     float dashDurationAfterHitEnemy = 0.1f;
     [SerializeField]
+    float forceAfterHitEnemy = 2;
+    [SerializeField]
     private Vector2 dashCheckSize = new Vector2(0.49f, 0.03f);
     [SerializeField]
     private Vector3 dashCheckPointLeft;
@@ -478,6 +480,7 @@ public class PlayerMovementController : MonoBehaviour
         dashDirection = 0;
         LastOnGroundTime = 0;
         wasDashing = false;
+        Debug.Log(OnGround);
         if (!OnGround)
         {
             m_RigidBody.gravityScale = gravityMultiplier * fallingGravity;
@@ -554,6 +557,7 @@ public class PlayerMovementController : MonoBehaviour
                 currentEnemyRageCount = 0;
             }
             SetDash(dashDurationAfterHitEnemy);
+            m_RigidBody.AddForce((FacingRight ? 1 : -1) * new Vector3(forceAfterHitEnemy, 0, 0));
             currentEnemyRageCount += change;
             currentEnemyRageCount = Mathf.Min(currentEnemyRageCount, MaxRageEnemies);
             RageTimer = RageCooldown;
