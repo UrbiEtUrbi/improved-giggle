@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4218089637594363292}
   - component: {fileID: 2962405291707668398}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 7937365727969168031}
   - component: {fileID: 1688121918831660485}
   - component: {fileID: 9175091125023090966}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Enemy Gooba
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ActivationDistance: 10
   DeactivationDistance: 15
-  MaxHealth: 20
+  MaxHealth: 1
   IsChasingPlayer: 0
   moveSpeed: 3
   acceleration: 5

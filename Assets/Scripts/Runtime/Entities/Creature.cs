@@ -26,7 +26,6 @@ public class Creature : Entity, IHealth
     {
         currentHealth += amount;
         currentHealth = Mathf.Min(currentHealth, MaxHealth);
-
         if (amount < 0)
         {
             //spawn damage vfx

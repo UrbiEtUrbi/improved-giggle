@@ -121,8 +121,9 @@ public class PlayerMovementController : MonoBehaviour
 
     public bool FacingRight => !m_PlayerSprite.flipX;
 
-    float dashDirection;
+    public float dashDirection;
     float canDashDirection;
+
     public bool Dashing;
 
 
@@ -169,11 +170,12 @@ public class PlayerMovementController : MonoBehaviour
 
     int currentEnemyRageCount;
 
-    float LastDashDurationTime;
-    float RageTimer;
-    float RageEndingTimer;
-    bool RageActive;
-    bool RageEnding;
+    
+    public float LastDashDurationTime;
+    public float RageTimer;
+    public float RageEndingTimer;
+    public bool RageActive;
+    public bool RageEnding;
 
    
 
@@ -270,7 +272,8 @@ public class PlayerMovementController : MonoBehaviour
 
         m_PlayerAnimator.SetBool("IsOnGround", OnGround);
         m_PlayerAnimator.SetBool("IsRunning", Mathf.Abs(m_RigidBody.velocity.x) > 1);
-        m_PlayerAnimator.SetBool("IsFalling", m_RigidBody.velocity.y < 0);
+       
+        m_PlayerAnimator.SetBool("IsFalling", m_RigidBody.velocity.y < -0.2f);
 
 
 
