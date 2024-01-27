@@ -11,6 +11,15 @@ public class EnemyJumpState : EnemyState {
     //::::::::::::::::::::::::::::://
 
     public override void Enter() {
+        // update chase state (this will make enemy move towards player in mid air)
+        enemy.IsChasingPlayer = true;
+        
+        // jump towards player; when finished return to idle state
+        enemy.Jump(() => {
+            enemyStateMachine.ChangeState(enemy.IdleState);
+        });
+        
+        // update animation state
         enemy.SetAnimationState(Enemy.AnimationState.jump);
     }
     

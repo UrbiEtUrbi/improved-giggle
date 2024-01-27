@@ -31,6 +31,14 @@ public class EnemyGoomba : Enemy {
     public override void Attack(Action completionHandler) {
         StartCoroutine(AttackPlayerCO(completionHandler));
     }
+
+    public override void Jump(Action completionHandler) {
+        StartCoroutine(JumpCO(completionHandler));
+    }
+
+    //::::::::::::::::::::::::::::://
+    // Movement
+    //::::::::::::::::::::::::::::://
     
     private void Accelerate() {
         // calculate the difference between the player and enemy (x)
@@ -41,7 +49,7 @@ public class EnemyGoomba : Enemy {
             // this prevents enemy from constantly moving back and forth when under player
             Decelerate();
         } else {
-            // movement is greater thatn threshold; get move direction (left = -1, right = 1)
+            // movement is greater than threshold; get move direction (left = -1, right = 1)
             float moveDirection = 0f < xDifference ? 1f : -1f;
 
             // calculate force required
@@ -63,8 +71,24 @@ public class EnemyGoomba : Enemy {
     //::::::::::::::::::::::::::::://
 
     private IEnumerator AttackPlayerCO(Action completionHandler) {
-        // for now just attack for half second
+        // for now just attack for half a second
         yield return new WaitForSeconds(0.5f);
+        
+        // we have finished attack; invoke callback
+        completionHandler?.Invoke();
+    }
+
+    private IEnumerator JumpCO(Action completionHandler) {
+        // add jump force to enemy (this will launch enemy into the air)
+        Rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        
+        // wait until next fixed update so it's feet have definitely left the ground
+        yield return new WaitForFixedUpdate();
+
+        // wait until enemy it is grounded again
+        while (!IsGrounded) yield return null;
+        
+        // we have finished jump; invoke callback
         completionHandler?.Invoke();
     }
 }

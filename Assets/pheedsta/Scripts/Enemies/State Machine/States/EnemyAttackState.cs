@@ -11,6 +11,9 @@ public class EnemyAttackState : EnemyState {
     //::::::::::::::::::::::::::::://
 
     public override void Enter() {
+        // update chase state (this will stop enemy moving towards player)
+        enemy.IsChasingPlayer = false;
+        
         // start attacking player; when finished return to idle state
         enemy.Attack(() => {
             enemyStateMachine.ChangeState(enemy.IdleState);

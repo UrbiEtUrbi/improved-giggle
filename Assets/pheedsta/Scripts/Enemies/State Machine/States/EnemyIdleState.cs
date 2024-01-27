@@ -13,12 +13,16 @@ public class EnemyIdleState : EnemyState {
     //::::::::::::::::::::::::::::://
 
     public override void Enter() {
+        // update chase state (this will stop enemy moving towards player)
+        enemy.IsChasingPlayer = false;
+        
+        // update animation state
         enemy.SetAnimationState(Enemy.AnimationState.idle);
     }
     
     public override void Update() {
-        // when enemy becomes active AND it is grounded; change to chase state
-        if (enemy.IsActive && enemy.IsGrounded) enemyStateMachine.ChangeState(enemy.ChaseState);
+        // when enemy becomes active AND it is grounded AND it is not going to fall; change to chase state
+        if (enemy.IsActive && enemy.IsGrounded && !enemy.WillFall) enemyStateMachine.ChangeState(enemy.ChaseState);
     }
     
     public override void FixedUpdate() { }
