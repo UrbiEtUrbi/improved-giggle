@@ -25,6 +25,7 @@ public class AttackObject : MonoBehaviour
     {
         if (lifetime > 0)
         {
+            Debug.Log(lifetime);
             dd.Init(lifetime);
         }
         attackSize = size;

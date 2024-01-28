@@ -474,7 +474,6 @@ public class PlayerMovementController : MonoBehaviour
 
     void EndDash()
     {
-        LastDashDurationTime = 0;
         dashDirection = 0;
         LastOnGroundTime = 0;
         wasDashing = false;
@@ -541,7 +540,8 @@ public class PlayerMovementController : MonoBehaviour
         {
             dashDirection = 0;
 
-        }   
+        }
+        LastDashDurationTime = duration;
     }
 
 
