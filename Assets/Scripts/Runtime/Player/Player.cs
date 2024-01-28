@@ -72,8 +72,9 @@ public class Player : MonoBehaviour, IHealth
         {
             //spawn damage vfx
         }
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && IsAlive)
         {
+            MovementController.Die();
             Die();
         }
     }

@@ -25,7 +25,6 @@ public class AttackObject : MonoBehaviour
     {
         if (lifetime > 0)
         {
-            Debug.Log(lifetime);
             dd.Init(lifetime);
         }
         attackSize = size;
@@ -47,6 +46,12 @@ public class AttackObject : MonoBehaviour
             CancelInvoke();
             Destroy(gameObject);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, attackSize);
     }
 
 

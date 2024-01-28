@@ -49,4 +49,5 @@ public class AttackData{
 public enum AttackType
 {
     PlayerSword,
+    GoombaAttack
 }

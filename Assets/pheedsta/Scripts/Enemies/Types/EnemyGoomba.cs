@@ -29,6 +29,11 @@ public class EnemyGoomba : Enemy {
     //----------------------------//
 
     public override void Attack(Action completionHandler) {
+
+
+        ControllerGame.ControllerAttack.Attack(transform, true, AttackType.GoombaAttack,
+            transform.position + new Vector3((IsFacingRight ? 1 : -1) * strikingDistance, 0, 0),
+            strikingSize, 1, 0.5f);
         StartCoroutine(AttackPlayerCO(completionHandler));
     }
 

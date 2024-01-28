@@ -31,7 +31,7 @@ public abstract class Enemy : Creature {
     // Private Properties
     //:::::::::::::::::::::::::::://
     
-    private bool IsFacingRight => SpriteRenderer.flipX;
+    protected bool IsFacingRight => SpriteRenderer.flipX;
     
     //:::::::::::::::::::::::::::://
     // Components
@@ -61,6 +61,7 @@ public abstract class Enemy : Creature {
     
     [Header("Attack")]
     [SerializeField] protected float strikingDistance = 5f;
+    [SerializeField] protected Vector3 strikingSize;
     
     [Header("Environment")]
     [Tooltip("The maximum ledge height enemy will fall off")]
@@ -225,5 +226,13 @@ public abstract class Enemy : Creature {
     private SpriteRenderer GetSpriteRenderer() {
         if (!_spriteRenderer) _spriteRenderer = transform.Find("Art").GetComponent<SpriteRenderer>();
         return _spriteRenderer;
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        var attackpos = new Vector3((IsFacingRight ? 1 : -1) * strikingDistance, 0);
+        Gizmos.DrawWireCube(transform.position + attackpos, strikingSize);
     }
 }

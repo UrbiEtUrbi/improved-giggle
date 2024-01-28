@@ -245,7 +245,10 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (!player.IsAlive)
+        {
+            return;
+        }
         LastOnGroundTime -= Time.deltaTime;
         LastDashDurationTime -= Time.deltaTime;
         RageTimer -= Time.deltaTime;
@@ -283,6 +286,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!player.IsAlive)
+        {
+            return;
+        }
         UpdateVerticalMovement();
 
 
@@ -471,6 +478,15 @@ public class PlayerMovementController : MonoBehaviour
         wasDashing = Dashing;
     }
 
+    public void Die()
+    {
+        falling = false;
+        jumping = false;
+        m_RigidBody.velocity = default;
+        m_PlayerAnimator.SetBool("IsOnGround", true);
+        m_PlayerAnimator.SetBool("IsRunning",false);
+    }
+
 
     void EndDash()
     {
@@ -487,6 +503,10 @@ public class PlayerMovementController : MonoBehaviour
     #region input
     void OnJump(bool value)
     {
+        if (!player.IsAlive)
+        {
+            return;
+        }
         jumpHeld = value;
         if (value && OnGround && !jumping)
         {
@@ -507,7 +527,10 @@ public class PlayerMovementController : MonoBehaviour
 
     void OnAttack()
     {
-
+        if (!player.IsAlive)
+        {
+            return;
+        }
         if (player.Attack())
         {
             SetDash(dashDuration);
@@ -516,7 +539,10 @@ public class PlayerMovementController : MonoBehaviour
     }
     void SetDash(float duration)
     {
-       
+        if (!player.IsAlive)
+        {
+            return;
+        }
         //if player is holding a direction
         if (Mathf.Abs(inputX) > 0)
         {

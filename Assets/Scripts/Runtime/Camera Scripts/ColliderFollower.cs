@@ -27,7 +27,6 @@ public class ColliderFollower : MonoBehaviour
     }
 
     void OnPlayerRespawned() {
-        Debug.Log($"on player respawned");
         UpdatePosition();
     }
 
