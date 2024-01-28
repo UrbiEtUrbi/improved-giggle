@@ -14,7 +14,7 @@ public class ControllerAttack : MonoBehaviour
     
 
 
-    public void Attack(Transform source, bool parentToSource, AttackType Type, Vector3 position, Vector3 size, int damage,float lifetime = -1)
+    public AttackObject Attack(Transform source, bool parentToSource, AttackType Type, Vector3 position, Vector3 size, int damage,float lifetime = -1)
     {
         var data = Attacks.Find(x => x.AttackType == Type);
         var attack = Instantiate(data.AttackObject, position, default, parentToSource ? source : null);
@@ -24,6 +24,7 @@ public class ControllerAttack : MonoBehaviour
         {
             var attackVfx = Instantiate(data.AttackVFX, position, default, parentToSource ? source : null);
         }
+        return attack;
     }
 
     public void OnEnemyDied()

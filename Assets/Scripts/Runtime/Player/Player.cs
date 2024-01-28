@@ -42,7 +42,7 @@ public class Player : MonoBehaviour, IHealth
 
 
 
-
+    AttackObject attackObject;
 
     public bool Attack()
     {
@@ -50,9 +50,17 @@ public class Player : MonoBehaviour, IHealth
         {
             return false;
         }
-        ControllerGame.ControllerAttack.Attack(transform, true,AttackType.PlayerSword, transform.position + (MovementController.FacingRight ? 1 : -1 )* AttackPosition, AttackSize, Damage, 0.2f);
+        attackObject = ControllerGame.ControllerAttack.Attack(transform, true,AttackType.PlayerSword, transform.position + (MovementController.FacingRight ? 1 : -1 )* AttackPosition, AttackSize, Damage, 0.2f);
         reloadTimer = ReloadTime;
         return true;
+    }
+
+    public void OnAttackEnd()
+    {
+        if (attackObject != null)
+        {
+            Destroy(attackObject.gameObject);
+        }
     }
 
     public void ChangeHealth(int amount)

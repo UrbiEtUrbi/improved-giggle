@@ -23,7 +23,10 @@ public class AttackObject : MonoBehaviour
 
     public void Init(Vector2 size, Vector3 position, int _damage, float lifetime)
     {
-        dd.Init(lifetime);
+        if (lifetime > 0)
+        {
+            dd.Init(lifetime);
+        }
         attackSize = size;
         damage = _damage;
         transform.position = position;

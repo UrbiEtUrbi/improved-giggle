@@ -464,7 +464,6 @@ public class PlayerMovementController : MonoBehaviour
     private void UpdateDash()
     {
 
-
         if (wasDashing && !Dashing)
         {
             EndDash();
@@ -475,12 +474,10 @@ public class PlayerMovementController : MonoBehaviour
 
     void EndDash()
     {
-
         LastDashDurationTime = 0;
         dashDirection = 0;
         LastOnGroundTime = 0;
         wasDashing = false;
-        Debug.Log(OnGround);
         if (!OnGround)
         {
             m_RigidBody.gravityScale = gravityMultiplier * fallingGravity;
@@ -520,7 +517,7 @@ public class PlayerMovementController : MonoBehaviour
     }
     void SetDash(float duration)
     {
-        Dashing = true;
+       
         //if player is holding a direction
         if (Mathf.Abs(inputX) > 0)
         {
@@ -534,7 +531,7 @@ public class PlayerMovementController : MonoBehaviour
         //check if player is already colliding with a wall
         if (canDashDirection == 0 || dashDirection != canDashDirection)
         {
-
+            Dashing = true;
             LastDashDurationTime = duration;
 
             m_RigidBody.velocity = new Vector2(m_RigidBody.velocity.x, 0);
@@ -544,9 +541,10 @@ public class PlayerMovementController : MonoBehaviour
         {
             dashDirection = 0;
 
-        }
-        
+        }   
     }
+
+
 
     public void ChangeEnemyCount(int change)
     {
