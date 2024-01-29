@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731716, g: 0.13414738, b: 0.121078566, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -520,7 +520,7 @@ Transform:
   m_GameObject: {fileID: 500664953}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.5, y: -0.5186509, z: -10}
+  m_LocalPosition: {x: 0, y: -5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -922,7 +922,7 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 6993713486216062685, guid: b3bf22148103c4d588f20c47814a8596,
     type: 3}
   VCamera: {fileID: 500664954}
-  StartPosition: {x: -9.7, y: -5.4, z: 0}
+  StartPosition: {x: -9.7, y: -5, z: 0}
 --- !u!114 &986134338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2916,17 +2916,38 @@ MonoBehaviour:
   parallaxLayerPrefab: {fileID: 6784255049846892071, guid: 7cd2b6a06218a4bed87c5eae8603c2f2,
     type: 3}
   parallaxData:
-  - backgroundSprite: {fileID: 21300000, guid: 86f917da3ee3c69479ab74f43290683f, type: 3}
+  - enabled: 1
     horizontalSpeed: 0
-  - backgroundSprite: {fileID: 21300000, guid: 680f8afb79e338a47a220c4a199533c5, type: 3}
+    verticalSpeed: 0
+    sortingOrder: -4
+    spriteData:
+    - sprite: {fileID: 21300000, guid: 86f917da3ee3c69479ab74f43290683f, type: 3}
+      count: 100
+  - enabled: 1
     horizontalSpeed: 0.1
-  - backgroundSprite: {fileID: 21300000, guid: e9313620d8b44324ea02f98a3ee892be, type: 3}
-    horizontalSpeed: 0.2
-  - backgroundSprite: {fileID: 21300000, guid: ca6841502e6bca24187cacb218fd5561, type: 3}
-    horizontalSpeed: 0.4
-  - backgroundSprite: {fileID: 21300000, guid: 0ceb3b7f07f8bff499799cb7cfa69fcd, type: 3}
-    horizontalSpeed: 0.8
-  Moon: {fileID: 0}
+    verticalSpeed: 0.1
+    sortingOrder: -3
+    spriteData:
+    - sprite: {fileID: 21300000, guid: 680f8afb79e338a47a220c4a199533c5, type: 3}
+      count: 100
+  - enabled: 1
+    horizontalSpeed: 0.3
+    verticalSpeed: 0.3
+    sortingOrder: -2
+    spriteData:
+    - sprite: {fileID: 21300000, guid: e9313620d8b44324ea02f98a3ee892be, type: 3}
+      count: 100
+  - enabled: 1
+    horizontalSpeed: 1
+    verticalSpeed: 1
+    sortingOrder: -1
+    spriteData:
+    - sprite: {fileID: 21300000, guid: ca6841502e6bca24187cacb218fd5561, type: 3}
+      count: 3
+    - sprite: {fileID: 21300000, guid: b7017cec420994d0a9903f022fc5428e, type: 3}
+      count: 1
+    - sprite: {fileID: 21300000, guid: ca6841502e6bca24187cacb218fd5561, type: 3}
+      count: 100
 --- !u!4 &1484894856
 Transform:
   m_ObjectHideFlags: 0
@@ -3207,7 +3228,7 @@ Transform:
   m_GameObject: {fileID: 1932442490}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.5, y: -0.5186509, z: -10}
+  m_LocalPosition: {x: 0, y: -5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
