@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -179,6 +180,9 @@ public class PlayerMovementController : MonoBehaviour
     public bool RageActive;
     public bool RageEnding;
 
+
+    Vector3[] points;
+    float slopeCheck = 1f;
    
 
     float RageSpeedBoost {
@@ -227,6 +231,12 @@ public class PlayerMovementController : MonoBehaviour
 
     private void OnEnable()
     {
+
+        points = new Vector3[3];
+
+      
+
+
         ControllerInput.Instance.Horizontal.AddListener(OnHorizontal);
         ControllerInput.Instance.Vertical.AddListener(OnVertical);
         ControllerInput.Instance.Jump.AddListener(OnJump);
@@ -271,6 +281,10 @@ public class PlayerMovementController : MonoBehaviour
                 currentEnemyRageCount = 0;
             }
         }
+
+        points[0] = new Vector3(transform.position.x - (groundCheckSize.x / 2f + 0.05f) + groundCheckPoint.x, transform.position.y + groundCheckPoint.y +0.1f, 0);
+        points[1] = new Vector3(transform.position.x + groundCheckPoint.x, transform.position.y + groundCheckPoint.y+0.1f, 0);
+        points[2] = new Vector3(transform.position.x + (groundCheckSize.x / 2f + 0.05f) + groundCheckPoint.x, transform.position.y + groundCheckPoint.y+0.1f, 0);
 
         GroundCheck();
 
@@ -427,6 +441,8 @@ public class PlayerMovementController : MonoBehaviour
         transform.position = lastGroundedPosition;
     }
 
+    public Vector2 nextGravity;
+
     private void GroundCheck()
     {
 
@@ -460,6 +476,88 @@ public class PlayerMovementController : MonoBehaviour
 
             falling = false;
             m_RigidBody.gravityScale = gravityMultiplier * fallingGravity;
+        }
+
+
+
+
+        if (!OnGround)
+        {
+           
+            Physics2D.gravity = new Vector2(0, -9.81f);
+        }
+        else
+        {
+
+            RaycastHit2D[] hits = new RaycastHit2D[1];
+
+
+            var normals = new List<Vector2>();
+            var positions = new List<Vector2>();
+
+
+            for (int i = 0; i < 3; i++)
+            {
+                var hit = Physics2D.RaycastNonAlloc(points[i], Vector2.down, hits, slopeCheck, groundLayer);
+                if (hit > 0)
+                {
+                    normals.Add(hits[0].normal);
+                    positions.Add(hits[0].point);
+                }
+            }
+
+
+            if (normals.Count == 0)
+            {
+                Debug.Log($"no hits normal gravity");
+                nextGravity = new Vector2(0, -9.81f);
+            }
+
+            //if (normals.Count == 3 && positions[0] != positions[2])
+            //{
+            //    Physics2D.gravity = new Vector2(0, -9.81f);
+            //    return;
+            //}
+            float maxY = -1000;
+            float left = 0;
+            float right = 0;
+            for (int i = 0; i < normals.Count; i++)
+            {
+              
+
+                if (Mathf.Abs(normals[i].x) > 0.01f)
+                {
+                    if (normals[i].x < 0)
+                    {
+                        left++;
+                    }
+                    else if (normals[i].x > 0)
+                    {
+                        right++;
+                    }
+                }
+                if (maxY < positions[i].y && i != 1)
+                {
+                    nextGravity = -9.81f * normals[i];
+                    maxY = positions[i].y;
+                  
+                }
+            }
+
+
+            //if (left > 1)
+            //{
+            //    Debug.Log($"left");
+            //    nextGravity = -9.81f * normals.Find(x => x.x > 0);
+
+            //}
+            //else if (right > 1)
+            //{
+            //    Debug.Log($"right");
+            //    nextGravity = -9.81f * normals.Find(x => x.x < 0);
+            //}
+            Physics2D.gravity = Vector2.Lerp(Physics2D.gravity, nextGravity, 0.5f);
+
         }
     }
 
@@ -631,5 +729,15 @@ public class PlayerMovementController : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(transform.position + dashCheckPointLeft, dashCheckSize);
         Gizmos.DrawWireCube(transform.position + dashCheckPointRight, dashCheckSize);
+
+        Gizmos.color = Color.white;
+
+
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            Gizmos.DrawLine(points[i], points[i] + slopeCheck * new Vector3(Vector2.down.x, Vector2.down.y, 0));
+        }
     }
 }

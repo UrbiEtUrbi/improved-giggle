@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6993713486216062685}
   - component: {fileID: 1230953763776032381}
   - component: {fileID: 3755130662127635873}
-  - component: {fileID: 7590652025365464219}
   - component: {fileID: 3872838224557979787}
   - component: {fileID: 8023374909123974966}
   m_Layer: 7
@@ -144,51 +143,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &7590652025365464219
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2480953763940765406}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.017005324, y: -0.44369698}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.2896268, y: 1.887394}
-  m_EdgeRadius: 0
 --- !u!60 &3872838224557979787
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -233,13 +187,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.5975713, y: -0.10058504}
-      - {x: 0.37203932, y: 0.7818966}
-      - {x: 0.114743225, y: 1.0081959}
-      - {x: -0.38553643, y: 0.31721285}
-      - {x: -0.64717084, y: -1.3800328}
-      - {x: 0.5832172, y: -1.3754647}
-      - {x: 0.6906733, y: -1.3263721}
+    - - {x: 0.6, y: -1.37}
+      - {x: 0.38, y: 1}
+      - {x: -0.39703715, y: 1}
+      - {x: -0.6, y: -1.37}
   m_UseDelaunayMesh: 0
 --- !u!95 &8023374909123974966
 Animator:
