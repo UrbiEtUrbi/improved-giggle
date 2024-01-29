@@ -14,7 +14,7 @@ public class ParallaxLayer : MonoBehaviour {
     // Constants
     //::::::::::::::::::::::::::::://
 
-    private const float screenMargin = 10f;
+    private const float screenMargin = 2f;
     
     //::::::::::::::::::::::::::::://
     // Local Fields
@@ -116,11 +116,11 @@ public class ParallaxLayer : MonoBehaviour {
     //::::::::::::::::::::::::::::://
 
     private float GetMinCameraX() {
-        return mainCamera.ViewportToWorldPoint(Vector3.zero).x;
+        return mainCamera.ViewportToWorldPoint(Vector3.zero).x - screenMargin;
     }
 
     private float GetMaxCameraX() {
-        return mainCamera.ViewportToWorldPoint(Vector3.one).x;
+        return mainCamera.ViewportToWorldPoint(Vector3.one).x + screenMargin;
     }
     
     //::::::::::::::::::::::::::::://

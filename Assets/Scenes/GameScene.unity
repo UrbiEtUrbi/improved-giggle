@@ -2918,21 +2918,25 @@ MonoBehaviour:
   parallaxData:
   - enabled: 1
     moveSpeed: 0
-    sortingOrder: -4
+    sortingOrder: -10
     spriteData:
     - sprite: {fileID: 21300000, guid: 86f917da3ee3c69479ab74f43290683f, type: 3}
-      count: 100
+      count: 3
   - enabled: 1
     moveSpeed: 0.2
-    sortingOrder: -3
+    sortingOrder: -9
     spriteData:
     - sprite: {fileID: 21300000, guid: 680f8afb79e338a47a220c4a199533c5, type: 3}
+      count: 2
+    - sprite: {fileID: 21300000, guid: 7a26d3ff5c5224180b74aa4d14fa863b, type: 3}
       count: 100
   - enabled: 1
     moveSpeed: 0.4
-    sortingOrder: -2
+    sortingOrder: -8
     spriteData:
     - sprite: {fileID: 21300000, guid: e9313620d8b44324ea02f98a3ee892be, type: 3}
+      count: 2
+    - sprite: {fileID: 21300000, guid: e7b02469602604ef6aad9e9465050e90, type: 3}
       count: 100
   - enabled: 1
     moveSpeed: 1
@@ -2942,7 +2946,23 @@ MonoBehaviour:
       count: 3
     - sprite: {fileID: 21300000, guid: b7017cec420994d0a9903f022fc5428e, type: 3}
       count: 1
-    - sprite: {fileID: 21300000, guid: ca6841502e6bca24187cacb218fd5561, type: 3}
+    - sprite: {fileID: 21300000, guid: 24603d25c981642b28ecda6be35f916d, type: 3}
+      count: 100
+  - enabled: 1
+    moveSpeed: 1
+    sortingOrder: 1
+    spriteData:
+    - sprite: {fileID: 21300000, guid: d60b6b88a39f242858eaad5b92855f7d, type: 3}
+      count: 3
+    - sprite: {fileID: 21300000, guid: 072c28d45d6534272b5fa58f2bb3e9cf, type: 3}
+      count: 100
+  - enabled: 1
+    moveSpeed: 1
+    sortingOrder: -2
+    spriteData:
+    - sprite: {fileID: 21300000, guid: d60b6b88a39f242858eaad5b92855f7d, type: 3}
+      count: 3
+    - sprite: {fileID: 21300000, guid: 0be14fea28ff043deaeb856888413ff7, type: 3}
       count: 100
 --- !u!4 &1484894856
 Transform:
