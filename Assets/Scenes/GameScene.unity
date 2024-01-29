@@ -2917,29 +2917,25 @@ MonoBehaviour:
     type: 3}
   parallaxData:
   - enabled: 1
-    horizontalSpeed: 0
-    verticalSpeed: 0
+    moveSpeed: 0
     sortingOrder: -4
     spriteData:
     - sprite: {fileID: 21300000, guid: 86f917da3ee3c69479ab74f43290683f, type: 3}
       count: 100
   - enabled: 1
-    horizontalSpeed: 0.1
-    verticalSpeed: 0.1
+    moveSpeed: 0.2
     sortingOrder: -3
     spriteData:
     - sprite: {fileID: 21300000, guid: 680f8afb79e338a47a220c4a199533c5, type: 3}
       count: 100
   - enabled: 1
-    horizontalSpeed: 0.3
-    verticalSpeed: 0.3
+    moveSpeed: 0.4
     sortingOrder: -2
     spriteData:
     - sprite: {fileID: 21300000, guid: e9313620d8b44324ea02f98a3ee892be, type: 3}
       count: 100
   - enabled: 1
-    horizontalSpeed: 1
-    verticalSpeed: 1
+    moveSpeed: 1
     sortingOrder: -1
     spriteData:
     - sprite: {fileID: 21300000, guid: ca6841502e6bca24187cacb218fd5561, type: 3}
