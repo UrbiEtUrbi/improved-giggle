@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -201,8 +201,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -20, y: 30}
-      - {x: -20, y: -15}
-      - {x: 100, y: -15}
+      - {x: -20, y: -12}
+      - {x: 100, y: -12}
       - {x: 100, y: 30}
   m_UseDelaunayMesh: 0
 --- !u!114 &57258350
@@ -596,7 +596,7 @@ MonoBehaviour:
   m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.5
+  m_ScreenY: 0.55
   m_CameraDistance: 10
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
