@@ -201,8 +201,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -20, y: 30}
-      - {x: -20, y: -15}
-      - {x: 100, y: -15}
+      - {x: -20, y: -12}
+      - {x: 100, y: -12}
       - {x: 100, y: 30}
   m_UseDelaunayMesh: 0
 --- !u!114 &57258350

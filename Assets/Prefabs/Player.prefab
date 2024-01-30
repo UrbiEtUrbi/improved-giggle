@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 1
   Damage: 1
-  AttackSize: {x: 1.19, y: 1, z: 0}
+  AttackSize: {x: 1.8, y: 2.5, z: 0}
   AttackPosition: {x: 0.99, y: -0.24, z: 0}
   ReloadTime: 1
   MovementController: {fileID: 0}
