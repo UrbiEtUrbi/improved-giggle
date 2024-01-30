@@ -54,7 +54,7 @@ MonoBehaviour:
   AttackSize: {x: 1.8, y: 2.5, z: 0}
   AttackPosition: {x: 0.99, y: -0.24, z: 0}
   ReloadTime: 1
-  InvulTime: 1.5
+  InvulTime: 0.3
   MovementController: {fileID: 1230953763776032381}
   IsAlive: 0
 --- !u!114 &1230953763776032381
@@ -100,16 +100,16 @@ MonoBehaviour:
   Dashing: 0
   dashSpeed: 14
   dashAcceleration: 3
-  dashDuration: 0.3
-  dashDurationAfterHitEnemy: 0.3
-  forceAfterHitEnemy: 2
+  dashDuration: 0.2
+  dashDurationAfterHitEnemy: 0.1
+  forceAfterHitEnemy: 350
   dashCheckSize: {x: 0.68, y: 2.05}
   dashCheckPointLeft: {x: -1, y: 0, z: 0}
   dashCheckPointRight: {x: 1, y: 0, z: 0}
   MaxRageEnemies: 5
   RageCooldown: 5
-  AccelerationBoostPerEnemy: 0.1
-  SpeedBoostPerEnemy: 0.5
+  AccelerationBoostPerEnemy: 1
+  SpeedBoostPerEnemy: 0.4
   RageEndTweenTime: 1
   test: 0
   LastDashDurationTime: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731716, g: 0.13414738, b: 0.121078566, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -200,10 +200,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -20, y: 30}
+    - - {x: -20, y: 5}
       - {x: -20, y: -12}
       - {x: 100, y: -12}
-      - {x: 100, y: 30}
+      - {x: 100, y: 5}
   m_UseDelaunayMesh: 0
 --- !u!114 &57258350
 MonoBehaviour:
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 1, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 0.5, z: 0}
   m_LookaheadTime: 0.35
   m_LookaheadSmoothing: 2.5
   m_LookaheadIgnoreY: 1
@@ -620,14 +620,14 @@ MonoBehaviour:
   m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
-  m_ScreenY: 0.55
+  m_ScreenY: 0.5
   m_CameraDistance: 10
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.288
-  m_SoftZoneHeight: 0.446
+  m_SoftZoneHeight: 0.541
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -980,6 +980,9 @@ MonoBehaviour:
   - {fileID: 102900000, guid: f5fdf544283855942803d1f904c5ffa7, type: 3}
   - {fileID: 102900000, guid: 42c54a169e54d704092d05d08a2b812a, type: 3}
   - {fileID: 102900000, guid: 86485f87a0734a74b819e7e74afb4b85, type: 3}
+  - {fileID: 102900000, guid: f8729f8745854514cbe93a36378f8c09, type: 3}
+  - {fileID: 102900000, guid: 98a3508dc13ed944fa876dfc41eaaeff, type: 3}
+  - {fileID: 102900000, guid: 4d3cea9501bee6f4fa5a61f244fb6305, type: 3}
   proximityUnits: 10
 --- !u!114 &986134340
 MonoBehaviour:
@@ -1083,7 +1086,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  TimeToWin: 300
+  TimeToWin: 240
   endColorFade: {r: 0.3679245, g: 0, b: 0, a: 1}
   endColorMoon: {r: 0.6132076, g: 0, b: 0, a: 1}
   OnTimeRanOut:

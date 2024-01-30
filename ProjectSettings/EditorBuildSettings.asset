@@ -32,6 +32,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/pheedsta/Scenes/Scene 6.unity
     guid: 86485f87a0734a74b819e7e74afb4b85
+  - enabled: 1
+    path: Assets/pheedsta/Scenes/Scene 7.unity
+    guid: f8729f8745854514cbe93a36378f8c09
+  - enabled: 1
+    path: Assets/pheedsta/Scenes/Scene 8.unity
+    guid: 98a3508dc13ed944fa876dfc41eaaeff
+  - enabled: 1
+    path: Assets/pheedsta/Scenes/Scene 9.unity
+    guid: 4d3cea9501bee6f4fa5a61f244fb6305
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: fb36c453376da44e6b02aa920139d755,
       type: 2}
