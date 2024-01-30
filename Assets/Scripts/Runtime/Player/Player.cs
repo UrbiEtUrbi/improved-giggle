@@ -18,15 +18,19 @@ public class Player : MonoBehaviour, IHealth
 
     [SerializeField]
     Vector3 AttackSize, AttackPosition;
-    [EndGroup]
     [EditorButton(nameof(TestDie))]
     [SerializeField]
     float ReloadTime;
 
+
+    [EndGroup]
+    [SerializeField]
+    float InvulTime = 1f;
    
     int currentHealth;
 
     float reloadTimer;
+    float invulTimer;
 
     [SerializeField]
     public PlayerMovementController MovementController;
@@ -52,6 +56,7 @@ public class Player : MonoBehaviour, IHealth
         }
         attackObject = ControllerGame.ControllerAttack.Attack(transform, true,AttackType.PlayerSword, transform.position + (MovementController.FacingRight ? 1 : -1 )* AttackPosition, AttackSize, Damage, 2);
         reloadTimer = ReloadTime;
+        invulTimer = InvulTime;
         return true;
     }
 
@@ -65,6 +70,12 @@ public class Player : MonoBehaviour, IHealth
 
     public void ChangeHealth(int amount)
     {
+
+        if (amount < 0 && invulTimer > 0)
+        {
+            //invincible
+            return;
+        }
         currentHealth += amount;
         currentHealth = Mathf.Min(currentHealth, MaxHealth);
 
@@ -88,6 +99,12 @@ public class Player : MonoBehaviour, IHealth
     private void Update()
     {
         reloadTimer -= Time.deltaTime;
+        invulTimer -= Time.deltaTime;
+
+        if (transform.position.y < -20f && IsAlive)
+        {
+            TestDie();
+        }
     }
 
     public void Die()
