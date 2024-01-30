@@ -72,7 +72,7 @@ MonoBehaviour:
   runAcceleration: 4
   runDecceleration: 8
   ReturnDistance: 50
-  jumpForce: 9
+  jumpForce: 10.5
   jumpAcceleration: 0.8
   jumpDecceleration: 0.5
   gravityMultiplier: 1
@@ -116,6 +116,7 @@ MonoBehaviour:
   RageEndingTimer: 0
   RageActive: 0
   RageEnding: 0
+  nextGravity: {x: 0, y: 0}
 --- !u!50 &3755130662127635873
 Rigidbody2D:
   serializedVersion: 4
