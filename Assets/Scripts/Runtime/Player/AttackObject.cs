@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 
 [RequireComponent(typeof(DestroyDelayed))]
@@ -15,6 +16,10 @@ public class AttackObject : MonoBehaviour
     Vector2 attackSize;
     int damage;
 
+    [SerializeField]
+    bool generateImpulse;
+    [SerializeField]
+    float impulseAmplitude;
     private void Awake()
     {
         dd = GetComponent<DestroyDelayed>();
@@ -42,8 +47,15 @@ public class AttackObject : MonoBehaviour
         var colliderHit = Physics2D.OverlapBox(transform.position, attackSize, 0, TargetLayer);
         if (colliderHit != null)
         {
+
+            
             colliderHit.GetComponent<IHealth>().ChangeHealth(-damage);
             CancelInvoke();
+            if (generateImpulse)
+            {
+                var cis = GetComponent<CinemachineImpulseSource>();
+                cis.GenerateImpulse(new Vector3(Random.Range(-1f,1f), Random.Range(-1, 1f), 0) * impulseAmplitude);
+            }
             Destroy(gameObject);
         }
     }
