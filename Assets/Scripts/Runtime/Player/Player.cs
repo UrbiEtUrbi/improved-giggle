@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IHealth
     [SerializeField]
     Vector3 AttackSize, AttackPosition;
     [EndGroup]
-    [EditorButton(nameof(Die))]
+    [EditorButton(nameof(TestDie))]
     [SerializeField]
     float ReloadTime;
 
@@ -77,6 +77,12 @@ public class Player : MonoBehaviour, IHealth
             MovementController.Die();
             Die();
         }
+    }
+
+    public void TestDie()
+    {
+        MovementController.Die();
+        Die();
     }
 
     private void Update()
