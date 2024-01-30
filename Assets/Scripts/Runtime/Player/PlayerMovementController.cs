@@ -734,10 +734,12 @@ public class PlayerMovementController : MonoBehaviour
 
 
 
-
-        for (int i = 0; i < 3; i++)
+        if (points != null)
         {
-            Gizmos.DrawLine(points[i], points[i] + slopeCheck * new Vector3(Vector2.down.x, Vector2.down.y, 0));
+            for (int i = 0; i < points.Length; i++)
+            {
+                Gizmos.DrawLine(points[i], points[i] + slopeCheck * new Vector3(Vector2.down.x, Vector2.down.y, 0));
+            }
         }
     }
 }

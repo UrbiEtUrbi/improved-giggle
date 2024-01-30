@@ -28,7 +28,7 @@ public class Player : MonoBehaviour, IHealth
 
     float reloadTimer;
 
-    [HideInInspector]
+    [SerializeField]
     public PlayerMovementController MovementController;
 
     public bool IsAlive;
