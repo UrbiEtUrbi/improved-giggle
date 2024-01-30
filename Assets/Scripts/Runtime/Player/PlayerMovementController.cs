@@ -583,6 +583,8 @@ public class PlayerMovementController : MonoBehaviour
         m_RigidBody.velocity = default;
         m_PlayerAnimator.SetBool("IsOnGround", true);
         m_PlayerAnimator.SetBool("IsRunning",false);
+        m_PlayerAnimator.SetTrigger("Die");
+        m_PlayerAnimator.SetBool("IsDead", true);
     }
 
 
@@ -718,7 +720,14 @@ public class PlayerMovementController : MonoBehaviour
     public void ResetReturnPosition()
     {
         maxPositionX = transform.position.x;
+        m_PlayerAnimator.SetTrigger("GetUp");
+        
         Physics2D.SyncTransforms();
+    }
+
+    public void IsAlive()
+    {
+        m_PlayerAnimator.SetBool("IsDead", false);
     }
 
     private void OnDrawGizmosSelected()
@@ -734,10 +743,12 @@ public class PlayerMovementController : MonoBehaviour
 
 
 
-
-        for (int i = 0; i < 3; i++)
+        if (points != null)
         {
-            Gizmos.DrawLine(points[i], points[i] + slopeCheck * new Vector3(Vector2.down.x, Vector2.down.y, 0));
+            for (int i = 0; i < points.Length; i++)
+            {
+                Gizmos.DrawLine(points[i], points[i] + slopeCheck * new Vector3(Vector2.down.x, Vector2.down.y, 0));
+            }
         }
     }
 }

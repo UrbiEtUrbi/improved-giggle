@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3106239684913180613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2955006096010563115}
+  - component: {fileID: 2493489805190968021}
+  m_Layer: 0
+  m_Name: Pooler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2955006096010563115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106239684913180613}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2493489805190968021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106239684913180613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a94b0331b2b6fea46b7fd9800cceb13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObjects:
+  - poolObject: {fileID: 3382101926545384584, guid: 419a19735a3a248e3bcf551a3b82926c, type: 3}
+    initialPoolSize: 10
+    maxPoolSize: 10
+  - poolObject: {fileID: 9086105760571377882, guid: acaf9819a58394f519eeda6a88601e36, type: 3}
+    initialPoolSize: 10
+    maxPoolSize: 10
+  - poolObject: {fileID: 4086129220584096523, guid: 8e9d1e2a014394eec82b34fc3eba94ca, type: 3}
+    initialPoolSize: 10
+    maxPoolSize: 10
+  - poolObject: {fileID: -4309233488431999813, guid: e993798fa61de464bb29ca5badd20205, type: 3}
+    initialPoolSize: 3
+    maxPoolSize: 5
+  - poolObject: {fileID: 4568430017190543386, guid: 8f6c698300d894260ba4a58fe30b4cb6, type: 3}
+    initialPoolSize: 20
+    maxPoolSize: 40
+  - poolObject: {fileID: 1073638014, guid: 18869de4dd0304544acbc29b33f78486, type: 3}
+    initialPoolSize: 7
+    maxPoolSize: 8
+  - poolObject: {fileID: 2172079135372036022, guid: b2f0302c3c37341818b031a911799585, type: 3}
+    initialPoolSize: 7
+    maxPoolSize: 8
+  - poolObject: {fileID: 5204880793045513180, guid: 305c55e48964746578c7ddd565b809f8, type: 3}
+    initialPoolSize: 1
+    maxPoolSize: 2
+  - poolObject: {fileID: 629883239336676359, guid: 3b39ee66da6d34c26897f4ef43eb834e, type: 3}
+    initialPoolSize: 3
+    maxPoolSize: 4
+  - poolObject: {fileID: 507748927988082030, guid: ab00feaac0c2d446282287448cbf1cc8, type: 3}
+    initialPoolSize: 5
+    maxPoolSize: 10
+  - poolObject: {fileID: 4240567999222469647, guid: 968e1a0651c9c4b5f9b2ab467904e9ee, type: 3}
+    initialPoolSize: 1
+    maxPoolSize: 2
+  - poolObject: {fileID: 4935726821102692145, guid: 4ec89a0ca1bf04b7abd923854274683f, type: 3}
+    initialPoolSize: 10
+    maxPoolSize: 20
+  - poolObject: {fileID: 1774143413713634679, guid: ad62888a866ca44189afb49c4935cf65, type: 3}
+    initialPoolSize: 3
+    maxPoolSize: 6
+  - poolObject: {fileID: 8282370892159772300, guid: b4ebf86d25cd246ae910bdf70e342042, type: 3}
+    initialPoolSize: 3
+    maxPoolSize: 6
+  - poolObject: {fileID: 5998325892375675918, guid: c0e7a6948d4d04bb19ab7547356ce59b, type: 3}
+    initialPoolSize: 5
+    maxPoolSize: 10
+  - poolObject: {fileID: 4963573132879665347, guid: 46fe1795bedaf47b39d75b2d848b6065, type: 3}
+    initialPoolSize: 5
+    maxPoolSize: 20
+  - poolObject: {fileID: 7814384460859420017, guid: 62cf9c320fc34ab489e2ab022b250ee1, type: 3}
+    initialPoolSize: 5
+    maxPoolSize: 20
+  - poolObject: {fileID: 8258699496252362754, guid: ad3fe6ceabc22477d9b80cb8f76a6701, type: 3}
+    initialPoolSize: 5
+    maxPoolSize: 20
+  - poolObject: {fileID: 7110510423519493821, guid: ee038c2f61dbb99458683b7538ca95c9, type: 3}
+    initialPoolSize: 5
+    maxPoolSize: 20
+  - poolObject: {fileID: -5849009828979239036, guid: 61af2863dd1af4819804ed4cc6d55777, type: 3}
+    initialPoolSize: 2
+    maxPoolSize: 3
+  - poolObject: {fileID: 6876533764607178092, guid: 940ae7e7c7ffa4d23a1aa782de63b1af, type: 3}
+    initialPoolSize: 2
+    maxPoolSize: 3

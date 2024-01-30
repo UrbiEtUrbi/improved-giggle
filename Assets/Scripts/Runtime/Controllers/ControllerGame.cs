@@ -87,9 +87,10 @@ public class ControllerGame : ControllerLocal
         player.transform.position = StartPosition;
         player.IsAlive = true;
         VCamera.Follow = player.transform;
-       
 
 
+        MusicPlayer.Instance.PlayPlaylist("overworld");
+        SoundManager.Instance.PlayLooped("demons_growling");
         Instance = this;
         base.Init();    
     }

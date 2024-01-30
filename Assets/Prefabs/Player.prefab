@@ -54,7 +54,8 @@ MonoBehaviour:
   AttackSize: {x: 1.8, y: 2.5, z: 0}
   AttackPosition: {x: 0.99, y: -0.24, z: 0}
   ReloadTime: 1
-  MovementController: {fileID: 0}
+  InvulTime: 1.5
+  MovementController: {fileID: 1230953763776032381}
   IsAlive: 0
 --- !u!114 &1230953763776032381
 MonoBehaviour:
