@@ -989,6 +989,10 @@ MonoBehaviour:
     AttackObject: {fileID: -6947989837818270348, guid: f172d7876dcba4013b85d9f8d6d72441,
       type: 3}
     AttackVFX: {fileID: 0}
+  - AttackType: 2
+    AttackObject: {fileID: -6947989837818270348, guid: 915cd4d1d68bd46c49b302b5938db02c,
+      type: 3}
+    AttackVFX: {fileID: 0}
 --- !u!114 &986134342
 MonoBehaviour:
   m_ObjectHideFlags: 0

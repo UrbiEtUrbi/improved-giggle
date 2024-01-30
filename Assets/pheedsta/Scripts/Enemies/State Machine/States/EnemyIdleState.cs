@@ -23,6 +23,11 @@ public class EnemyIdleState : EnemyState {
         if (enemy.IsActive && enemy.IsGrounded && !enemy.WillFall) enemyStateMachine.ChangeState(enemy.ChaseState);
     }
     
+    //::::::::::::::::::::::::::::://
+    // State Callbacks (unused)
+    //::::::::::::::::::::::::::::://
+
     public override void FixedUpdate() { }
+    public override void ExecuteAttack() { }
     public override void Exit() { }
 }

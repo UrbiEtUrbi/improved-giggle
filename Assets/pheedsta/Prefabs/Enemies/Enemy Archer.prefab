@@ -93,12 +93,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6441655305065522697}
-  - component: {fileID: 3398968967233386933}
+  - component: {fileID: 3947364059765097690}
   - component: {fileID: 7937365727969168031}
   - component: {fileID: 1688121918831660485}
   - component: {fileID: 9175091125023090966}
   m_Layer: 10
-  m_Name: Enemy Gooba
+  m_Name: Enemy Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,7 @@ Transform:
   - {fileID: 4218089637594363292}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3398968967233386933
+--- !u!114 &3947364059765097690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3701801965576335930}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf2f408432da34094bc82a5313ecc9a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b907e289a05e428e821bc175630cd4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ActivationDistance: 10
@@ -140,8 +140,8 @@ MonoBehaviour:
   acceleration: 5
   deceleration: 10
   jumpForce: 5.5
-  strikingDistance: 2
-  strikingSize: {x: 2.84, y: 1, z: 0}
+  strikingDistance: 8
+  strikingSize: {x: 2, y: 2, z: 0}
   maximumFall: 4
   minimumWallDistance: 1
   groundLayer:

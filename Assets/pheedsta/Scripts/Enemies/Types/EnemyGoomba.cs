@@ -28,14 +28,7 @@ public class EnemyGoomba : Enemy {
     // Enemy Abstract Methods
     //----------------------------//
 
-    public override void Attack(Action completionHandler) {
-
-
-        ControllerGame.ControllerAttack.Attack(transform, true, AttackType.GoombaAttack,
-            transform.position + new Vector3((IsFacingRight ? 1 : -1) * strikingDistance, 0, 0),
-            strikingSize, 1, 0.5f);
-        StartCoroutine(AttackPlayerCO(completionHandler));
-    }
+    public override void Attack(Action completionHandler) { } // subclasses now handle attacks
 
     public override void Jump(Action completionHandler) {
         StartCoroutine(JumpCO(completionHandler));
@@ -74,14 +67,6 @@ public class EnemyGoomba : Enemy {
     //::::::::::::::::::::::::::::://
     // Coroutines
     //::::::::::::::::::::::::::::://
-
-    private IEnumerator AttackPlayerCO(Action completionHandler) {
-        // for now just attack for half a second
-        yield return new WaitForSeconds(0.5f);
-        
-        // we have finished attack; invoke callback
-        completionHandler?.Invoke();
-    }
 
     private IEnumerator JumpCO(Action completionHandler) {
         // add jump force to enemy (this will launch enemy into the air)

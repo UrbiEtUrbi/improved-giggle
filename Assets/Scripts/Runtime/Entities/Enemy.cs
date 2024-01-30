@@ -134,6 +134,16 @@ public abstract class Enemy : Creature {
         float xDifference = transform.position.x - ControllerGame.Player.transform.position.x;
         if (spriteFlipThreshold < Mathf.Abs(xDifference)) SpriteRenderer.flipX = xDifference < 0f;
     }
+    
+    //:::::::::::::::::::::::::::://
+    // Gizmo Callbacks
+    //:::::::::::::::::::::::::::://
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        var attackpos = new Vector3((IsFacingRight ? 1 : -1) * strikingDistance, 0);
+        Gizmos.DrawWireCube(transform.position + attackpos, strikingSize);
+    }
 
     //----------------------------//
     // Animation States
@@ -226,13 +236,5 @@ public abstract class Enemy : Creature {
     private SpriteRenderer GetSpriteRenderer() {
         if (!_spriteRenderer) _spriteRenderer = transform.Find("Art").GetComponent<SpriteRenderer>();
         return _spriteRenderer;
-    }
-
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        var attackpos = new Vector3((IsFacingRight ? 1 : -1) * strikingDistance, 0);
-        Gizmos.DrawWireCube(transform.position + attackpos, strikingSize);
     }
 }

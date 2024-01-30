@@ -23,7 +23,12 @@ public class EnemyJumpState : EnemyState {
         enemy.SetAnimationState(Enemy.AnimationState.jump);
     }
     
+    //::::::::::::::::::::::::::::://
+    // State Callbacks (unused)
+    //::::::::::::::::::::::::::::://
+    
     public override void Update() { }
     public override void FixedUpdate() { }
+    public override void ExecuteAttack() { }
     public override void Exit() { }
 }

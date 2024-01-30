@@ -16,9 +16,7 @@ public class EnemyChaseState : EnemyState {
         
         // update animation state
         enemy.SetAnimationState(Enemy.AnimationState.chase);
-    } 
-    
-    public override void Update() { } 
+    }
 
     public override void FixedUpdate() {
         if (!enemy.IsActive) {
@@ -35,6 +33,12 @@ public class EnemyChaseState : EnemyState {
             enemyStateMachine.ChangeState(enemy.JumpState);
         }
     }
-
+    
+    //::::::::::::::::::::::::::::://
+    // State Callbacks (unused)
+    //::::::::::::::::::::::::::::://
+    
+    public override void Update() { }
+    public override void ExecuteAttack() { }
     public override void Exit() { }
 }
