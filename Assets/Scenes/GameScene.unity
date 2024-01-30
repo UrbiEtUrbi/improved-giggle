@@ -978,6 +978,8 @@ MonoBehaviour:
   - {fileID: 102900000, guid: 5bdfce89b8ebd42f09b8121b65d03537, type: 3}
   - {fileID: 102900000, guid: 4aedffd8a7c1f124eaaac1826bcfbafb, type: 3}
   - {fileID: 102900000, guid: f5fdf544283855942803d1f904c5ffa7, type: 3}
+  - {fileID: 102900000, guid: 42c54a169e54d704092d05d08a2b812a, type: 3}
+  - {fileID: 102900000, guid: 86485f87a0734a74b819e7e74afb4b85, type: 3}
   proximityUnits: 10
 --- !u!114 &986134340
 MonoBehaviour:
