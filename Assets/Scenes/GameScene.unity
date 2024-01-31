@@ -947,8 +947,8 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 6993713486216062685, guid: b3bf22148103c4d588f20c47814a8596,
     type: 3}
   VCamera: {fileID: 500664954}
-  IsGameOver: 0
   StartPosition: {x: -97, y: -8.5, z: 0}
+  IsGameOver: 0
 --- !u!114 &986134338
 MonoBehaviour:
   m_ObjectHideFlags: 0
