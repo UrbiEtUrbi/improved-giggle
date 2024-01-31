@@ -19,6 +19,28 @@ public class ControllerDialog : MonoBehaviour
 
     List<(Transform, Queue<DialogData>)> Targets = new();
 
+    List<DialogSequenceInstance> instances = new();
+
+    public void Init()
+    {
+        Triggered.Clear();
+        ResetTargets();
+        instances.Clear();
+        ControllerGame.ControllerRespawn.OnPlayerRepawned.AddListener(ResetTargets);
+    }
+
+    void ResetTargets()
+    {
+       
+        Targets.Clear();
+        for (int i = instances.Count - 1; i >= 0; i--)
+        {
+            instances[i].StopAllCoroutines();
+            Destroy(instances[i].gameObject);
+            instances.RemoveAt(i);
+        }
+        instances.Clear();
+    }
 
     public void TriggerDialogue(string ID, Transform Target, Vector3 offset = default)
     {
@@ -50,7 +72,11 @@ public class ControllerDialog : MonoBehaviour
 
     void OnRemoved(Transform target)
     {
-
+        var index = instances.FindIndex(x => x.target == target);
+        if (index != -1)
+        {
+            instances.RemoveAt(index);
+        }
         if (target == null)
         {
             for (int i = Targets.Count - 1; i >= 0; i--)
@@ -95,7 +121,9 @@ public class ControllerDialog : MonoBehaviour
         }
         var go = Instantiate(prefab, null);
 
-        go.GetComponent<DialogSequenceInstance>().Init(seq, offset, target, OnRemoved);
+        var instance = go.GetComponent<DialogSequenceInstance>();
+        instance.Init(seq, offset, target, OnRemoved);
+        instances.Add(instance);
     }
 
 

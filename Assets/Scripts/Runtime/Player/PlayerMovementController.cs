@@ -257,7 +257,7 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player.IsAlive)
+        if (!player.IsAlive || ControllerGame.Instance.IsGameOver)
         {
             return;
         }
@@ -302,7 +302,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!player.IsAlive)
+        if (!player.IsAlive || ControllerGame.Instance.IsGameOver)
         {
             RigidBody.velocity = default;
             return;
@@ -613,7 +613,7 @@ public class PlayerMovementController : MonoBehaviour
     #region input
     void OnJump(bool value)
     {
-        if (!player.IsAlive)
+        if (!player.IsAlive || ControllerGame.Instance.IsGameOver)
         {
             return;
         }
@@ -637,7 +637,7 @@ public class PlayerMovementController : MonoBehaviour
 
     void OnAttack()
     {
-        if (!player.IsAlive)
+        if (!player.IsAlive  || ControllerGame.Instance.IsGameOver)
         {
             return;
         }
@@ -649,7 +649,7 @@ public class PlayerMovementController : MonoBehaviour
     }
     void SetDash(float duration)
     {
-        if (!player.IsAlive)
+        if (!player.IsAlive|| ControllerGame.Instance.IsGameOver)
         {
             return;
         }

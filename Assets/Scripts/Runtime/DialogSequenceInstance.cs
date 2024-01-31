@@ -10,7 +10,7 @@ public class DialogSequenceInstance : MonoBehaviour
 
     Vector3 offset;
     DialogSequence sequence;
-    Transform target;
+    public Transform target;
 
     int currentSegment = 0;
     float currentSpeed = 0;
@@ -74,19 +74,23 @@ public class DialogSequenceInstance : MonoBehaviour
             while (true)
             {
 
-                if (sequence.Segments[currentSegment].Text[currentCharacter] == '<'){
-
-                    while (sequence.Segments[currentSegment].Text[currentCharacter] != '>')
+                if (currentCharacter < sequence.Segments[currentSegment].Text.Length)
+                {
+                    if (sequence.Segments[currentSegment].Text[currentCharacter] == '<')
                     {
+
+                        while (sequence.Segments[currentSegment].Text[currentCharacter] != '>')
+                        {
+                            currentCharacter++;
+                        }
                         currentCharacter++;
                     }
-                    currentCharacter++;
                 }
                 currentText = sequence.Segments[currentSegment].Text.Substring(0, currentCharacter);
                 Text.text = currentText;
                 yield return new WaitForSeconds(currentSpeed);
                 currentCharacter++;
-                if (currentCharacter >= sequence.Segments[currentSegment].Text.Length){
+                if (currentCharacter >= sequence.Segments[currentSegment].Text.Length+1){
                     break;
                 }
                 

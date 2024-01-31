@@ -33,6 +33,8 @@ public class ControllerGame : ControllerLocal
 
     Player player;
 
+    public bool IsGameOver;
+
 
 
     #region Controllers
@@ -86,6 +88,7 @@ public class ControllerGame : ControllerLocal
         m_ControllerAttack = GetComponent<ControllerAttack>();
         m_ControllerDialog = GetComponent<ControllerDialog>();
 
+       
         player = Instantiate(PlayerPrefab);
         
         player.transform.position = StartPosition;
@@ -96,16 +99,26 @@ public class ControllerGame : ControllerLocal
         MusicPlayer.Instance.PlayPlaylist("overworld");
         SoundManager.Instance.PlayLooped("village_ambience");
         Instance = this;
+
+
         base.Init();    
+        m_ControllerDialog.Init();
     }
 
     public void GameOver()
     {
-
+        IsGameOver = true;
         //reload whole game scenes or entities
-        m_Fader.StartFade(0.5f, true, 0.5f);
+        m_Fader.StartFade(10f, true, 10f);
 
-        m_ControllerRespawn.Respawn(0.5f + m_Fader.TimeToFade, StartPosition);
+        Invoke(nameof(Reload), 9.5f);
+    }
+
+    void Reload()
+    {
+        SceneLoader.UnloadAll();
+        ControllerGameFlow.Instance.ResetCurrentScene();
+
     }
 
     public void PlayerDie()

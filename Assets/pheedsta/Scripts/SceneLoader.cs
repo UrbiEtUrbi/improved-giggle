@@ -183,6 +183,18 @@ public class SceneLoader : MonoBehaviour {
             if (i < currentSceneIndex - 1 || i > currentSceneIndex + 1) StartCoroutine(UnloadSceneAdditiveCO(i));
         }
     }
+
+    public void UnloadAll()
+    {
+        for (int i = 0; i < SceneNames.Length; i++)
+        {
+            // this scene is not loaded; ignore it
+            if (loadStatus[i] != LoadStatus.loaded) continue;
+
+            // if this scene is no longer in range; start coroutine to unload it
+            StartCoroutine(UnloadSceneAdditiveCO(i));
+        }
+    }
     
     //:::::::::::::::::::::::::::::://
     // Coroutines
