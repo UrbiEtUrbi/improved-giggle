@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2950,53 +2950,65 @@ MonoBehaviour:
   parallaxLayerPrefab: {fileID: 6784255049846892071, guid: 7cd2b6a06218a4bed87c5eae8603c2f2,
     type: 3}
   parallaxData:
-  - enabled: 1
+  - description: 0 Sky (stationary)
     moveSpeed: 0
     sortingOrder: -10
+    enabled: 1
     spriteData:
-    - sprite: {fileID: 21300000, guid: 86f917da3ee3c69479ab74f43290683f, type: 3}
+    - sprite: {fileID: 21300000, guid: e66d82220c02a476ead986602095d29d, type: 3}
       count: 3
-  - enabled: 1
-    moveSpeed: 0.2
-    sortingOrder: -9
-    spriteData:
-    - sprite: {fileID: 21300000, guid: 680f8afb79e338a47a220c4a199533c5, type: 3}
-      count: 2
-    - sprite: {fileID: 21300000, guid: 7a26d3ff5c5224180b74aa4d14fa863b, type: 3}
-      count: 100
-  - enabled: 1
-    moveSpeed: 0.4
+  - description: 1 Mountains (very slow)
+    moveSpeed: 0.1
     sortingOrder: -8
+    enabled: 1
     spriteData:
-    - sprite: {fileID: 21300000, guid: e9313620d8b44324ea02f98a3ee892be, type: 3}
+    - sprite: {fileID: 21300000, guid: 7afb86e58bec34cbb90c16d467159bdc, type: 3}
       count: 2
-    - sprite: {fileID: 21300000, guid: e7b02469602604ef6aad9e9465050e90, type: 3}
+    - sprite: {fileID: 21300000, guid: 46d9f2d7257ed4a8d9bed95ae7741bba, type: 3}
+      count: 2
+    - sprite: {fileID: 21300000, guid: 677bf9a808d874dab9093677fa69fa77, type: 3}
       count: 100
-  - enabled: 1
-    moveSpeed: 1
-    sortingOrder: -1
+  - description: 2 Rocks (very slow)
+    moveSpeed: 0.2
+    sortingOrder: -6
+    enabled: 1
     spriteData:
-    - sprite: {fileID: 21300000, guid: ca6841502e6bca24187cacb218fd5561, type: 3}
+    - sprite: {fileID: 21300000, guid: 913443cbdd86f477db0f8d040154c68f, type: 3}
       count: 3
-    - sprite: {fileID: 21300000, guid: b7017cec420994d0a9903f022fc5428e, type: 3}
-      count: 1
-    - sprite: {fileID: 21300000, guid: 24603d25c981642b28ecda6be35f916d, type: 3}
+    - sprite: {fileID: 21300000, guid: b706997c0d57a490595045ca723824d1, type: 3}
+      count: 3
+    - sprite: {fileID: 21300000, guid: a79fac7ae35c84e8ea2bdbca13ff517f, type: 3}
       count: 100
-  - enabled: 1
-    moveSpeed: 1
-    sortingOrder: 1
+  - description: 3 Vegetation (fast)
+    moveSpeed: 0.76
+    sortingOrder: -4
+    enabled: 1
     spriteData:
     - sprite: {fileID: 21300000, guid: d60b6b88a39f242858eaad5b92855f7d, type: 3}
-      count: 3
-    - sprite: {fileID: 21300000, guid: 072c28d45d6534272b5fa58f2bb3e9cf, type: 3}
+      count: 11
+    - sprite: {fileID: 21300000, guid: 6dc074272df524d7f8b06ab1290bda40, type: 3}
+      count: 9
+    - sprite: {fileID: 21300000, guid: 4f63b9d1f009e4b6a84282bbcbf2479f, type: 3}
       count: 100
-  - enabled: 1
+  - description: 4 Grass (same speed as camera)
     moveSpeed: 1
     sortingOrder: -2
+    enabled: 1
     spriteData:
+    - sprite: {fileID: 21300000, guid: bc8f67f02e7cb4e369765769017a6531, type: 3}
+      count: 11
     - sprite: {fileID: 21300000, guid: d60b6b88a39f242858eaad5b92855f7d, type: 3}
       count: 3
-    - sprite: {fileID: 21300000, guid: 0be14fea28ff043deaeb856888413ff7, type: 3}
+    - sprite: {fileID: 21300000, guid: 5cf989ecb929546509622877696bad57, type: 3}
+      count: 100
+  - description: 5 Foreground (same speed as camera)
+    moveSpeed: 1
+    sortingOrder: 2
+    enabled: 0
+    spriteData:
+    - sprite: {fileID: 21300000, guid: d60b6b88a39f242858eaad5b92855f7d, type: 3}
+      count: 14
+    - sprite: {fileID: 21300000, guid: d6af90a1f0b3644f49af42d929f90ece, type: 3}
       count: 100
 --- !u!4 &1484894856
 Transform:
