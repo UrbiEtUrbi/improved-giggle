@@ -40,12 +40,14 @@ public class ParallaxBackground : MonoBehaviour {
 
 [Serializable]
 public class ParallaxData {
-    [Tooltip("If disabled, layer will not be shown when game is playing.")]
-    public bool enabled = true;
+    [Tooltip("A brief description of what this layer will display.")]
+    public string description;
     [Tooltip("0 = Stationary image. 1 = Same speed as camera.")]
     public float moveSpeed = 1f;
     [Tooltip("Negative values will display behind the player; positive values in front.")]
     public int sortingOrder;
+    [Tooltip("If disabled, layer will not be shown when game is playing.")]
+    public bool enabled = true;
     public ParallaxSpriteData[] spriteData;
 }
 

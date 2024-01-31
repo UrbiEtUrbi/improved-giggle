@@ -9,6 +9,8 @@ public class ParallaxLayer : MonoBehaviour {
 
     private float MinCameraX => GetMinCameraX();
     private float MaxCameraX => GetMaxCameraX();
+    private float MinIndex => 1;
+    private float MaxIndex => sprites.Length - 2;
     
     //::::::::::::::::::::::::::::://
     // Constants
@@ -91,13 +93,9 @@ public class ParallaxLayer : MonoBehaviour {
         
         // get the camera position
         Vector3 cameraPosition = mainCamera.transform.position;
-        
-        // calculate the extents of the SpriteRenderers
-        minSpriteRendererX = cameraPosition.x + totalWidth / -2f;
-        maxSpriteRendererX = minSpriteRendererX + totalWidth;
 
         // get the starting point (this value will increment)
-        float x = minSpriteRendererX;
+        float x = cameraPosition.x + totalWidth / -2f;
         
         foreach (SpriteRenderer spriteRenderer in spriteRenderers) {
             // get the sprite width
@@ -109,6 +107,9 @@ public class ParallaxLayer : MonoBehaviour {
             // increment x for start of next sprite
             x += spriteWidth;
         }
+        
+        // recalculate the min and max values of SpriteRenderers (x)
+        RecalcSpriteRendererExtents();
     }
     
     //::::::::::::::::::::::::::::://
@@ -138,7 +139,7 @@ public class ParallaxLayer : MonoBehaviour {
         // update value for the next time
         previousCameraPosition = currentCameraPosition;
 
-        // calculate how far to move background (include camera movement)
+        // calculate how far to move background
         float moveX = -cameraMoveX * moveSpeed + cameraMoveX;
         float moveY = -cameraMoveY * moveSpeed + cameraMoveY;
         
@@ -155,56 +156,16 @@ public class ParallaxLayer : MonoBehaviour {
             spriteRenderer.transform.position = position;
         }
         
-        // update SpriteRenderer extents
-        minSpriteRendererX += moveX;
-        maxSpriteRendererX += moveX;
+        // recalculate the min and max values of SpriteRenderers (x)
+        RecalcSpriteRendererExtents();
         
-        // shuffle renderers so it is an infinite scroll
-        if (MinCameraX < minSpriteRendererX) {
-          ShuffleSpriteRenderersLeft();
-        } else if (maxSpriteRendererX < MaxCameraX) {
-            ShuffleSpriteRenderersRight();
-        }
-    }
-
-    private void ShuffleSpriteRenderersRight() {
-        // if the new mid index is going to be out of range; we are done 
-        if (midIndex + 1 >= sprites.Length - 1) return;
-        
-        // increment mid index
-        midIndex++;
-        
-        // get the FIRST SpriteRenderer (this will be reused and moved to the END of the array) and the NEXT sprite (we know this index will be in range)
-        SpriteRenderer reuseSpriteRenderer = spriteRenderers[0];
-        Sprite sprite = sprites[midIndex + 1];
-        
-        // update SpriteRenderer with new sprite
-        reuseSpriteRenderer.sprite = sprite;
-        
-        // initialise fields for cals
-        Transform spriteRendererTransform = reuseSpriteRenderer.transform;
-        Vector3 position = spriteRendererTransform.position;
-        float spriteWidth = sprite.bounds.size.x;
-        
-        // calculate new position for SpriteRenderer and update
-        position.x = maxSpriteRendererX + spriteWidth / 2f;
-        spriteRendererTransform.position = position;
-        
-        // increment left and right extents
-        minSpriteRendererX += spriteWidth;
-        maxSpriteRendererX += spriteWidth;
-        
-        // reshuffle the SpriteRenderers (put reused one to the end)
-        spriteRenderers[0] = spriteRenderers[1];
-        spriteRenderers[1] = spriteRenderers[2];
-        spriteRenderers[2] = reuseSpriteRenderer;
+        // shuffle SpriteRenderers so they infinite scroll
+        while (MinIndex < midIndex && MinCameraX < minSpriteRendererX) ShuffleSpriteRenderersLeft();
+        while (MaxIndex > midIndex && MaxCameraX > maxSpriteRendererX) ShuffleSpriteRenderersRight();
     }
     
     private void ShuffleSpriteRenderersLeft() {
-        // if the new mid index is going to be out of range; we are done 
-        if (midIndex - 1 < 1) return;
-        
-        // decrement mid index
+        // decrement mid index (this is checked before function is called)
         midIndex--;
         
         // get the LAST SpriteRenderer (this will be reused and moved to the START of the array) and the PREVIOUS sprite (we know this index will be in range)
@@ -214,22 +175,62 @@ public class ParallaxLayer : MonoBehaviour {
         // update SpriteRenderer with new sprite
         reuseSpriteRenderer.sprite = sprite;
         
-        // initialise fields for cals
+        // initialise fields for calcs
         Transform spriteRendererTransform = reuseSpriteRenderer.transform;
         Vector3 position = spriteRendererTransform.position;
-        float spriteWidth = sprite.bounds.size.x;
         
         // calculate new position for SpriteRenderer and update
-        position.x = minSpriteRendererX - spriteWidth / 2f;
+        position.x = minSpriteRendererX - sprite.bounds.extents.x;
         spriteRendererTransform.position = position;
         
-        // decrement left and right extents
-        minSpriteRendererX -= spriteWidth;
-        maxSpriteRendererX -= spriteWidth;
-        
         // reshuffle the SpriteRenderers (put reused one to the start)
-        spriteRenderers[1] = spriteRenderers[0];
         spriteRenderers[2] = spriteRenderers[1];
+        spriteRenderers[1] = spriteRenderers[0];
         spriteRenderers[0] = reuseSpriteRenderer;
+        
+        // recalculate the min and max values of SpriteRenderers (x)
+        RecalcSpriteRendererExtents();
+    }
+
+    private void ShuffleSpriteRenderersRight() {
+        // increment mid index (this is checked before function is called)
+        midIndex++;
+        
+        // get the FIRST SpriteRenderer (this will be reused and moved to the END of the array) and the NEXT sprite (we know this index will be in range)
+        SpriteRenderer reuseSpriteRenderer = spriteRenderers[0];
+        Sprite sprite = sprites[midIndex + 1];
+        
+        // update SpriteRenderer with new sprite
+        reuseSpriteRenderer.sprite = sprite;
+        
+        // initialise fields for calcs
+        Transform spriteRendererTransform = reuseSpriteRenderer.transform;
+        Vector3 position = spriteRendererTransform.position;
+        
+        // calculate new position for SpriteRenderer and update
+        position.x = maxSpriteRendererX + sprite.bounds.extents.x;
+        spriteRendererTransform.position = position;
+        
+        // reshuffle the SpriteRenderers (put reused one to the end)
+        spriteRenderers[0] = spriteRenderers[1];
+        spriteRenderers[1] = spriteRenderers[2];
+        spriteRenderers[2] = reuseSpriteRenderer;
+        
+        // recalculate the min and max values of SpriteRenderers (x)
+        RecalcSpriteRendererExtents();
+    }
+    
+    //::::::::::::::::::::::::::::://
+    // Utilities
+    //::::::::::::::::::::::::::::://
+
+    private void RecalcSpriteRendererExtents() {
+        // calculate min (x)
+        SpriteRenderer firstSpriteRenderer = spriteRenderers[0];
+        minSpriteRendererX = firstSpriteRenderer.sprite ? firstSpriteRenderer.transform.position.x - firstSpriteRenderer.sprite.bounds.extents.x : 0f;
+        
+        // calculate max (x)
+        SpriteRenderer lastSpriteRenderer = spriteRenderers[2];
+        maxSpriteRendererX = lastSpriteRenderer.sprite ? lastSpriteRenderer.transform.position.x + lastSpriteRenderer.sprite.bounds.extents.x : 0f;
     }
 }
