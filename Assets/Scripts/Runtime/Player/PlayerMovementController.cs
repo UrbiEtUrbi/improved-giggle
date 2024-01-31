@@ -302,6 +302,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (!player.IsAlive)
         {
+            RigidBody.velocity = default;
             return;
         }
         UpdateVerticalMovement();
@@ -581,6 +582,7 @@ public class PlayerMovementController : MonoBehaviour
         falling = false;
         jumping = false;
         m_RigidBody.velocity = default;
+        Physics2D.gravity = new Vector2(0, -9.81f);
         m_PlayerAnimator.SetBool("IsOnGround", true);
         m_PlayerAnimator.SetBool("IsRunning",false);
         m_PlayerAnimator.SetTrigger("Die");

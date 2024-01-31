@@ -1,3 +1,4 @@
+using UnityEngine;
 public class EnemyStateMachine {
     
     //-----------------------------//
@@ -23,5 +24,12 @@ public class EnemyStateMachine {
         CurrentEnemyState.Exit();
         CurrentEnemyState = newState;
         CurrentEnemyState.Enter();
+        if (Random.value > 0.8f)
+        {
+            if (ControllerGame.Initialized)
+            {
+                SoundManager.Instance.Play("demon_growl", ControllerGame.Player.transform);
+            }
+        }
     }
 }

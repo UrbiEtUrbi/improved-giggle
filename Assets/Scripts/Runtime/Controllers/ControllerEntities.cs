@@ -47,6 +47,7 @@ public class ControllerEntities : MonoBehaviour
             if (e.ActivationDistance < 0 || Vector3.Distance(playerPosition, e.transform.position) <= e.ActivationDistance)
             {
                 e.ToggleActive(true);
+                SoundManager.Instance.Play("demon_growl", transform);
                 return;
             }
         }

@@ -22,7 +22,7 @@ public class ScreenFader : MonoBehaviour
 
     public void StartFade(float _delay, bool autoUnfade = false, float unfadeDelay = 0)
     {
-        Debug.Log($"start unfade");
+        Debug.Log($"start fade");
         fadingToBlack = true;
         fadingToTransparent = false;
         timer = 0;

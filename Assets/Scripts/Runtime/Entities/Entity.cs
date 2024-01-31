@@ -27,7 +27,7 @@ public abstract class Entity : MonoBehaviour
         ControllerGame.ControllerEntities.UnregisterEntity(this);
     }
 
-    public void ToggleActive(bool _isActive)
+    public virtual void ToggleActive(bool _isActive)
     {
         isActive = _isActive;
     }

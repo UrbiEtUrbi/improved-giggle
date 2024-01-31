@@ -54,6 +54,8 @@ public class Player : MonoBehaviour, IHealth
         {
             return false;
         }
+
+        SoundManager.Instance.Play("tomoe_attack", transform);
         attackObject = ControllerGame.ControllerAttack.Attack(transform, true,AttackType.PlayerSword, transform.position + (MovementController.FacingRight ? 1 : -1 )* AttackPosition, AttackSize, Damage, 2);
         reloadTimer = ReloadTime;
         invulTimer = InvulTime;

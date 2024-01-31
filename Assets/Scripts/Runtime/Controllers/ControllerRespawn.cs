@@ -21,15 +21,21 @@ public class ControllerRespawn : MonoBehaviour
         }
     }
 
+
+    IEnumerator RespawnCoroutine;
     public void Respawn(float delay, Vector3 pos = default)
     {
 
+        if (RespawnCoroutine != null)
+        {
+            return;
+        }
         if (pos == default)
         {
 
             pos = CurrentRespawn.transform.position;
         }
-        StartCoroutine(WaitAndRespawn(delay, pos));
+        StartCoroutine(RespawnCoroutine = WaitAndRespawn(delay, pos));
       
 
     }
@@ -40,8 +46,11 @@ public class ControllerRespawn : MonoBehaviour
         //move the player a bit to the right
         ControllerGame.Player.transform.position = pos + new Vector3(0.1f, 0, 0);
         ControllerGame.Player.MovementController.ResetReturnPosition();
-        ControllerGame.Player.IsAlive = true;
+        
         OnPlayerRepawned.Invoke();
+        yield return new WaitForSeconds(2f);
+        ControllerGame.Player.IsAlive = true;
+        RespawnCoroutine = null;
     }
 
 }
