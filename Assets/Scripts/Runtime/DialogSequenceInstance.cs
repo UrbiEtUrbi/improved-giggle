@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogSequenceInstance : MonoBehaviour
 {
@@ -15,22 +17,34 @@ public class DialogSequenceInstance : MonoBehaviour
     float currentDelay = 0;
     float currentDuration = 0;
     bool currentSegmentDone = false;
-    public void Init(DialogSequence _sequence, Vector3 _offset, Transform _target)
+
+    [SerializeField]
+    TMP_Text Text;
+
+    UnityAction<Transform> Action;
+
+    string currentText;
+    public void Init(DialogSequence _sequence, Vector3 _offset, Transform _target, UnityAction<Transform> action)
     {
+
+        transform.position = _target.position + _offset;
         offset = _offset;
         sequence = _sequence;
         target = _target;
+        Action = action;
 
         currentSegmentDone = false;
 
+        PopuplateValues();
         StartCoroutine(SequenceHandler());
+
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (target != null)
         {
-            transform.position = target.position + offset;
+            transform.position = Vector3.Lerp(transform.position, target.position + offset, 0.2f);
         }
     }
 
@@ -51,22 +65,57 @@ public class DialogSequenceInstance : MonoBehaviour
 
     }
 
-
-
     IEnumerator SequenceHandler()
     {
+        int currentCharacter = 0;
         while (true)
         {
-            
+            yield return new WaitForSeconds(currentDelay);
             while (true)
             {
 
+                if (sequence.Segments[currentSegment].Text[currentCharacter] == '<'){
 
+                    while (sequence.Segments[currentSegment].Text[currentCharacter] != '>')
+                    {
+                        currentCharacter++;
+                    }
+                    currentCharacter++;
+                }
+                currentText = sequence.Segments[currentSegment].Text.Substring(0, currentCharacter);
+                Text.text = currentText;
+                yield return new WaitForSeconds(currentSpeed);
+                currentCharacter++;
+                if (currentCharacter >= sequence.Segments[currentSegment].Text.Length){
+                    break;
+                }
+                
             }
-            yield return new WaitUntil(() => currentSegmentDone);
-            currentSegment++;
 
+            float time = 0;
+
+            while (time < currentDuration)
+            {
+                yield return new WaitForEndOfFrame();
+                time += Time.deltaTime;
+                Text.alpha = 1 - ((time*time) / (currentDuration*currentDuration));
+            }
+
+
+           
+            currentSegment++;
+            currentCharacter = 0;
+            if (currentSegment >= sequence.Segments.Count)
+            {
+                Action.Invoke(target);
+                Destroy(gameObject);
+                break;
+            }
+            PopuplateValues();
+            Text.text = string.Empty;
+            Text.alpha = 1;
         }
+
 
     }
 

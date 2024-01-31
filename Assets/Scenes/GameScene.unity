@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731716, g: 0.13414738, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1125,18 +1125,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sequences:
-  - ID: tomoe_start
-    DefaultDelay: 0
-    DefaultDuration: 0
-    DefaultSpeed: 10
-    Repeatable: 0
+  - ID: Respawn
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.2
+    Repeatable: 1
+    CustomPrefab: {fileID: 0}
     Segments:
-    - CustomDelay: 0
-      CustomDuration: -1
-      CustomSpeed: -1
+    - Text: I have to continue
+      CustomDelay: 1
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 1
+  - ID: Growl
+    DefaultDelay: 0
+    DefaultDuration: 1
+    DefaultSpeed: 0.05
+    Repeatable: 1
+    CustomPrefab: {fileID: 6626169372868201167, guid: 26251cf5c24144d6aa9b5541e065ea87,
+      type: 3}
+    Segments:
+    - Text: GROWL!
+      CustomDelay: 1
+      CustomDuration: 1
+      CustomSpeed: 0.1
       useCustomSettings: 0
-      Text: 
+  - ID: Intro_0
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.05
+    Repeatable: 1
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: "Those glows in the<br> mountains\u2026"
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 1
+    - Text: What are those?
+      CustomDelay: 1
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: ...
+      CustomDelay: 1
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "No\u2026it\u2019s fire!<br> In the village!"
+      CustomDelay: 1
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: Kiso! Shimizu!<br> Hold on!
+      CustomDelay: 1
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: Tsukuyomi. Please<br> protect them.
+      CustomDelay: 1
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
   Triggered: []
+  Prefab: {fileID: 6626169372868201167, guid: 1851fc3a6f5564d009462a0cb95748f7, type: 3}
 --- !u!1 &1252434139
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,6 +48,7 @@ public class ControllerRespawn : MonoBehaviour
         ControllerGame.Player.transform.position = pos + new Vector3(0.1f, 0, 0);
         ControllerGame.Player.MovementController.ResetReturnPosition();
         OnPlayerRepawned.Invoke();
+        ControllerGame.ControllerDialog.TriggerDialogue("Respawn", ControllerGame.Player.transform, new Vector3(0, 2, 0));
         yield return new WaitForSeconds(2f);
         ControllerGame.Player.IsAlive = true;
 

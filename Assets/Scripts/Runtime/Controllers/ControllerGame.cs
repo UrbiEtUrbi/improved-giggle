@@ -52,6 +52,9 @@ public class ControllerGame : ControllerLocal
     ControllerAttack m_ControllerAttack;
     public static ControllerAttack ControllerAttack => Instance.m_ControllerAttack;
 
+    ControllerDialog m_ControllerDialog;
+    public static ControllerDialog ControllerDialog => Instance.m_ControllerDialog;
+
     #endregion
 
     public static bool Initialized
@@ -81,6 +84,7 @@ public class ControllerGame : ControllerLocal
         m_ControllerRespawn = GatherComponent<ControllerRespawn>();
         m_Fader = GatherComponent<ScreenFader>();
         m_ControllerAttack = GetComponent<ControllerAttack>();
+        m_ControllerDialog = GetComponent<ControllerDialog>();
 
         player = Instantiate(PlayerPrefab);
         

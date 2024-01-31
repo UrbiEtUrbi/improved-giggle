@@ -284,11 +284,6 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
-        if (!OnGround)
-        {
-            jumped = true;
-        }
-
         points[0] = new Vector3(transform.position.x - (groundCheckSize.x / 2f + 0.05f) + groundCheckPoint.x, transform.position.y + groundCheckPoint.y +0.1f, 0);
         points[1] = new Vector3(transform.position.x + groundCheckPoint.x, transform.position.y + groundCheckPoint.y+0.1f, 0);
         points[2] = new Vector3(transform.position.x + (groundCheckSize.x / 2f + 0.05f) + groundCheckPoint.x, transform.position.y + groundCheckPoint.y+0.1f, 0);
@@ -479,7 +474,7 @@ public class PlayerMovementController : MonoBehaviour
         var collider = Physics2D.OverlapBox(transform.position + groundCheckPoint, groundCheckSize, 0, groundLayer);
         if (collider != null && !jumping)
         {
-            if (jumped)
+            if (jumped && LastDashDurationTime <= 0)
             {
                 jumped = false;
                 SoundManager.Instance.Play("land", transform);
@@ -671,6 +666,7 @@ public class PlayerMovementController : MonoBehaviour
         //check if player is already colliding with a wall
         if (canDashDirection == 0 || dashDirection != canDashDirection)
         {
+
             Dashing = true;
             LastDashDurationTime = duration;
 
