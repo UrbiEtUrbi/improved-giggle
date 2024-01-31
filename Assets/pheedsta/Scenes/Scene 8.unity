@@ -5160,15 +5160,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Archer
       objectReference: {fileID: 0}
+    - target: {fileID: 3947364059765097690, guid: 29606874c65044199a840830abe69dd1,
+        type: 3}
+      propertyPath: maximumFall
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947364059765097690, guid: 29606874c65044199a840830abe69dd1,
+        type: 3}
+      propertyPath: strikingSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947364059765097690, guid: 29606874c65044199a840830abe69dd1,
+        type: 3}
+      propertyPath: strikingSize.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947364059765097690, guid: 29606874c65044199a840830abe69dd1,
+        type: 3}
+      propertyPath: strikingDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947364059765097690, guid: 29606874c65044199a840830abe69dd1,
+        type: 3}
+      propertyPath: ActivationDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6441655305065522697, guid: 29606874c65044199a840830abe69dd1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 398.87
+      value: 397.84
       objectReference: {fileID: 0}
     - target: {fileID: 6441655305065522697, guid: 29606874c65044199a840830abe69dd1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.02
+      value: 4.81
       objectReference: {fileID: 0}
     - target: {fileID: 6441655305065522697, guid: 29606874c65044199a840830abe69dd1,
         type: 3}
