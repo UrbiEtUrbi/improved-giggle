@@ -54,7 +54,7 @@ MonoBehaviour:
   AttackSize: {x: 1.8, y: 2.5, z: 0}
   AttackPosition: {x: 0.99, y: -0.24, z: 0}
   ReloadTime: 1
-  InvulTime: 0.3
+  InvulTime: 0.5
   MovementController: {fileID: 1230953763776032381}
   IsAlive: 0
 --- !u!114 &1230953763776032381
@@ -72,7 +72,7 @@ MonoBehaviour:
   m_RunSpeed: 7
   runAcceleration: 4
   runDecceleration: 8
-  ReturnDistance: 50
+  ReturnDistance: 100
   jumpForce: 10.5
   jumpAcceleration: 0.8
   jumpDecceleration: 0.5

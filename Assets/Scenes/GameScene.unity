@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731716, g: 0.13414738, b: 0.121078566, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -984,6 +984,13 @@ MonoBehaviour:
   - Scene 7
   - Scene 8
   - Scene 9
+<<<<<<< Updated upstream
+=======
+  - Scene 10
+  - Scene 11
+  - Scene 12
+  - Scene 13
+>>>>>>> Stashed changes
   scenes:
   - {fileID: 102900000, guid: 1e5970ffef8874f7e91eafd0c1f1849c, type: 3}
   - {fileID: 102900000, guid: c5c029f0979db420faaa37bc537a6ad0, type: 3}
@@ -995,6 +1002,10 @@ MonoBehaviour:
   - {fileID: 102900000, guid: f8729f8745854514cbe93a36378f8c09, type: 3}
   - {fileID: 102900000, guid: 98a3508dc13ed944fa876dfc41eaaeff, type: 3}
   - {fileID: 102900000, guid: 4d3cea9501bee6f4fa5a61f244fb6305, type: 3}
+  - {fileID: 102900000, guid: a68218c926d6f954c8127db5e696e8cc, type: 3}
+  - {fileID: 102900000, guid: f92cc1a2e6aba5b4186c878dbcf71de2, type: 3}
+  - {fileID: 102900000, guid: 4941bd3489c0ab842833b826cbfe3036, type: 3}
+  - {fileID: 102900000, guid: 57a40d78d6db39946b329bebdaade158, type: 3}
   proximityUnits: 10
 --- !u!114 &986134340
 MonoBehaviour:
