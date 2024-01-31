@@ -2428,7 +2428,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3701801965576335930, guid: 8ee5bb35460fb47b9a57dfe964725746,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1987761991}
   m_SourcePrefab: {fileID: 100100000, guid: 8ee5bb35460fb47b9a57dfe964725746, type: 3}
 --- !u!1001 &850489735
 PrefabInstance:
@@ -2692,6 +2696,28 @@ Transform:
   - {fileID: 484076285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1830533007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3701801965576335930, guid: 8ee5bb35460fb47b9a57dfe964725746,
+    type: 3}
+  m_PrefabInstance: {fileID: 1845611852}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1830533013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830533007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7803af9c401d54b159df664dc8d5d9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: Dem5
+  Distance: 7
+  Offset: 1.5
+  TriggerOnDeath: 0
 --- !u!1001 &1845611852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2758,8 +2784,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3701801965576335930, guid: 8ee5bb35460fb47b9a57dfe964725746,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1830533013}
   m_SourcePrefab: {fileID: 100100000, guid: 8ee5bb35460fb47b9a57dfe964725746, type: 3}
+--- !u!1 &1987761985 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3701801965576335930, guid: 8ee5bb35460fb47b9a57dfe964725746,
+    type: 3}
+  m_PrefabInstance: {fileID: 705988317}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1987761991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987761985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7803af9c401d54b159df664dc8d5d9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: Dem4
+  Distance: 7
+  Offset: 1.5
+  TriggerOnDeath: 0
 --- !u!1001 &650848361259005910
 PrefabInstance:
   m_ObjectHideFlags: 0

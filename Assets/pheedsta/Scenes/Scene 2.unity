@@ -1855,6 +1855,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Archer
       objectReference: {fileID: 0}
+    - target: {fileID: 3947364059765097690, guid: 29606874c65044199a840830abe69dd1,
+        type: 3}
+      propertyPath: strikingSize.y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6441655305065522697, guid: 29606874c65044199a840830abe69dd1,
         type: 3}
       propertyPath: m_LocalPosition.x

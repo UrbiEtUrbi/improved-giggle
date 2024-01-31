@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731716, g: 0.13414738, b: 0.121078566, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -200,8 +200,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -20, y: 5}
-      - {x: -20, y: -12}
+    - - {x: -127, y: 5}
+      - {x: -127, y: -12}
       - {x: 100, y: -12}
       - {x: 100, y: 5}
   m_UseDelaunayMesh: 0
@@ -831,7 +831,7 @@ Transform:
   m_GameObject: {fileID: 926404432}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.6994882, z: 0}
+  m_LocalPosition: {x: -106.9, y: -3.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -947,8 +947,12 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 6993713486216062685, guid: b3bf22148103c4d588f20c47814a8596,
     type: 3}
   VCamera: {fileID: 500664954}
+<<<<<<< Updated upstream
   StartPosition: {x: -9.7, y: -5, z: 0}
   IsGameOver: 0
+=======
+  StartPosition: {x: -97, y: -8.5, z: 0}
+>>>>>>> Stashed changes
 --- !u!114 &986134338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -975,6 +979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneNames:
+  - Scene-1
   - Scene 0
   - Scene 1
   - Scene 2
@@ -990,6 +995,7 @@ MonoBehaviour:
   - Scene 12
   - Scene 13
   scenes:
+  - {fileID: 102900000, guid: de8e55f429d726640a4c02ff29a8a823, type: 3}
   - {fileID: 102900000, guid: 1e5970ffef8874f7e91eafd0c1f1849c, type: 3}
   - {fileID: 102900000, guid: c5c029f0979db420faaa37bc537a6ad0, type: 3}
   - {fileID: 102900000, guid: 5bdfce89b8ebd42f09b8121b65d03537, type: 3}
@@ -1129,15 +1135,15 @@ MonoBehaviour:
   - ID: Respawn
     DefaultDelay: 1
     DefaultDuration: 1
-    DefaultSpeed: 0.2
+    DefaultSpeed: 0.025
     Repeatable: 1
     CustomPrefab: {fileID: 0}
     Segments:
-    - Text: I have to continue
+    - Text: I have to continue...
       CustomDelay: 1
       CustomDuration: 1
       CustomSpeed: 0.1
-      useCustomSettings: 1
+      useCustomSettings: 0
   - ID: Growl
     DefaultDelay: 0
     DefaultDuration: 1
@@ -1154,15 +1160,15 @@ MonoBehaviour:
   - ID: Intro_0
     DefaultDelay: 1
     DefaultDuration: 1
-    DefaultSpeed: 0.05
-    Repeatable: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
     CustomPrefab: {fileID: 0}
     Segments:
     - Text: "Those glows in the<br> mountains\u2026"
       CustomDelay: 0
       CustomDuration: 1
       CustomSpeed: 0.1
-      useCustomSettings: 1
+      useCustomSettings: 0
     - Text: What are those?
       CustomDelay: 1
       CustomDuration: 1
@@ -1171,8 +1177,8 @@ MonoBehaviour:
     - Text: ...
       CustomDelay: 1
       CustomDuration: 1
-      CustomSpeed: 0.1
-      useCustomSettings: 0
+      CustomSpeed: 0.2
+      useCustomSettings: 1
     - Text: "No\u2026it\u2019s fire!<br> In the village!"
       CustomDelay: 1
       CustomDuration: 1
@@ -1185,6 +1191,173 @@ MonoBehaviour:
       useCustomSettings: 0
     - Text: Tsukuyomi. Please<br> protect them.
       CustomDelay: 1
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Hurry1
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: The moon...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: ... what is it doing to me?
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Hurry2
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: These urges...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: ... something's wrong.
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Hurry3
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: This bloodlust...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: It's intoxicating...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: I ... I need to hurry.
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: See1
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: It's a demon!
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: What are demons<br> doing here?
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: SeeM
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: What's this...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: Is this the source<br> of all of this?
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: I have to destroy it!
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Dem1
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: Sa..ve..me...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Dem2
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: Fr..ee...mee...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Dem3
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: K..i.ll...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Dem4
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: End...this...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Dem5
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: Hun...gry...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Dem6
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 0
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: My...son...
+      CustomDelay: 0
       CustomDuration: 1
       CustomSpeed: 0.1
       useCustomSettings: 0
@@ -1265,6 +1438,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252434139}
   m_CullTransparentMesh: 1
+--- !u!1 &1282451138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1282451139}
+  m_Layer: 0
+  m_Name: PlayerStart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1282451139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282451138}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -97, y: -8.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1484894854
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,3 +1878,4 @@ SceneRoots:
   - {fileID: 736191414}
   - {fileID: 1484894856}
   - {fileID: 1762129495}
+  - {fileID: 1282451139}
