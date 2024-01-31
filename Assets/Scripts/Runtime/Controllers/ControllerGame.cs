@@ -90,7 +90,7 @@ public class ControllerGame : ControllerLocal
 
 
         MusicPlayer.Instance.PlayPlaylist("overworld");
-        SoundManager.Instance.PlayLooped("demons_growling");
+        SoundManager.Instance.PlayLooped("village_ambience");
         Instance = this;
         base.Init();    
     }

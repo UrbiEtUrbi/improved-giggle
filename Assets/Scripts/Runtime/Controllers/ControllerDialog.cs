@@ -5,9 +5,12 @@ using UnityEngine;
 public class ControllerDialog : MonoBehaviour
 {
 
+    [ReorderableList]
     public List<DialogSequence> Sequences;
 
 
+    [HideInInspector]
+    
     public List<string> Triggered;
 
 
@@ -26,20 +29,30 @@ public class ControllerDialog : MonoBehaviour
 
 
 
+[System.Serializable]
 public class DialogSequence{
 
     public string ID;
-    public float DefaultDelay;
-    public float DefaultDuration;
-    public float DefaultSpeed;
+    public float DefaultDelay = 1;
+    public float DefaultDuration = 1;
+    public int DefaultSpeed = 10;
     public bool Repeatable;
+
+    [ReorderableList]
+    public List<DialogSegment> Segments;
 }
 
+
+[System.Serializable]
 public class DialogSegment
 {
+    [ShowIf(nameof(useCustomSettings),true)]
     public float CustomDelay = -1;
-    public float DefaultDuration = -1;
-    public float DefaultSpeed = -1;
+    [ShowIf(nameof(useCustomSettings), true)]
+    public float CustomDuration = -1;
+    [ShowIf(nameof(useCustomSettings), true)]
+    public int CustomSpeed = -1;
+    public bool useCustomSettings;
     public string Text;
 
 }
