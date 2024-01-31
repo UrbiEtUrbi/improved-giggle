@@ -14,25 +14,44 @@ public class SceneLoader : MonoBehaviour {
     //------------------------------//
 
     public static SceneLoader Instance { get; private set; }
-    
+
     //:::::::::::::::::::::::::::::://
     // Public Properties
     //:::::::::::::::::::::::::::::://
+    [HideInInspector]
+    [SerializeField]
+    public string[] SceneNames;
 
+#if UNITY_EDITOR
     public SceneAsset[] Scenes => scenes;
     
+    [Space(10)]
+    [SerializeField] private SceneAsset[] scenes;
     //:::::::::::::::::::::::::::::://
     // Private Properties
     //:::::::::::::::::::::::::::::://
 
-    private SceneAsset CurrentScene => scenes[currentSceneIndex];
-    
+
+    private void OnValidate()
+    {
+        if (scenes != null)
+        {
+            SceneNames = new string[scenes.Length];
+           for(int i = 0; i < SceneNames.Length;i++)
+            {
+                SceneNames[i] = scenes[i].name;
+            }
+
+        }
+    }
+#endif
+
+    private string CurrentScene => SceneNames[currentSceneIndex];
+
     //:::::::::::::::::::::::::::::://
     // Serialized Fields
     //:::::::::::::::::::::::::::::://
-    
-    [Space(10)]
-    [SerializeField] private SceneAsset[] scenes;
+
     [Space(10)]
     [SerializeField] private float proximityUnits; // rename this
     
@@ -78,7 +97,7 @@ public class SceneLoader : MonoBehaviour {
 
     private void Start() {
         // initialise load status array (same length as scenes array) and prepopulate with default values (UNLOADED)
-        loadStatus = new LoadStatus[scenes.Length];
+        loadStatus = new LoadStatus[SceneNames.Length];
         Array.Fill(loadStatus, LoadStatus.unloaded);
         
         // start loading the first scene
@@ -87,7 +106,7 @@ public class SceneLoader : MonoBehaviour {
 
     private void Update() {
         // attempt to get the TileGrid for the current scene; if it's null we are done (may be null if it hasn't loaded yet)
-        if (!tileGrids.TryGetValue(CurrentScene.name, out TileGrid currentTileGrid)) return;
+        if (!tileGrids.TryGetValue(CurrentScene, out TileGrid currentTileGrid)) return;
         
         // get camera's position
         float cameraX = cameraTransform.position.x;
@@ -96,14 +115,14 @@ public class SceneLoader : MonoBehaviour {
             // camera has moved outside current scene boundary (LEFT) and new index is still in range; update scene index and unload unused scenes
             currentSceneIndex--;
             UnloadUnusedScenes();
-        } else if (cameraX > currentTileGrid.XMax && currentSceneIndex + 1 < scenes.Length) {
+        } else if (cameraX > currentTileGrid.XMax && currentSceneIndex + 1 < SceneNames.Length) {
             // camera has moved outside current scene boundary (RIGHT) and new index is still in range; update scene index and unload unused scenes
             currentSceneIndex++;
             UnloadUnusedScenes();
         }
         
         // attempt to get the TileGrid again for the current scene (current scene may have changed)
-        if (!tileGrids.TryGetValue(CurrentScene.name, out currentTileGrid)) return;
+        if (!tileGrids.TryGetValue(CurrentScene, out currentTileGrid)) return;
 
         // if player is within range of next scene (LEFT); load scene
         if (cameraX < currentTileGrid.XMin + proximityUnits) LoadScene(currentSceneIndex - 1);
@@ -146,7 +165,7 @@ public class SceneLoader : MonoBehaviour {
 
     private void LoadScene(int sceneIndex) {
         // if scene index is out of range; ignore call
-        if (sceneIndex < 0 || sceneIndex >= scenes.Length) return;
+        if (sceneIndex < 0 || sceneIndex >= SceneNames.Length) return;
         
         // if scene is not unloaded; ignore call
         if (loadStatus[sceneIndex] != LoadStatus.unloaded) return;
@@ -156,7 +175,7 @@ public class SceneLoader : MonoBehaviour {
     }
 
     private void UnloadUnusedScenes() {
-        for (int i = 0; i < scenes.Length; i++) {
+        for (int i = 0; i < SceneNames.Length; i++) {
             // this scene is not loaded; ignore it
             if (loadStatus[i] != LoadStatus.loaded) continue;
             
@@ -174,7 +193,7 @@ public class SceneLoader : MonoBehaviour {
         loadStatus[sceneIndex] = LoadStatus.loading;
         
         // start loading scene async (additive)
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scenes[sceneIndex].name, LoadSceneMode.Additive);
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneNames[sceneIndex], LoadSceneMode.Additive);
         
         // wait until scene has loaded
         while (!asyncOperation.isDone) yield return null;
@@ -188,7 +207,7 @@ public class SceneLoader : MonoBehaviour {
         loadStatus[sceneIndex] = LoadStatus.unloading;
         
         // start unloading scene async
-        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(scenes[sceneIndex].name, UnloadSceneOptions.None);
+        AsyncOperation asyncOperation = SceneManager.UnloadSceneAsync(SceneNames[sceneIndex], UnloadSceneOptions.None);
         
         // wait until scene has unloaded
         while (!asyncOperation.isDone) yield return null;
