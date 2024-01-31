@@ -42,14 +42,15 @@ public class ControllerRespawn : MonoBehaviour
 
     IEnumerator WaitAndRespawn(float delay, Vector3 pos)
     {
+        ControllerGame.Player.RespawnInvul(delay+ 2f+1f);
         yield return new WaitForSeconds(delay);
         //move the player a bit to the right
         ControllerGame.Player.transform.position = pos + new Vector3(0.1f, 0, 0);
         ControllerGame.Player.MovementController.ResetReturnPosition();
-        
         OnPlayerRepawned.Invoke();
         yield return new WaitForSeconds(2f);
         ControllerGame.Player.IsAlive = true;
+
         RespawnCoroutine = null;
     }
 

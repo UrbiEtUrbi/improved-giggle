@@ -116,6 +116,11 @@ public class Player : MonoBehaviour, IHealth
         ControllerGame.Instance.PlayerDie();
     }
 
+    public void RespawnInvul(float time)
+    {
+        invulTimer = time;
+    }
+
     public void OnEnemyDied()
     {
         MovementController.ChangeEnemyCount(1);

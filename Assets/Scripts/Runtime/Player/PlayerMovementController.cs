@@ -583,6 +583,7 @@ public class PlayerMovementController : MonoBehaviour
         jumping = false;
         m_RigidBody.velocity = default;
         Physics2D.gravity = new Vector2(0, -9.81f);
+        ChangeEnemyCount(-1);
         m_PlayerAnimator.SetBool("IsOnGround", true);
         m_PlayerAnimator.SetBool("IsRunning",false);
         m_PlayerAnimator.SetTrigger("Die");
