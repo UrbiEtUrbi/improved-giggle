@@ -948,6 +948,7 @@ MonoBehaviour:
     type: 3}
   VCamera: {fileID: 500664954}
   StartPosition: {x: -9.7, y: -5, z: 0}
+  IsGameOver: 0
 --- !u!114 &986134338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,7 +1107,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  TimeToWin: 5
+  TimeToWin: 240
   endColorFade: {r: 0.3679245, g: 0, b: 0, a: 1}
   endColorMoon: {r: 0.6132076, g: 0, b: 0, a: 1}
   OnTimeRanOut:
