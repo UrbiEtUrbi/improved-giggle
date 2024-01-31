@@ -111,7 +111,9 @@ public class Player : MonoBehaviour, IHealth
 
     public void Die()
     {
-        //spawn death vfx/animation
+
+
+        SoundManager.Instance.Play("tomoe_dead", transform);
         IsAlive = false;
         ControllerGame.Instance.PlayerDie();
     }

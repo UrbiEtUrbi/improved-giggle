@@ -44,7 +44,7 @@ public class AttackObject : MonoBehaviour
         if (!initialized) {
             return;
         }
-        var colliderHit = Physics2D.OverlapBox(transform.position, attackSize, 0, TargetLayer);
+        var colliderHit = Physics2D.OverlapBox(transform.position, attackSize, transform.rotation.eulerAngles.y, TargetLayer);
         if (colliderHit != null)
         {
 

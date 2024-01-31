@@ -4031,6 +4031,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Gooba
       objectReference: {fileID: 0}
+    - target: {fileID: 3701801965576335930, guid: 8ee5bb35460fb47b9a57dfe964725746,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6441655305065522697, guid: 8ee5bb35460fb47b9a57dfe964725746,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4167,6 +4172,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Gooba
       objectReference: {fileID: 0}
+    - target: {fileID: 3701801965576335930, guid: 8ee5bb35460fb47b9a57dfe964725746,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6441655305065522697, guid: 8ee5bb35460fb47b9a57dfe964725746,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4292,6 +4302,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy Gooba
+      objectReference: {fileID: 0}
+    - target: {fileID: 3701801965576335930, guid: 8ee5bb35460fb47b9a57dfe964725746,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6441655305065522697, guid: 8ee5bb35460fb47b9a57dfe964725746,
         type: 3}

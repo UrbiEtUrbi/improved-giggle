@@ -180,6 +180,8 @@ public class PlayerMovementController : MonoBehaviour
     public bool RageActive;
     public bool RageEnding;
 
+    bool jumped;
+
 
     Vector3[] points;
     float slopeCheck = 1f;
@@ -280,6 +282,11 @@ public class PlayerMovementController : MonoBehaviour
                 RageEnding = false;
                 currentEnemyRageCount = 0;
             }
+        }
+
+        if (!OnGround)
+        {
+            jumped = true;
         }
 
         points[0] = new Vector3(transform.position.x - (groundCheckSize.x / 2f + 0.05f) + groundCheckPoint.x, transform.position.y + groundCheckPoint.y +0.1f, 0);
@@ -402,10 +409,10 @@ public class PlayerMovementController : MonoBehaviour
         }
         else
         {
+           
             //we are falling according to some weird definition which includes just chilling on the ground too
             if (m_RigidBody.velocity.y <= 0)
             {
-               
                 // apply correct gravity scale
                 if (jumpHeld)
                 {
@@ -426,8 +433,9 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
-        if (m_RigidBody.velocity.y < 0)
+        if (m_RigidBody.velocity.y < -0.001)
         {
+
             falling = true;
             jumping = false;
         }
@@ -471,6 +479,11 @@ public class PlayerMovementController : MonoBehaviour
         var collider = Physics2D.OverlapBox(transform.position + groundCheckPoint, groundCheckSize, 0, groundLayer);
         if (collider != null && !jumping)
         {
+            if (jumped)
+            {
+                jumped = false;
+                SoundManager.Instance.Play("land", transform);
+            }
             lastGroundedPosition = m_RigidBody.position;
    
             LastOnGroundTime = coyoteTime;
@@ -510,7 +523,6 @@ public class PlayerMovementController : MonoBehaviour
 
             if (normals.Count == 0)
             {
-                Debug.Log($"no hits normal gravity");
                 nextGravity = new Vector2(0, -9.81f);
             }
 
@@ -613,8 +625,8 @@ public class PlayerMovementController : MonoBehaviour
         jumpHeld = value;
         if (value && OnGround && !jumping)
         {
-           
-            
+            jumped = true;
+            SoundManager.Instance.Play("jump",transform);
             jumping = true;
 
             //no more coyote time
