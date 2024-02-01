@@ -22,7 +22,7 @@ public class ConfinerFollower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!ControllerGame.Initialized)
+        if (!ControllerGame.Initialized || ControllerGame.Player == null)
         {
             return;
         }

@@ -29,7 +29,7 @@ public class ControllerDialog : MonoBehaviour
         ControllerGame.ControllerRespawn.OnPlayerRepawned.AddListener(ResetTargets);
     }
 
-    void ResetTargets()
+    public void ResetTargets()
     {
        
         Targets.Clear();
@@ -45,7 +45,16 @@ public class ControllerDialog : MonoBehaviour
     public void TriggerDialogue(string ID, Transform Target, Vector3 offset = default)
     {
 
-        var data = new DialogData
+
+
+        var seq = Sequences.Find(x => x.ID == ID);
+        if (seq == null || (!seq.Repeatable && Triggered.Contains(ID)))
+        {
+            return;
+        }
+
+        Triggered.Add(ID);
+            var data = new DialogData
         {
             ID = ID,
             Offset = offset
@@ -56,11 +65,10 @@ public class ControllerDialog : MonoBehaviour
 
         if (idx == -1)
         {
+           
             Targets.Add((Target, new Queue<DialogData>()));
-            var seq = Sequences.Find(x => x.ID == ID);
-            if (seq != null && (seq.Repeatable || !Triggered.Contains(ID))) {
-                Spawn(seq, data.Offset, Target);
-            }
+            Spawn(seq, data.Offset, Target);
+            
         }
         else
         {

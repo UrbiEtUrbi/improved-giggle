@@ -77,6 +77,8 @@ public class SceneLoader : MonoBehaviour {
     private bool registeredTilemapEvents;
     private Transform cameraTransform;
     private LoadStatus[] loadStatus;
+
+    public bool FirstSceneLoaded = false;
     
     //:::::::::::::::::::::::::::::://
     // Unity Callbacks
@@ -212,6 +214,7 @@ public class SceneLoader : MonoBehaviour {
         
         // update status to LOADED
         loadStatus[sceneIndex] = LoadStatus.loaded;
+        FirstSceneLoaded = true;
     }
 
     private IEnumerator UnloadSceneAdditiveCO(int sceneIndex) {

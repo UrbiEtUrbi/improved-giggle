@@ -42,12 +42,16 @@ public class ControllerTimer : MonoBehaviour
     Color startColor = Color.white;
 
 
-
+    public bool timing = false;
 
     public UnityEvent OnTimeRanOut = new UnityEvent();
 
     private void Update()
     {
+        if (!timing)
+        {
+            return;
+        }
         if (!ControllerGame.Initialized || !ControllerGame.Player.IsAlive || ControllerGame.Instance.IsGameOver)
         {
             return;

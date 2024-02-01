@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731716, g: 0.13414738, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 411742948}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -1007,6 +1007,7 @@ MonoBehaviour:
   - {fileID: 102900000, guid: 4941bd3489c0ab842833b826cbfe3036, type: 3}
   - {fileID: 102900000, guid: 57a40d78d6db39946b329bebdaade158, type: 3}
   proximityUnits: 10
+  FirstSceneLoaded: 0
 --- !u!114 &986134340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,6 +1113,7 @@ MonoBehaviour:
   TimeToWin: 240
   endColorFade: {r: 0.3679245, g: 0, b: 0, a: 1}
   endColorMoon: {r: 0.6132076, g: 0, b: 0, a: 1}
+  timing: 0
   OnTimeRanOut:
     m_PersistentCalls:
       m_Calls: []
@@ -1165,27 +1167,12 @@ MonoBehaviour:
       CustomDuration: 1
       CustomSpeed: 0.1
       useCustomSettings: 0
-    - Text: What are those?
-      CustomDelay: 1
-      CustomDuration: 1
-      CustomSpeed: 0.1
-      useCustomSettings: 0
-    - Text: ...
-      CustomDelay: 1
-      CustomDuration: 1
-      CustomSpeed: 0.2
-      useCustomSettings: 1
     - Text: "No\u2026it\u2019s fire!<br> In the village!"
       CustomDelay: 1
       CustomDuration: 1
       CustomSpeed: 0.1
       useCustomSettings: 0
     - Text: Kiso! Shimizu!<br> Hold on!
-      CustomDelay: 1
-      CustomDuration: 1
-      CustomSpeed: 0.1
-      useCustomSettings: 0
-    - Text: Tsukuyomi. Please<br> protect them.
       CustomDelay: 1
       CustomDuration: 1
       CustomSpeed: 0.1
@@ -1286,7 +1273,7 @@ MonoBehaviour:
       CustomSpeed: 0.1
       useCustomSettings: 0
   - ID: Dem1
-    DefaultDelay: 1
+    DefaultDelay: 0
     DefaultDuration: 1
     DefaultSpeed: 0.025
     Repeatable: 0
@@ -1298,7 +1285,7 @@ MonoBehaviour:
       CustomSpeed: 0.1
       useCustomSettings: 0
   - ID: Dem2
-    DefaultDelay: 1
+    DefaultDelay: 0
     DefaultDuration: 1
     DefaultSpeed: 0.025
     Repeatable: 0
@@ -1310,7 +1297,7 @@ MonoBehaviour:
       CustomSpeed: 0.1
       useCustomSettings: 0
   - ID: Dem3
-    DefaultDelay: 1
+    DefaultDelay: 0
     DefaultDuration: 1
     DefaultSpeed: 0.025
     Repeatable: 0
@@ -1322,7 +1309,7 @@ MonoBehaviour:
       CustomSpeed: 0.1
       useCustomSettings: 0
   - ID: Dem4
-    DefaultDelay: 1
+    DefaultDelay: 0
     DefaultDuration: 1
     DefaultSpeed: 0.025
     Repeatable: 0
@@ -1334,7 +1321,7 @@ MonoBehaviour:
       CustomSpeed: 0.1
       useCustomSettings: 0
   - ID: Dem5
-    DefaultDelay: 1
+    DefaultDelay: 0
     DefaultDuration: 1
     DefaultSpeed: 0.025
     Repeatable: 0
@@ -1346,13 +1333,78 @@ MonoBehaviour:
       CustomSpeed: 0.1
       useCustomSettings: 0
   - ID: Dem6
-    DefaultDelay: 1
+    DefaultDelay: 0
     DefaultDuration: 1
     DefaultSpeed: 0.025
     Repeatable: 0
     CustomPrefab: {fileID: 0}
     Segments:
     - Text: My...son...
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: Transform
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 1
+    CustomPrefab: {fileID: 6626169372868201167, guid: 26251cf5c24144d6aa9b5541e065ea87,
+      type: 3}
+    Segments:
+    - Text: "\u201CMy body\u2026\u201D"
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "\u201C...it\u2019s changing\u2026\u201D"
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "\u201CBl\u2026Blood\u2026\u201D"
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "\u201C...I need\u2026BLOOD!!!\u201D"
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+  - ID: End
+    DefaultDelay: 1
+    DefaultDuration: 1
+    DefaultSpeed: 0.025
+    Repeatable: 1
+    CustomPrefab: {fileID: 0}
+    Segments:
+    - Text: "\u201CThe villagers\u2026\u201D"
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "\u201CThey\u2019re turning back to normal!\u201D"
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "\u201CKiso. Shimuzu. You\u2019re safe now.\u201D "
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "\u201CEveryone, we are free from the curse!\u201D "
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "\u201COur land. Our people.\u201D"
+      CustomDelay: 0
+      CustomDuration: 1
+      CustomSpeed: 0.1
+      useCustomSettings: 0
+    - Text: "\u201CWe will rise again from the ashes!\u201D"
       CustomDelay: 0
       CustomDuration: 1
       CustomSpeed: 0.1

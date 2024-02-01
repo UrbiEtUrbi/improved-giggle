@@ -32,6 +32,10 @@ public class ColliderFollower : MonoBehaviour
 
     void UpdatePosition()
     {
+        if (ControllerGame.Player == null)
+        {
+            return;
+        }
         var returnX = ControllerGame.Player.MovementController.GetMinimumXReturnPosition;
         //move the collider to block the player from returning
         transform.position = new Vector3(returnX - boxCollider.bounds.extents.x - boxCollider.edgeRadius, 0, 0);

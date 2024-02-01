@@ -79,6 +79,21 @@ public class SoundManager : GenericSingleton<SoundManager>
 
     }
 
+    public void CancelAllLoops()
+    {
+
+        for (int i = LoopingSounds.Count - 1; i >= 0; i--)
+        {
+
+                if (LoopingSounds[i] != null)
+                {
+                    RemoveFromLooping(LoopingSounds[i]);
+                }
+            
+        }
+
+    }
+
     public void CancelLoop(string soundName, GameObject source)
     {
         var loopingSound = LoopingSounds.Find(x => x.SoundName == soundName && x.Source == source);

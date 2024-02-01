@@ -26,7 +26,7 @@ public class ControllerEntities : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (!ControllerGame.Initialized)
+        if (!ControllerGame.Initialized || ControllerGame.Player == null)
         {
             return;
         }

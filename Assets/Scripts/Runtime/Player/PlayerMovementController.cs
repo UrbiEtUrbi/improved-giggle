@@ -300,6 +300,11 @@ public class PlayerMovementController : MonoBehaviour
 
     }
 
+    public void SetTrigger(string trigger)
+    {
+        m_PlayerAnimator.SetBool(trigger, true);
+    }
+
     private void FixedUpdate()
     {
         if (!player.IsAlive || ControllerGame.Instance.IsGameOver)

@@ -57,6 +57,9 @@ public class ControllerGame : ControllerLocal
     ControllerDialog m_ControllerDialog;
     public static ControllerDialog ControllerDialog => Instance.m_ControllerDialog;
 
+    ControllerTimer m_ControllerTimer;
+    public static ControllerTimer ControllerTimer => Instance.m_ControllerTimer;
+
     #endregion
 
     public static bool Initialized
@@ -87,35 +90,52 @@ public class ControllerGame : ControllerLocal
         m_Fader = GatherComponent<ScreenFader>();
         m_ControllerAttack = GetComponent<ControllerAttack>();
         m_ControllerDialog = GetComponent<ControllerDialog>();
+        m_ControllerTimer = GetComponent<ControllerTimer>();
 
-       
-        player = Instantiate(PlayerPrefab);
-        
-        player.transform.position = StartPosition;
-        player.IsAlive = true;
-        VCamera.Follow = player.transform;
-
-
-        MusicPlayer.Instance.PlayPlaylist("overworld");
-        SoundManager.Instance.PlayLooped("village_ambience");
+        m_ControllerTimer.timing = false;
         Instance = this;
 
 
-        base.Init();    
+
+        // MusicPlayer.Instance.PlayPlaylist("overworld");
+
+
+
+        base.Init();
         m_ControllerDialog.Init();
+        StartCoroutine(WaitForSceneLoad());
+    }
+
+    IEnumerator WaitForSceneLoad() {
+        yield return new WaitUntil(() => m_SceneLoader.FirstSceneLoaded);
+        player = Instantiate(PlayerPrefab);
+
+        player.transform.position = StartPosition;
+        player.IsAlive = true;
+        VCamera.Follow = player.transform;
+       
+       
     }
 
     public void GameOver()
     {
+        player.MovementController.SetTrigger("IsTransforming");
+        ControllerDialog.ResetTargets();
+        ControllerDialog.TriggerDialogue("Transform", player.transform, new Vector3(0, 2, 0));
         IsGameOver = true;
+
         //reload whole game scenes or entities
+        SoundManager.Instance.PlayDelayed("transform", 3f); 
         m_Fader.StartFade(10f, true, 10f);
 
         Invoke(nameof(Reload), 9.5f);
     }
 
+  
+
     void Reload()
     {
+        MusicPlayer.Instance.StopPlaying(1);
         SceneLoader.UnloadAll();
         ControllerGameFlow.Instance.ResetCurrentScene();
 

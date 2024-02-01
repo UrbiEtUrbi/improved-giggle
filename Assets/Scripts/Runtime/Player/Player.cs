@@ -73,7 +73,7 @@ public class Player : MonoBehaviour, IHealth
     public void ChangeHealth(int amount)
     {
 
-        if (amount < 0 && invulTimer > 0)
+        if (amount < 0 && invulTimer > 0 || ControllerGame.Instance.IsGameOver)
         {
             //invincible
             return;

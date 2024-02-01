@@ -13,6 +13,11 @@ public class RespawnPosition : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if (ControllerGame.Player == null)
+        {
+            return;
+        }
         if (ControllerGame.Player.transform.position.x > transform.position.x)
         {
             Register();
